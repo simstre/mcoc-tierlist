@@ -14,6 +14,7 @@ from champions_data import (
 )
 from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
 from sig_stones import SIG_STONE_DATA, SIG_PRIORITY_ORDER, SIG_PRIORITY_COLORS
+from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
 PORT = int(os.environ.get("PORT", 8100))
 BASE_DIR = Path(__file__).parent
@@ -72,6 +73,9 @@ def get_tierlist():
         "sig_stone_data": SIG_STONE_DATA,
         "sig_priority_order": SIG_PRIORITY_ORDER,
         "sig_priority_colors": SIG_PRIORITY_COLORS,
+        "prestige": PRESTIGE,
+        "prestige_sig_levels": SIG_LEVELS,
+        "prestige_options": PRESTIGE_OPTIONS,
         "last_updated": "December 21, 2025",
         "total_champions": len(champions),
     }

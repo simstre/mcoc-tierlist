@@ -3,6 +3,8 @@ let currentView = 'all';
 let awClassView = 'all';
 let sigClassView = 'all';
 let selectedImms = new Set();
+let prestigeKey = '';
+let prestigeSigIdx = 10; // default sig 200
 
 async function init() {
   const res = await fetch('/api/tierlist');
@@ -90,11 +92,34 @@ async function init() {
     });
   });
 
+  // Prestige controls
+  const prestigeRankSel = document.getElementById('prestige-rank');
+  prestigeRankSel.innerHTML = data.prestige_options.map(o =>
+    `<option value="${o.key}">${o.label}</option>`
+  ).join('');
+  prestigeKey = data.prestige_options[0].key;
+  prestigeRankSel.addEventListener('change', () => {
+    prestigeKey = prestigeRankSel.value;
+    renderPrestige();
+  });
+
+  const prestigeSigSel = document.getElementById('prestige-sig');
+  prestigeSigSel.innerHTML = data.prestige_sig_levels.map((s, i) =>
+    `<option value="${i}"${i === 10 ? ' selected' : ''}>Sig ${s}</option>`
+  ).join('');
+  prestigeSigSel.addEventListener('change', () => {
+    prestigeSigIdx = parseInt(prestigeSigSel.value);
+    renderPrestige();
+  });
+
+  document.getElementById('prestige-search').addEventListener('input', renderPrestige);
+
   document.getElementById('search').addEventListener('input', render);
   render();
   renderImmunities();
   renderAwakening();
   renderSigStones();
+  renderPrestige();
 }
 
 function getFiltered() {
@@ -296,6 +321,45 @@ function renderSigStones() {
   }
 
   document.getElementById('sig-content').innerHTML = html ||
+    '<p class="empty">No champions found.</p>';
+}
+
+function renderPrestige() {
+  const champData = data.prestige[prestigeKey];
+  if (!champData) {
+    document.getElementById('prestige-content').innerHTML = '<p class="empty">No data available.</p>';
+    return;
+  }
+
+  const q = document.getElementById('prestige-search').value.toLowerCase();
+  let entries = Object.entries(champData).map(([name, vals]) => ({ name, val: vals[prestigeSigIdx] }));
+
+  if (q) {
+    entries = entries.filter(e => e.name.toLowerCase().includes(q));
+  }
+
+  entries.sort((a, b) => b.val - a.val);
+
+  const sigLabel = data.prestige_sig_levels[prestigeSigIdx];
+  document.getElementById('prestige-info').textContent =
+    `${entries.length} champions at Sig ${sigLabel}`;
+
+  const html = entries.map((e, i) => {
+    // Try to find portrait from tier list data
+    const champ = data.champions.find(c => c.name === e.name);
+    const portrait = champ && champ.portrait
+      ? `<div class="champ-portrait"><img src="${champ.portrait}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<span class=fb>${e.name[0]}</span>'"></div>`
+      : `<div class="champ-portrait"><span class="fb">${e.name[0]}</span></div>`;
+
+    return `<div class="prestige-row">
+      <span class="prestige-rank-num">${i + 1}</span>
+      ${portrait}
+      <span class="prestige-name">${e.name}</span>
+      <span class="prestige-val">${e.val.toLocaleString()}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById('prestige-content').innerHTML = html ||
     '<p class="empty">No champions found.</p>';
 }
 
