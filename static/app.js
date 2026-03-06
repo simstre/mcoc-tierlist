@@ -91,12 +91,10 @@ async function init() {
   });
 
   document.getElementById('search').addEventListener('input', render);
-  document.getElementById('guide-search').addEventListener('input', renderGuides);
   render();
   renderImmunities();
   renderAwakening();
   renderSigStones();
-  renderGuides();
 }
 
 function getFiltered() {
@@ -214,43 +212,6 @@ function renderImmunities() {
 
   document.getElementById('imm-content').innerHTML = html ||
     '<p class="empty">No champions match.</p>';
-}
-
-function renderGuides() {
-  const q = document.getElementById('guide-search').value.toLowerCase();
-  let champs = data.champions.filter(c => c.guide);
-  if (q) {
-    champs = champs.filter(c => c.name.toLowerCase().includes(q));
-  }
-  champs.sort((a, b) => b.score - a.score);
-
-  const info = document.getElementById('guide-results-info');
-  info.textContent = `${champs.length} champion guide${champs.length !== 1 ? 's' : ''} available`;
-
-  let html = champs.map(c => {
-    const portrait = c.portrait
-      ? `<img src="${c.portrait}" alt="" loading="lazy" onerror="this.outerHTML='<span class=fb>${c.name[0]}</span>'">`
-      : `<span class="fb">${c.name[0]}</span>`;
-    const color = data.class_colors[c.class];
-    const videoUrl = `https://www.youtube.com/watch?v=${c.guide_video}`;
-
-    return `<div class="guide-card">
-      <div class="guide-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.guide-toggle').textContent=this.nextElementSibling.classList.contains('open')?'▾':'▸'">
-        ${portrait}
-        <span class="guide-champ-name">${c.name}</span>
-        <span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>
-        <span class="champ-score">${c.score}</span>
-        <span class="guide-toggle">▸</span>
-      </div>
-      <div class="guide-body">
-        <p class="guide-text">${c.guide}</p>
-        <a class="guide-video-link" href="${videoUrl}" target="_blank" rel="noopener">Watch full guide on YouTube ↗</a>
-      </div>
-    </div>`;
-  }).join('');
-
-  document.getElementById('guide-content').innerHTML = html ||
-    '<p class="empty">No guides found.</p>';
 }
 
 function renderAwakening() {

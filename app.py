@@ -26,10 +26,6 @@ _portraits_path = BASE_DIR / "portraits_local.json"
 if _portraits_path.exists():
     _portraits = json.loads(_portraits_path.read_text())
 
-_guides = {}
-_guides_path = BASE_DIR / "champion_guides.json"
-if _guides_path.exists():
-    _guides = json.loads(_guides_path.read_text())
 
 scheduler = BackgroundScheduler()
 
@@ -64,10 +60,6 @@ def get_tierlist():
     for c in champions:
         c["portrait"] = _portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
-        guide = _guides.get(c["name"])
-        if guide:
-            c["guide"] = guide["guide"]
-            c["guide_video"] = guide["video_id"]
     by_class = get_champions_by_class(champions)
     return {
         "champions": champions,
