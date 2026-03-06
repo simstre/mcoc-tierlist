@@ -64,7 +64,7 @@ app = FastAPI(title="MCOC Tier List", lifespan=lifespan)
 def get_tierlist():
     champions = compute_tier_list()
     for c in champions:
-        c["portrait"] = _portraits.get(c["name"])
+        c["portrait"] = _portraits.get(c["name"]) or _mcochub_portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
     by_class = get_champions_by_class(champions)
     return {
