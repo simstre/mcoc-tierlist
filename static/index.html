@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCOC YouTuber Tier List</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>MCOC YouTuber Tier List</h1>
+      <p class="meta" id="meta"></p>
+    </header>
+
+    <div class="page-tabs" id="page-tabs">
+      <button class="ptab active" data-page="tierlist">Ranking Up</button>
+      <button class="ptab" data-page="awakening">Awakening Gems</button>
+      <button class="ptab" data-page="sigstones">Sig Stones</button>
+      <button class="ptab" data-page="immunities">Immunities</button>
+    </div>
+
+    <div id="page-tierlist" class="page active">
+      <p class="notes" id="notes"></p>
+      <nav class="tabs" id="class-tabs">
+        <button class="tab active" data-view="all">All</button>
+        <button class="tab" data-view="Cosmic">Cosmic</button>
+        <button class="tab" data-view="Mutant">Mutant</button>
+        <button class="tab" data-view="Tech">Tech</button>
+        <button class="tab" data-view="Skill">Skill</button>
+        <button class="tab" data-view="Science">Science</button>
+        <button class="tab" data-view="Mystic">Mystic</button>
+      </nav>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search champion...">
+      </div>
+      <div id="tierlist-content"></div>
+    </div>
+
+    <div id="page-immunities" class="page">
+      <p class="imm-hint">Select immunities to find matching champions. Multiple = must have all.</p>
+      <div class="imm-toggles" id="imm-toggles"></div>
+      <div class="imm-results-info" id="imm-results-info"></div>
+      <div id="imm-content"></div>
+    </div>
+
+    <div id="page-awakening" class="page">
+      <p class="page-hint">Champions that benefit most from being awakened, sorted by overall ranking.</p>
+      <nav class="tabs" id="aw-class-tabs"></nav>
+      <div class="aw-results-info" id="aw-results-info"></div>
+      <div id="aw-content"></div>
+    </div>
+
+    <div id="page-sigstones" class="page">
+      <p class="page-hint">Champions worth investing signature stones into, grouped by priority.</p>
+      <nav class="tabs" id="sig-class-tabs"></nav>
+      <div id="sig-content"></div>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

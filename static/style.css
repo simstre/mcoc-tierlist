@@ -1,0 +1,440 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #111;
+  color: #e5e5e5;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+header { margin-bottom: 1rem; }
+header h1 { font-size: 1.4rem; font-weight: 600; }
+.meta { font-size: 0.75rem; color: #666; margin-top: 0.25rem; }
+.meta a { color: #666; text-decoration: underline; text-underline-offset: 2px; }
+.meta a:hover { color: #999; }
+.notes { font-size: 0.7rem; color: #444; margin-top: 0.35rem; line-height: 1.6; }
+
+/* Page-level tabs (Tier List / Immunities) */
+.page-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid #222;
+}
+.ptab {
+  padding: 0.55rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: #555;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.ptab:hover { color: #aaa; }
+.ptab.active { color: #e5e5e5; border-bottom-color: #e5e5e5; }
+a.ptab { text-decoration: none; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* Class/immunity tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #1c1c1c;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  padding: 0.45rem 0.7rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: #555;
+  font-size: 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.tab:hover { color: #aaa; }
+.tab.active { color: #ccc; border-bottom-color: #888; }
+
+/* Search */
+.toolbar { margin-bottom: 0.75rem; }
+#search {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  background: #181818;
+  border: 1px solid #252525;
+  border-radius: 6px;
+  color: #e5e5e5;
+  font-size: 0.82rem;
+  outline: none;
+}
+#search:focus { border-color: #444; }
+
+/* Tier section */
+.tier-section { margin-bottom: 1.25rem; }
+.tier-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+}
+.tier-count { font-weight: 400; color: #333; }
+
+/* Champion row */
+.champ {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  gap: 0.5rem;
+}
+
+.champ-rank {
+  width: 22px;
+  font-size: 0.65rem;
+  color: #3a3a3a;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.champ-portrait {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  background: #1a1a1a;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.champ-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.champ-portrait .fb {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #3a3a3a;
+}
+
+.champ-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aw {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #f59e0b;
+  border-radius: 50%;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+.no7 {
+  display: inline-block;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: #ef4444;
+  background: #ef444420;
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  text-align: center;
+  border-radius: 2px;
+  margin-left: 3px;
+  vertical-align: middle;
+  text-decoration: line-through;
+}
+
+.champ-class {
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.champ-bar-wrap {
+  width: 70px;
+  flex-shrink: 0;
+}
+.champ-bar {
+  height: 3px;
+  border-radius: 2px;
+  background: #1a1a1a;
+  overflow: hidden;
+}
+.champ-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.champ-score {
+  width: 22px;
+  font-size: 0.7rem;
+  color: #555;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Immunity badges on champion rows */
+.champ-imm {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  max-width: 120px;
+}
+.imm-tag {
+  font-size: 0.5rem;
+  padding: 0.05rem 0.25rem;
+  border-radius: 2px;
+  background: #1f1f1f;
+  color: #888;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Immunity page */
+.imm-hint {
+  font-size: 0.7rem;
+  color: #444;
+  margin-bottom: 0.6rem;
+}
+
+.imm-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+.imm-toggle {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.72rem;
+  border: 1px solid #282828;
+  border-radius: 5px;
+  background: #181818;
+  color: #777;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-weight: 500;
+}
+.imm-toggle:hover { border-color: #444; color: #aaa; }
+.imm-toggle.on {
+  background: #ffffff12;
+  border-color: var(--imm-color, #888);
+  color: var(--imm-color, #ccc);
+}
+
+.imm-results-info {
+  font-size: 0.7rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.imm-champ-row {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  gap: 0.5rem;
+}
+.imm-champ-row img {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+}
+.imm-champ-row .fb {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #3a3a3a;
+  font-weight: 600;
+}
+.imm-champ-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.imm-champ-tags {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+.imm-champ-tags .imm-tag.matched {
+  background: #ffffff15;
+  color: #ccc;
+}
+.imm-champ-score {
+  width: 22px;
+  font-size: 0.7rem;
+  color: #555;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Shared page hints */
+.page-hint {
+  font-size: 0.7rem;
+  color: #444;
+  margin-bottom: 0.6rem;
+}
+
+/* Awakening gem page */
+.aw-results-info {
+  font-size: 0.7rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.aw-champ-row {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  gap: 0.5rem;
+}
+.aw-champ-row img {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+.aw-champ-row .fb {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #3a3a3a;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.aw-champ-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 500;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.aw-champ-score {
+  width: 22px;
+  font-size: 0.7rem;
+  color: #555;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Sig stones page */
+.sig-section { margin-bottom: 1.25rem; }
+.sig-priority-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+}
+.sig-priority-count { font-weight: 400; color: #333; }
+.sig-champ-row {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  gap: 0.5rem;
+}
+.sig-champ-row img {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+.sig-champ-row .fb {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #3a3a3a;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.sig-champ-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.sig-champ-note {
+  flex: 1;
+  font-size: 0.65rem;
+  color: #555;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sig-champ-score {
+  width: 22px;
+  font-size: 0.7rem;
+  color: #555;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.empty { color: #444; padding: 2rem 0; text-align: center; font-size: 0.85rem; }
+
+@media (max-width: 480px) {
+  .champ-bar-wrap { width: 40px; }
+  .champ-class { display: none; }
+  .champ-imm { display: none; }
+  .tab { padding: 0.45rem 0.5rem; font-size: 0.7rem; }
+  .ptab { padding: 0.45rem 0.7rem; font-size: 0.8rem; }
+}
