@@ -4,7 +4,6 @@ let awClassView = 'all';
 let sigClassView = 'all';
 let selectedImms = new Set();
 let prestigeKey = '';
-let prestigeSigIdx = 10; // default sig 200
 
 async function init() {
   const res = await fetch('/api/tierlist');
@@ -100,15 +99,6 @@ async function init() {
   prestigeKey = data.prestige_options[0].key;
   prestigeRankSel.addEventListener('change', () => {
     prestigeKey = prestigeRankSel.value;
-    renderPrestige();
-  });
-
-  const prestigeSigSel = document.getElementById('prestige-sig');
-  prestigeSigSel.innerHTML = data.prestige_sig_levels.map((s, i) =>
-    `<option value="${i}"${i === 10 ? ' selected' : ''}>Sig ${s}</option>`
-  ).join('');
-  prestigeSigSel.addEventListener('change', () => {
-    prestigeSigIdx = parseInt(prestigeSigSel.value);
     renderPrestige();
   });
 
@@ -331,37 +321,48 @@ function renderPrestige() {
     return;
   }
 
+  const sigLevels = data.prestige_sig_levels;
   const q = document.getElementById('prestige-search').value.toLowerCase();
-  let entries = Object.entries(champData).map(([name, vals]) => ({ name, val: vals[prestigeSigIdx] }));
+  let entries = Object.entries(champData).map(([name, vals]) => ({ name, vals }));
 
   if (q) {
     entries = entries.filter(e => e.name.toLowerCase().includes(q));
   }
 
-  entries.sort((a, b) => b.val - a.val);
+  // Sort by sig 200 (last value) descending
+  entries.sort((a, b) => b.vals[b.vals.length - 1] - a.vals[a.vals.length - 1]);
 
-  const sigLabel = data.prestige_sig_levels[prestigeSigIdx];
   document.getElementById('prestige-info').textContent =
-    `${entries.length} champions at Sig ${sigLabel}`;
+    `${entries.length} champions`;
 
-  const html = entries.map((e, i) => {
-    // Try local portrait first, then mcochub fallback
+  const thead = `<tr>
+    <th>#</th><th></th><th>Champion</th>
+    ${sigLevels.map(s => `<th>${s}</th>`).join('')}
+  </tr>`;
+
+  const rows = entries.map((e, i) => {
     const champ = data.champions.find(c => c.name === e.name);
     const imgUrl = (champ && champ.portrait) || data.prestige_portraits[e.name];
-    const portrait = imgUrl
-      ? `<div class="champ-portrait"><img src="${imgUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<span class=fb>${e.name[0]}</span>'"></div>`
-      : `<div class="champ-portrait"><span class="fb">${e.name[0]}</span></div>`;
+    const img = imgUrl
+      ? `<img src="${imgUrl}" alt="" width="28" height="28" style="border-radius:5px" loading="lazy" onerror="this.outerHTML='<span class=fb>${e.name[0]}</span>'">`
+      : `<span class="fb">${e.name[0]}</span>`;
 
-    return `<div class="prestige-row">
-      <span class="prestige-rank-num">${i + 1}</span>
-      ${portrait}
-      <span class="prestige-name">${e.name}</span>
-      <span class="prestige-val">${e.val.toLocaleString()}</span>
-    </div>`;
+    const maxVal = e.vals[e.vals.length - 1];
+    const cells = e.vals.map(v =>
+      `<td class="pv${v === maxVal ? ' pv-hi' : ''}">${v.toLocaleString()}</td>`
+    ).join('');
+
+    return `<tr>
+      <td>${i + 1}</td>
+      <td>${img}</td>
+      <td>${e.name}</td>
+      ${cells}
+    </tr>`;
   }).join('');
 
-  document.getElementById('prestige-content').innerHTML = html ||
-    '<p class="empty">No champions found.</p>';
+  document.getElementById('prestige-content').innerHTML = entries.length
+    ? `<table class="prestige-table"><thead>${thead}</thead><tbody>${rows}</tbody></table>`
+    : '<p class="empty">No champions found.</p>';
 }
 
 init();

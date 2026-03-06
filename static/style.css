@@ -465,36 +465,58 @@ a.ptab { text-decoration: none; }
   color: #555;
   margin-bottom: 0.5rem;
 }
-.prestige-row {
-  display: flex;
-  align-items: center;
-  padding: 0.3rem 0;
-  gap: 0.5rem;
+.prestige-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.prestige-rank-num {
-  width: 22px;
-  font-size: 0.65rem;
-  color: #3a3a3a;
+.prestige-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+}
+.prestige-table th {
+  position: sticky;
+  top: 0;
+  background: #111;
+  color: #555;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.4rem;
   text-align: right;
-  flex-shrink: 0;
-}
-.prestige-name {
-  flex: 1;
-  font-size: 0.82rem;
-  font-weight: 500;
-  min-width: 0;
   white-space: nowrap;
+  border-bottom: 1px solid #1a1a1a;
+}
+.prestige-table th:nth-child(1),
+.prestige-table th:nth-child(2),
+.prestige-table th:nth-child(3) { text-align: left; }
+.prestige-table td {
+  padding: 0.3rem 0.4rem;
+  white-space: nowrap;
+  border-bottom: 1px solid #141414;
+  font-variant-numeric: tabular-nums;
+}
+.prestige-table td:nth-child(1) {
+  color: #3a3a3a;
+  font-size: 0.65rem;
+  text-align: right;
+  width: 22px;
+}
+.prestige-table td:nth-child(2) { width: 28px; padding: 0.2rem 0.3rem; }
+.prestige-table td:nth-child(3) {
+  font-weight: 500;
+  font-size: 0.78rem;
+  max-width: 130px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.prestige-val {
-  font-size: 0.75rem;
-  color: #aaa;
-  font-variant-numeric: tabular-nums;
-  flex-shrink: 0;
-  min-width: 42px;
+.prestige-table td.pv {
   text-align: right;
+  color: #888;
+  font-size: 0.68rem;
 }
+.prestige-table tr:hover td { background: #161616; }
+.prestige-table .pv-hi { color: #ccc; }
 
 .empty { color: #444; padding: 2rem 0; text-align: center; font-size: 0.85rem; }
 
