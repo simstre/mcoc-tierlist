@@ -14,8 +14,9 @@ body {
 }
 
 header { margin-bottom: 1rem; }
-header h1 { font-size: 1.4rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
-.logo { width: 28px; height: 28px; flex-shrink: 0; border-radius: 6px; }
+header h1 { font-size: 1.4rem; font-weight: 600; }
+.banner { margin-bottom: 0.75rem; border-radius: 8px; overflow: hidden; }
+.banner img { width: 100%; height: auto; display: block; }
 .meta { font-size: 0.75rem; color: #666; margin-top: 0.25rem; }
 .meta a { color: #666; text-decoration: underline; text-underline-offset: 2px; }
 .meta a:hover { color: #999; }
