@@ -2,6 +2,9 @@
 
 A web app that aggregates Marvel Contest of Champions (MCOC) champion rankings from top YouTube creators into a unified tier list.
 
+<img width="752" height="998" alt="image" src="https://github.com/user-attachments/assets/c303107c-76ee-4880-b733-59da6a2fcdc6" />
+
+
 ## Features
 
 - **Ranking Up** - 310 champions scored 0-100, grouped by tier (God/Great/Good/OK/Low)
