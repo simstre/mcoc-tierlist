@@ -345,10 +345,11 @@ function renderPrestige() {
     `${entries.length} champions at Sig ${sigLabel}`;
 
   const html = entries.map((e, i) => {
-    // Try to find portrait from tier list data
+    // Try local portrait first, then mcochub fallback
     const champ = data.champions.find(c => c.name === e.name);
-    const portrait = champ && champ.portrait
-      ? `<div class="champ-portrait"><img src="${champ.portrait}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<span class=fb>${e.name[0]}</span>'"></div>`
+    const imgUrl = (champ && champ.portrait) || data.prestige_portraits[e.name];
+    const portrait = imgUrl
+      ? `<div class="champ-portrait"><img src="${imgUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<span class=fb>${e.name[0]}</span>'"></div>`
       : `<div class="champ-portrait"><span class="fb">${e.name[0]}</span></div>`;
 
     return `<div class="prestige-row">

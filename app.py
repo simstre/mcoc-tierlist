@@ -27,6 +27,11 @@ _portraits_path = BASE_DIR / "portraits_local.json"
 if _portraits_path.exists():
     _portraits = json.loads(_portraits_path.read_text())
 
+_mcochub_portraits = {}
+_mcochub_path = BASE_DIR / "mcochub_portraits.json"
+if _mcochub_path.exists():
+    _mcochub_portraits = json.loads(_mcochub_path.read_text())
+
 
 scheduler = BackgroundScheduler()
 
@@ -76,6 +81,7 @@ def get_tierlist():
         "prestige": PRESTIGE,
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
+        "prestige_portraits": _mcochub_portraits,
         "last_updated": "December 21, 2025",
         "total_champions": len(champions),
     }
