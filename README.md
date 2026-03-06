@@ -2,7 +2,7 @@
 
 A web app that aggregates Marvel Contest of Champions (MCOC) champion rankings from top YouTube creators into a unified tier list.
 
-<img width="752" height="998" alt="image" src="https://github.com/user-attachments/assets/c303107c-76ee-4880-b733-59da6a2fcdc6" />
+<img width="673" height="812" alt="image" src="https://github.com/user-attachments/assets/3a490055-7545-484a-aa82-3d5720468a9c" />
 
 
 ## Features
