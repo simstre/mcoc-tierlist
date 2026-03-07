@@ -1,0 +1,432 @@
+{
+  "Nico Minoru": {
+    "class": "Mystic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Spider-Woman (Jessica Drew)": {
+    "class": "Science",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Kate Bishop": {
+    "class": "Skill",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Onslaught": {
+    "class": "Mutant",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Bastion": {
+    "class": "Tech",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Serpent": {
+    "class": "Cosmic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Absorbing Man": {
+    "class": "Mystic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Red Guardian": {
+    "class": "Science",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Crossbones": {
+    "class": "Skill",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Jean Grey": {
+    "class": "Mutant",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Ghost": {
+    "class": "Tech",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Deathless Thanos": {
+    "class": "Cosmic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Spider-Man (Pavitr)": {
+    "class": "Mystic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Kingpin": {
+    "class": "Skill",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Mister Sinister": {
+    "class": "Mutant",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Nimrod": {
+    "class": "Tech",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Hercules": {
+    "class": "Cosmic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Kushala": {
+    "class": "Mystic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Hulkling": {
+    "class": "Cosmic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "Tigra": {
+    "class": "Mystic",
+    "tier": "Tier Above All",
+    "score": 100,
+    "tags": []
+  },
+  "The Hood": {
+    "class": "Mystic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Photon": {
+    "class": "Science",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Nick Fury": {
+    "class": "Skill",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Captian Britain": {
+    "class": "Mutant",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Spider-Man Stark": {
+    "class": "Tech",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Cull Obsidian": {
+    "class": "Cosmic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Spiral": {
+    "class": "Mystic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Count Nefaria": {
+    "class": "Science",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Spider-Man Stealth": {
+    "class": "Skill",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Dazzler": {
+    "class": "Mutant",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Ant-Man Future": {
+    "class": "Tech",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Karolina Dean": {
+    "class": "Cosmic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Kindred": {
+    "class": "Mystic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Spider-Punk": {
+    "class": "Science",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Valkyrie": {
+    "class": "Skill",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Cassandra Nova": {
+    "class": "Mutant",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Prowler": {
+    "class": "Tech",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Knull": {
+    "class": "Cosmic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Mojo": {
+    "class": "Mystic",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Mr. Knight": {
+    "class": "Skill",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Archangel": {
+    "class": "Mutant",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Guardian": {
+    "class": "Tech",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": []
+  },
+  "Shocker": {
+    "class": "Tech",
+    "tier": "Scorching",
+    "score": 80,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "America Chavez": {
+    "class": "Mystic",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Scorpion": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": [
+      "high_sig_needed"
+    ]
+  },
+  "Black Panther Civil War": {
+    "class": "Skill",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Kitty Pryde": {
+    "class": "Mutant",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "The Maker": {
+    "class": "Tech",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Gladiator": {
+    "class": "Cosmic",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Longshot": {
+    "class": "Mystic",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Anti-Venom": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Patriot": {
+    "class": "Skill",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Gentle": {
+    "class": "Mutant",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Viv Vision": {
+    "class": "Tech",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Angela": {
+    "class": "Cosmic",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Void": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Attuma": {
+    "class": "Skill",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": [
+      "defense"
+    ]
+  },
+  "Omega Red": {
+    "class": "Mutant",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Iron Man (OG)": {
+    "class": "Tech",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Nova": {
+    "class": "Cosmic",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "The Overseer": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Masacre": {
+    "class": "Skill",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Namor": {
+    "class": "Mutant",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Quicksilver": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Spider-Man 2099": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Captian America IW": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": []
+  },
+  "Thing": {
+    "class": "Science",
+    "tier": "Super Hot",
+    "score": 60,
+    "tags": [
+      "defense"
+    ]
+  }
+}

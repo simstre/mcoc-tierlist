@@ -15,7 +15,6 @@ from champions_data import (
 )
 from fetch_tierlist import fetch_and_cache, load_cached
 from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
-from sig_stones import SIG_STONE_DATA, SIG_PRIORITY_ORDER, SIG_PRIORITY_COLORS
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
 PORT = int(os.environ.get("PORT", 8100))
@@ -38,6 +37,8 @@ if _mcochub_path.exists():
 # ── Champion data (mutable, refreshed daily) ──
 _raw_champions = {}
 _source_meta = []
+_awakening_data = {}
+_sig_stones_data = {}
 _last_updated = "March 7, 2026"
 
 scheduler = BackgroundScheduler()
@@ -45,11 +46,15 @@ scheduler = BackgroundScheduler()
 
 def _refresh_tierlist():
     """Fetch fresh tier list data from Google Sheets."""
-    global _raw_champions, _source_meta, _last_updated
+    global _raw_champions, _source_meta, _awakening_data, _sig_stones_data, _last_updated
     logger.info("Fetching tier list data from sheets...")
-    data, meta = fetch_and_cache()
+    data, meta, aw, sig = fetch_and_cache()
     if meta:
         _source_meta = meta
+    if aw:
+        _awakening_data = aw
+    if sig:
+        _sig_stones_data = sig
     if data:
         _raw_champions = data
         _last_updated = datetime.now(timezone.utc).strftime("%B %d, %Y")
@@ -80,17 +85,25 @@ def daily_update():
 @asynccontextmanager
 async def lifespan(app):
     # Load data: try fresh fetch, fall back to cache
-    global _raw_champions, _source_meta
-    data, meta = fetch_and_cache()
+    global _raw_champions, _source_meta, _awakening_data, _sig_stones_data
+    data, meta, aw, sig = fetch_and_cache()
     if meta:
         _source_meta = meta
+    if aw:
+        _awakening_data = aw
+    if sig:
+        _sig_stones_data = sig
     if data:
         _raw_champions = data
         logger.info(f"Loaded {len(data)} champions from sheets")
     else:
-        data, meta = load_cached()
+        data, meta, aw, sig = load_cached()
         if meta:
             _source_meta = meta
+        if aw:
+            _awakening_data = aw
+        if sig:
+            _sig_stones_data = sig
         if data:
             _raw_champions = data
             logger.info(f"Loaded {len(data)} champions from cache")
@@ -123,9 +136,8 @@ def get_tierlist():
         "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(),
         "immunity_types": IMMUNITY_TYPES,
-        "sig_stone_data": SIG_STONE_DATA,
-        "sig_priority_order": SIG_PRIORITY_ORDER,
-        "sig_priority_colors": SIG_PRIORITY_COLORS,
+        "awakening_data": _awakening_data,
+        "sig_stones_data": _sig_stones_data,
         "prestige": PRESTIGE,
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,

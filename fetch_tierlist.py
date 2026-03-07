@@ -38,6 +38,16 @@ SOURCES_CONFIG = [
     },
 ]
 
+# Separate sheets for awakening gems and sig stones (Vega)
+AWAKENING_SHEET = {
+    "sheet_id": "1oDzmyNRF4rwahlHWEaoxRNQD7E8qg9qkxq-6XdwQW2M",
+    "gid": "0",
+}
+SIG_STONES_SHEET = {
+    "sheet_id": "1rUeYsKWx05ZWoVerDYFDRUvZMvrl41KvmKYQx-HGjCc",
+    "gid": "0",
+}
+
 CACHE_PATH = Path(__file__).parent / "cached_tierlist.json"
 
 
@@ -464,33 +474,132 @@ def fetch_and_combine():
     return combined, len(source_data), source_meta
 
 
+def _parse_priority_sheet(rows):
+    """Parse a Vega-style priority sheet (awakening gems or sig stones).
+
+    Returns dict: {champion_name: {'class': str, 'tier': str, 'score': int, 'tags': set}}
+    Tiers map to scores: Tier Above All=100, Scorching=80, Super Hot=60, Hot=40, Mild=20
+    """
+    champions = {}
+    classes = ['Mystic', 'Science', 'Skill', 'Mutant', 'Tech', 'Cosmic']
+    tier_scores = {
+        'Tier Above All': 100, 'Scorching': 80, 'Super Hot': 60,
+        'Hot': 40, 'Mild': 20, 'Not Endgame Relevant': 0,
+    }
+    current_tier = None
+
+    for row in rows:
+        if len(row) < 6:
+            continue
+        # Check if this row is a tier header
+        first = row[0].strip()
+        if first in tier_scores:
+            current_tier = first
+            continue
+        if current_tier is None:
+            continue
+
+        score = tier_scores[current_tier]
+        for col in range(6):
+            cell = row[col].strip()
+            if not cell:
+                continue
+            if cell in tier_scores or cell in classes:
+                continue
+            # Extract tags from emojis
+            tags = set()
+            if '\U0001F339' in cell or '\xf0\x9f\x8c\xb9'.encode() in cell.encode('utf-8', errors='ignore'):
+                tags.add('high_sig_needed')
+            if '\U0001F6E1' in cell or '\xf0\x9f\x9b\xa1'.encode() in cell.encode('utf-8', errors='ignore'):
+                tags.add('defense')
+            if '\U0001F31F' in cell or '\xf0\x9f\x8c\x9f'.encode() in cell.encode('utf-8', errors='ignore'):
+                tags.add('in_titan_crystal')
+
+            name = _strip_emojis(cell)
+            if not name or len(name) < 2:
+                continue
+            cls = classes[col] if col < 6 else None
+            n = _normalize(name)
+            if n is None:
+                continue
+            champions[n] = {
+                'class': cls,
+                'tier': current_tier,
+                'score': score,
+                'tags': sorted(tags),
+            }
+
+    return champions
+
+
+def fetch_priority_sheets():
+    """Fetch awakening gem and sig stone priority data from their sheets.
+
+    Returns (awakening_data, sig_data) — each is a dict of champion priority info,
+    or None if fetch failed.
+    """
+    aw_data = None
+    sig_data = None
+
+    rows = _fetch_csv(AWAKENING_SHEET['sheet_id'], AWAKENING_SHEET['gid'])
+    if rows:
+        aw_data = _parse_priority_sheet(rows)
+        logger.info(f"Parsed awakening gems: {len(aw_data)} champions")
+    else:
+        logger.warning("Could not fetch awakening gems sheet")
+
+    rows = _fetch_csv(SIG_STONES_SHEET['sheet_id'], SIG_STONES_SHEET['gid'])
+    if rows:
+        sig_data = _parse_priority_sheet(rows)
+        logger.info(f"Parsed sig stones: {len(sig_data)} champions")
+    else:
+        logger.warning("Could not fetch sig stones sheet")
+
+    return aw_data, sig_data
+
+
 CACHE_META_PATH = Path(__file__).parent / "cached_source_meta.json"
+CACHE_AW_PATH = Path(__file__).parent / "cached_awakening.json"
+CACHE_SIG_PATH = Path(__file__).parent / "cached_sigstones.json"
 
 
 def fetch_and_cache():
-    """Fetch fresh data, cache to disk, return (champion_dict, source_meta) or (None, [])."""
+    """Fetch fresh data, cache to disk.
+
+    Returns (champion_dict, source_meta, awakening_data, sig_data).
+    """
     combined, count, source_meta = fetch_and_combine()
+    aw_data, sig_data = fetch_priority_sheets()
+
     if combined and count > 0:
         CACHE_PATH.write_text(json.dumps(combined, indent=2, default=list))
         CACHE_META_PATH.write_text(json.dumps(source_meta, indent=2))
         logger.info(f"Cached {len(combined)} champions from {count} sources")
-        return combined, source_meta
-    return None, source_meta
+    if aw_data:
+        CACHE_AW_PATH.write_text(json.dumps(aw_data, indent=2))
+    if sig_data:
+        CACHE_SIG_PATH.write_text(json.dumps(sig_data, indent=2))
+
+    return combined, source_meta, aw_data, sig_data
 
 
 def load_cached():
-    """Load previously cached tier list data and source meta."""
-    data = None
-    meta = []
-    if CACHE_PATH.exists():
-        try:
-            data = json.loads(CACHE_PATH.read_text())
-            logger.info(f"Loaded {len(data)} champions from cache")
-        except Exception as e:
-            logger.error(f"Failed to load cache: {e}")
-    if CACHE_META_PATH.exists():
-        try:
-            meta = json.loads(CACHE_META_PATH.read_text())
-        except Exception:
-            pass
-    return data, meta
+    """Load previously cached data."""
+    data, meta, aw_data, sig_data = None, [], None, None
+    for path, name in [(CACHE_PATH, 'tierlist'), (CACHE_META_PATH, 'meta'),
+                        (CACHE_AW_PATH, 'awakening'), (CACHE_SIG_PATH, 'sigstones')]:
+        if path.exists():
+            try:
+                loaded = json.loads(path.read_text())
+                if name == 'tierlist':
+                    data = loaded
+                elif name == 'meta':
+                    meta = loaded
+                elif name == 'awakening':
+                    aw_data = loaded
+                elif name == 'sigstones':
+                    sig_data = loaded
+                logger.info(f"Loaded {name} from cache")
+            except Exception as e:
+                logger.error(f"Failed to load {name} cache: {e}")
+    return data, meta, aw_data, sig_data

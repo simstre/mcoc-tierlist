@@ -246,89 +246,82 @@ function renderImmunities() {
     '<p class="empty">No champions match.</p>';
 }
 
-function renderAwakening() {
-  let champs = data.champions.filter(c => c.awakened);
-  if (awClassView !== 'all') {
-    champs = champs.filter(c => c.class === awClassView);
-  }
-  champs.sort((a, b) => b.score - a.score);
+function renderPriorityTab(sheetData, classView, contentId, infoId) {
+  const tiers = [
+    { key: 'Tier Above All', label: 'Tier Above All' },
+    { key: 'Scorching', label: 'Scorching' },
+    { key: 'Super Hot', label: 'Super Hot' },
+    { key: 'Hot', label: 'Hot' },
+    { key: 'Mild', label: 'Mild' },
+  ];
+  const tierColors = {
+    'Tier Above All': '#f59e0b', 'Scorching': '#ef4444', 'Super Hot': '#f97316',
+    'Hot': '#3b82f6', 'Mild': '#22c55e',
+  };
 
-  const info = document.getElementById('aw-results-info');
-  info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''} worth awakening` +
-    (awClassView !== 'all' ? ` in ${awClassView}` : '');
+  // Build list from sheet data, enrich with portraits from main champion list
+  let champs = Object.entries(sheetData).map(([name, info]) => {
+    const main = data.champions.find(c => c.name === name);
+    return {
+      name,
+      class: info.class,
+      tier: info.tier,
+      score: info.score,
+      tags: info.tags || [],
+      portrait: main ? main.portrait : null,
+    };
+  });
 
-  let html = champs.map((c, i) => {
-    const portrait = c.portrait
-      ? `<img src="${c.portrait}" alt="" loading="lazy" onerror="this.outerHTML='<span class=fb>${c.name[0]}</span>'">`
-      : `<span class="fb">${c.name[0]}</span>`;
-    const color = data.class_colors[c.class];
-    const classTag = awClassView === 'all'
-      ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
-      : '';
-
-    return `<div class="aw-champ-row">
-      <span class="champ-rank">${i + 1}</span>
-      ${portrait}
-      <span class="aw-champ-name">${c.name}</span>
-      ${classTag}
-      <span class="aw-champ-score">${c.score}</span>
-    </div>`;
-  }).join('');
-
-  document.getElementById('aw-content').innerHTML = html ||
-    '<p class="empty">No champions found.</p>';
-}
-
-function renderSigStones() {
-  const sigData = data.sig_stone_data;
-  const priorities = data.sig_priority_order;
-  const colors = data.sig_priority_colors;
-
-  // Build list of champions with sig data, enriched with full champion info
-  let allSig = [];
-  for (const [name, info] of Object.entries(sigData)) {
-    const champ = data.champions.find(c => c.name === name);
-    if (champ) {
-      allSig.push({ ...champ, sig_priority: info.priority, sig_note: info.note });
-    }
+  if (classView !== 'all') {
+    champs = champs.filter(c => c.class === classView);
   }
 
-  if (sigClassView !== 'all') {
-    allSig = allSig.filter(c => c.class === sigClassView);
-  }
+  const info = document.getElementById(infoId);
+  info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''}` +
+    (classView !== 'all' ? ` in ${classView}` : '');
 
   let html = '';
-  for (const priority of priorities) {
-    const group = allSig.filter(c => c.sig_priority === priority);
+  for (const t of tiers) {
+    const group = champs.filter(c => c.tier === t.key);
     if (!group.length) continue;
-    group.sort((a, b) => b.score - a.score);
-    const color = colors[priority];
-
-    html += `<div class="sig-section">
-      <div class="sig-priority-label" style="color:${color}">
-        ${priority} <span class="sig-priority-count">${group.length}</span>
+    html += `<div class="tier-section">
+      <div class="tier-label" style="color:${tierColors[t.key]}">
+        ${t.label} <span class="tier-count">${group.length}</span>
       </div>
       ${group.map(c => {
         const portrait = c.portrait
           ? `<img src="${c.portrait}" alt="" loading="lazy" onerror="this.outerHTML='<span class=fb>${c.name[0]}</span>'">`
           : `<span class="fb">${c.name[0]}</span>`;
-        const clr = data.class_colors[c.class];
-        const classTag = sigClassView === 'all'
-          ? `<span class="champ-class" style="background:${clr}15;color:${clr}">${c.class}</span>`
+        const color = data.class_colors[c.class];
+        const classTag = classView === 'all'
+          ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
           : '';
-        return `<div class="sig-champ-row">
+        const prioTagLabels = {
+          'high_sig_needed': 'High Sig', 'defense': 'BGs Defense', 'in_titan_crystal': 'Titan Crystal',
+        };
+        const tagHtml = c.tags.length
+          ? `<span class="champ-tags">${c.tags.map(t => `<span class="tag">${prioTagLabels[t] || t}</span>`).join('')}</span>`
+          : '';
+        return `<div class="aw-champ-row">
           ${portrait}
-          <span class="sig-champ-name">${c.name}</span>
+          <span class="aw-champ-name">${c.name}</span>
           ${classTag}
-          <span class="sig-champ-note">${c.sig_note}</span>
-          <span class="sig-champ-score">${c.score}</span>
+          ${tagHtml}
         </div>`;
       }).join('')}
     </div>`;
   }
 
-  document.getElementById('sig-content').innerHTML = html ||
+  document.getElementById(contentId).innerHTML = html ||
     '<p class="empty">No champions found.</p>';
+}
+
+function renderAwakening() {
+  renderPriorityTab(data.awakening_data || {}, awClassView, 'aw-content', 'aw-results-info');
+}
+
+function renderSigStones() {
+  renderPriorityTab(data.sig_stones_data || {}, sigClassView, 'sig-content', 'sig-results-info');
 }
 
 function renderPrestige() {
