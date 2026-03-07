@@ -36,7 +36,7 @@
       "in_titan_crystal"
     ]
   },
-  "Serpent": {
+  "The Serpent": {
     "class": "Cosmic",
     "tier": "Tier Above All",
     "score": 100,
@@ -80,7 +80,7 @@
     "score": 100,
     "tags": []
   },
-  "Deathless Thanos": {
+  "Thanos (Deathless)": {
     "class": "Cosmic",
     "tier": "Tier Above All",
     "score": 100,
@@ -144,7 +144,7 @@
     "score": 100,
     "tags": []
   },
-  "Spider-Man Stark": {
+  "Spider-Man (Stark Enhanced)": {
     "class": "Tech",
     "tier": "Tier Above All",
     "score": 100,
@@ -198,7 +198,7 @@
     "score": 80,
     "tags": []
   },
-  "Captian Britain": {
+  "Captain Britain": {
     "class": "Mutant",
     "tier": "Scorching",
     "score": 80,
@@ -236,7 +236,7 @@
       "high_sig_needed"
     ]
   },
-  "Spider-Man Stealth": {
+  "Spider-Man (Stealth Suit)": {
     "class": "Skill",
     "tier": "Scorching",
     "score": 80,
@@ -309,7 +309,7 @@
     "score": 80,
     "tags": []
   },
-  "Black Panther Civil War": {
+  "Black Panther (Civil War)": {
     "class": "Skill",
     "tier": "Scorching",
     "score": 80,
@@ -443,7 +443,7 @@
       "high_sig_needed"
     ]
   },
-  "Ant-Man Future": {
+  "Ant-Man (Future)": {
     "class": "Tech",
     "tier": "Super Hot",
     "score": 60,
@@ -511,7 +511,7 @@
     "score": 60,
     "tags": []
   },
-  "Yelena Bolova": {
+  "Yelena Belova": {
     "class": "Skill",
     "tier": "Super Hot",
     "score": 60,
@@ -581,7 +581,7 @@
     "score": 60,
     "tags": []
   },
-  "Captian America IW": {
+  "Captain America (Infinity War)": {
     "class": "Science",
     "tier": "Super Hot",
     "score": 60,

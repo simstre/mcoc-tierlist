@@ -25,14 +25,10 @@ logger = logging.getLogger("mcoc-updater")
 
 # ── Portraits ──
 _portraits = {}
-_portraits_path = BASE_DIR / "portraits_local.json"
-if _portraits_path.exists():
-    _portraits = json.loads(_portraits_path.read_text())
-
-_mcochub_portraits = {}
-_mcochub_path = BASE_DIR / "mcochub_portraits.json"
-if _mcochub_path.exists():
-    _mcochub_portraits = json.loads(_mcochub_path.read_text())
+for _pfile in ["portraits.json", "portraits_local.json", "mcochub_portraits.json"]:
+    _ppath = BASE_DIR / _pfile
+    if _ppath.exists():
+        _portraits.update(json.loads(_ppath.read_text()))
 
 # ── Champion data (mutable, refreshed daily) ──
 _raw_champions = {}
@@ -64,11 +60,12 @@ def _refresh_tierlist():
 
 
 def _refresh_portraits():
-    """Download any missing portraits."""
-    from update import update_portraits
+    """Fetch any missing portraits from wiki/mcochub."""
+    from fetch_portraits import fetch_missing_portraits
     try:
         global _portraits
-        _portraits = update_portraits(list(_raw_champions.keys()))
+        result = fetch_missing_portraits(list(_raw_champions.keys()))
+        _portraits.update(result)
         logger.info("Portrait update complete.")
     except Exception as e:
         logger.error(f"Portrait update failed: {e}")
@@ -124,7 +121,7 @@ app = FastAPI(title="MCOC Tier List", lifespan=lifespan)
 def get_tierlist():
     champions = compute_tier_list(_raw_champions)
     for c in champions:
-        c["portrait"] = _portraits.get(c["name"]) or _mcochub_portraits.get(c["name"])
+        c["portrait"] = _portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
     by_class = get_champions_by_class(champions)
     return {
@@ -141,7 +138,7 @@ def get_tierlist():
         "prestige": PRESTIGE,
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
-        "prestige_portraits": _mcochub_portraits,
+        "prestige_portraits": _portraits,
         "source_meta": _source_meta,
         "last_updated": _last_updated,
         "total_champions": len(champions),

@@ -148,6 +148,17 @@ _NAME_MAP = {
     'Stealth Spiderman': 'Spider-Man (Stealth Suit)',
     'Star-Lord (Stellar Forge)': 'Star-Lord (Stellar Forge)',
     'Masacre': 'Masacre',
+    # Vega priority sheets (awakening gems / sig stones)
+    'Spider-Man Stark': 'Spider-Man (Stark Enhanced)',
+    'Spider-Man Stealth': 'Spider-Man (Stealth Suit)',
+    'Ant-Man Future': 'Ant-Man (Future)',
+    'Deathless Thanos': 'Thanos (Deathless)',
+    'Serpent': 'The Serpent',
+    'Captian Britain': 'Captain Britain',
+    'Captian America IW': 'Captain America (Infinity War)',
+    'Black Panther Civil War': 'Black Panther (Civil War)',
+    'Yelena Bolova': 'Yelena Belova',
+    'Massacre': 'Masacre',
     # Lagacy
     'DThanos': 'Thanos (Deathless)', 'Pavitr Spidey': 'Spider-Man (Pavitr)',
     'AbsorbingMan': 'Absorbing Man', 'WerewolfBN': 'Werewolf By Night',

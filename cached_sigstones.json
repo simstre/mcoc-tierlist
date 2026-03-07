@@ -29,7 +29,7 @@
     "score": 100,
     "tags": []
   },
-  "Serpent": {
+  "The Serpent": {
     "class": "Cosmic",
     "tier": "Tier Above All",
     "score": 100,
@@ -65,7 +65,7 @@
     "score": 100,
     "tags": []
   },
-  "Deathless Thanos": {
+  "Thanos (Deathless)": {
     "class": "Cosmic",
     "tier": "Tier Above All",
     "score": 100,
@@ -141,7 +141,7 @@
       "defense"
     ]
   },
-  "Captian Britain": {
+  "Captain Britain": {
     "class": "Mutant",
     "tier": "Scorching",
     "score": 80,
@@ -149,7 +149,7 @@
       "defense"
     ]
   },
-  "Spider-Man Stark": {
+  "Spider-Man (Stark Enhanced)": {
     "class": "Tech",
     "tier": "Scorching",
     "score": 80,
@@ -177,7 +177,7 @@
     "score": 80,
     "tags": []
   },
-  "Spider-Man Stealth": {
+  "Spider-Man (Stealth Suit)": {
     "class": "Skill",
     "tier": "Scorching",
     "score": 80,
@@ -189,7 +189,7 @@
     "score": 80,
     "tags": []
   },
-  "Ant-Man Future": {
+  "Ant-Man (Future)": {
     "class": "Tech",
     "tier": "Scorching",
     "score": 80,
@@ -291,7 +291,7 @@
       "high_sig_needed"
     ]
   },
-  "Black Panther Civil War": {
+  "Black Panther (Civil War)": {
     "class": "Skill",
     "tier": "Super Hot",
     "score": 60,
@@ -415,7 +415,7 @@
     "score": 60,
     "tags": []
   },
-  "Captian America IW": {
+  "Captain America (Infinity War)": {
     "class": "Science",
     "tier": "Super Hot",
     "score": 60,
