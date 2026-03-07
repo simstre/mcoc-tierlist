@@ -221,6 +221,25 @@ a.ptab { text-decoration: none; }
   flex-shrink: 0;
 }
 
+/* Trait tags on champion rows */
+.champ-tags {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  max-width: 160px;
+}
+.tag {
+  font-size: 0.45rem;
+  padding: 0.05rem 0.2rem;
+  border-radius: 2px;
+  background: #1a1a1a;
+  color: #555;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
 /* Immunity badges on champion rows */
 .champ-imm {
   display: flex;
@@ -536,6 +555,7 @@ a.ptab { text-decoration: none; }
   .champ-bar-wrap { width: 40px; }
   .champ-class { display: none; }
   .champ-imm { display: none; }
+  .champ-tags { display: none; }
   .tab { padding: 0.45rem 0.5rem; font-size: 0.7rem; }
   .ptab { padding: 0.45rem 0.7rem; font-size: 0.8rem; }
 }

@@ -150,12 +150,17 @@ function champHtml(c, rank) {
   const immTags = c.immunities && c.immunities.length
     ? `<span class="champ-imm">${c.immunities.map(i => `<span class="imm-tag">${i}</span>`).join('')}</span>`
     : '';
+  const tagLabels = data.tag_labels || {};
+  const tagHtml = c.tags && c.tags.length
+    ? `<span class="champ-tags">${c.tags.map(t => `<span class="tag" title="${tagLabels[t] || t}">${tagLabels[t] || t}</span>`).join('')}</span>`
+    : '';
 
   return `<div class="champ">
     <span class="champ-rank">${rank}</span>
     ${portraitHtml(c)}
     <span class="champ-name">${c.name}${badges}</span>
     ${classTag}
+    ${tagHtml}
     ${immTags}
     <span class="champ-bar-wrap"><div class="champ-bar"><div class="champ-bar-fill" style="width:${c.score}%;background:${barColor}"></div></div></span>
     <span class="champ-score">${c.score}</span>
