@@ -285,7 +285,7 @@
       "defense"
     ]
   },
-  "Black Panther (Classic)": {
+  "Black Panther": {
     "class": "Skill",
     "score": 33,
     "awakened": true,
@@ -313,7 +313,7 @@
     "no7star": false,
     "tags": []
   },
-  "Black Widow (OG)": {
+  "Black Widow": {
     "class": "Skill",
     "score": 20,
     "awakened": false,
@@ -362,7 +362,7 @@
     "no7star": false,
     "tags": []
   },
-  "Captain America (Classic)": {
+  "Captain America": {
     "class": "Science",
     "score": 0,
     "awakened": false,
@@ -570,7 +570,7 @@
       "relic"
     ]
   },
-  "Daredevil (Classic)": {
+  "Daredevil": {
     "class": "Skill",
     "score": 0,
     "awakened": false,
@@ -820,7 +820,7 @@
     "no7star": false,
     "tags": []
   },
-  "Falcon (Joaquin Torres)": {
+  "Falcon (Joaqu\u00edn Torres)": {
     "class": "Science",
     "score": 40,
     "awakened": true,
@@ -1092,7 +1092,7 @@
       "recoil"
     ]
   },
-  "Hulk (OG)": {
+  "Hulk": {
     "class": "Science",
     "score": 73,
     "awakened": true,
@@ -1237,7 +1237,7 @@
       "defense"
     ]
   },
-  "Iron Man (OG)": {
+  "Iron Man": {
     "class": "Tech",
     "score": 67,
     "awakened": true,
@@ -1615,7 +1615,7 @@
       "recoil"
     ]
   },
-  "Magneto (Red)": {
+  "Magneto": {
     "class": "Mutant",
     "score": 80,
     "awakened": false,
@@ -1813,7 +1813,7 @@
       "high_skill"
     ]
   },
-  "Ms. Marvel (Kamala)": {
+  "Ms. Marvel (Kamala Khan)": {
     "class": "Cosmic",
     "score": 0,
     "awakened": false,
@@ -1821,7 +1821,7 @@
     "no7star": false,
     "tags": []
   },
-  "Ms. Marvel (OG)": {
+  "Ms. Marvel": {
     "class": "Cosmic",
     "score": 0,
     "awakened": false,
@@ -1862,7 +1862,7 @@
       "relic"
     ]
   },
-  "Negasonic": {
+  "Negasonic Teenage Warhead": {
     "class": "Mutant",
     "score": 73,
     "awakened": true,
@@ -2310,7 +2310,7 @@
       "relic"
     ]
   },
-  "Scarlet Witch (Sigil)": {
+  "Scarlet Witch": {
     "class": "Mystic",
     "score": 47,
     "awakened": true,
@@ -2526,7 +2526,7 @@
       "relic"
     ]
   },
-  "Spider-Man (Classic)": {
+  "Spider-Man": {
     "class": "Science",
     "score": 27,
     "awakened": true,
@@ -2545,7 +2545,7 @@
     "no7star": false,
     "tags": []
   },
-  "Spider-Man (Pavitr)": {
+  "Spider-Man (Pavitr Prabhakar)": {
     "class": "Mystic",
     "score": 100,
     "awakened": true,
@@ -2616,7 +2616,7 @@
       "defense"
     ]
   },
-  "Spider-Slayer": {
+  "Spider-Slayer (J. Jonah Jameson)": {
     "class": "Tech",
     "score": 33,
     "awakened": true,
@@ -2679,7 +2679,7 @@
     "no7star": false,
     "tags": []
   },
-  "Star-Lord (Stellar Forge)": {
+  "Star-Lord (Stellar-Forged)": {
     "class": "Skill",
     "score": 50,
     "awakened": false,
@@ -2687,7 +2687,7 @@
     "no7star": false,
     "tags": []
   },
-  "Storm (OG)": {
+  "Storm": {
     "class": "Mutant",
     "score": 60,
     "awakened": true,
@@ -2956,7 +2956,7 @@
     "no7star": false,
     "tags": []
   },
-  "Ultron (Prime)": {
+  "Ultron": {
     "class": "Tech",
     "score": 67,
     "awakened": true,
@@ -3032,7 +3032,7 @@
     "no7star": false,
     "tags": []
   },
-  "Vision (Classic)": {
+  "Vision": {
     "class": "Tech",
     "score": 30,
     "awakened": true,
@@ -3162,7 +3162,7 @@
     "no7star": false,
     "tags": []
   },
-  "Wolverine (OG)": {
+  "Wolverine": {
     "class": "Mutant",
     "score": 40,
     "awakened": false,

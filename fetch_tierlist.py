@@ -234,9 +234,45 @@ _FALLBACK_CLASS = {
 }
 
 
+# Final rename to match official wiki names
+# fmt: off
+_CANONICAL_RENAME = {
+    'Hulk (OG)': 'Hulk',
+    'Iron Man (OG)': 'Iron Man',
+    'Storm (OG)': 'Storm',
+    'Wolverine (OG)': 'Wolverine',
+    'Black Widow (OG)': 'Black Widow',
+    'Black Panther (Classic)': 'Black Panther',
+    'Captain America (Classic)': 'Captain America',
+    'Daredevil (Classic)': 'Daredevil',
+    'Spider-Man (Classic)': 'Spider-Man',
+    'Ms. Marvel (OG)': 'Ms. Marvel',
+    'Vision (Classic)': 'Vision',
+    'Ultron (Prime)': 'Ultron',
+    'Magneto (Red)': 'Magneto',
+    'Scarlet Witch (Sigil)': 'Scarlet Witch',
+    'Negasonic': 'Negasonic Teenage Warhead',
+    'Spider-Man (Pavitr)': 'Spider-Man (Pavitr Prabhakar)',
+    'Spider-Slayer': 'Spider-Slayer (J. Jonah Jameson)',
+    'Star-Lord (Stellar Forge)': 'Star-Lord (Stellar-Forged)',
+    'Ms. Marvel (Kamala)': 'Ms. Marvel (Kamala Khan)',
+    'Falcon (Joaquin Torres)': 'Falcon (Joaqu\u00edn Torres)',
+}
+# fmt: on
+
+
 def _normalize(name):
     result = _NAME_MAP.get(name, name)
     return result
+
+
+def _apply_canonical_renames(data_dict):
+    """Rename keys in a champion dict to official wiki names."""
+    renamed = {}
+    for name, val in data_dict.items():
+        new_name = _CANONICAL_RENAME.get(name, name)
+        renamed[new_name] = val
+    return renamed
 
 
 def _fetch_csv(sheet_id, gid):
@@ -482,6 +518,7 @@ def fetch_and_combine():
                           ('awakened', 'high_sig', 'rarity_locked', 'projected_7star')),
         }
 
+    combined = _apply_canonical_renames(combined)
     return combined, len(source_data), source_meta
 
 
@@ -554,14 +591,14 @@ def fetch_priority_sheets():
 
     rows = _fetch_csv(AWAKENING_SHEET['sheet_id'], AWAKENING_SHEET['gid'])
     if rows:
-        aw_data = _parse_priority_sheet(rows)
+        aw_data = _apply_canonical_renames(_parse_priority_sheet(rows))
         logger.info(f"Parsed awakening gems: {len(aw_data)} champions")
     else:
         logger.warning("Could not fetch awakening gems sheet")
 
     rows = _fetch_csv(SIG_STONES_SHEET['sheet_id'], SIG_STONES_SHEET['gid'])
     if rows:
-        sig_data = _parse_priority_sheet(rows)
+        sig_data = _apply_canonical_renames(_parse_priority_sheet(rows))
         logger.info(f"Parsed sig stones: {len(sig_data)} champions")
     else:
         logger.warning("Could not fetch sig stones sheet")
