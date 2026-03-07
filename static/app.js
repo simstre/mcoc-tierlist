@@ -23,18 +23,29 @@ async function init() {
 
   document.getElementById('notes').innerHTML =
     `Scores 0\u2013100 from ${data.sources.length} YouTube creators. ${data.total_champions} champions.<br>` +
-    `<span class="source-info">${sourceInfo}</span><br>` +
-    `<span class="aw"></span> awakening &nbsp; ` +
-    `<span class="hs"></span> high sig &nbsp; ` +
-    `<span class="no7">7</span> no 7-star &nbsp; ` +
-    `<span class="tb" style="color:#22c55e;background:#22c55e20">D</span> defense &nbsp; ` +
-    `<span class="tb" style="color:#f97316;background:#f9731620">R</span> relic &nbsp; ` +
-    `<span class="tb" style="color:#a855f7;background:#a855f720">\u2620</span> recoil &nbsp; ` +
-    `<span class="tb" style="color:#06b6d4;background:#06b6d420">P</span> high skill &nbsp; ` +
-    `<span class="tb" style="color:#ec4899;background:#ec489920">\u2666</span> ascendable &nbsp; ` +
-    `<span class="tb" style="color:#6b7280;background:#6b728020">\u2191</span> ramp up &nbsp; ` +
-    `<span class="tb" style="color:#14b8a6;background:#14b8a620">+</span> synergy &nbsp; ` +
-    `<span class="tb" style="color:#ef4444;background:#ef444420">!</span> early ranking`;
+    `<span class="source-info">${sourceInfo}</span>`;
+
+  // Build legends
+  function legendItem(html, label) {
+    return `<span class="legend-item">${html} ${label}</span>`;
+  }
+  function badgeLegend(key) {
+    const b = TAG_BADGES[key];
+    return legendItem(`<span class="tb" style="color:${b.color};background:${b.color}20">${b.label}</span>`, b.title);
+  }
+
+  const mainLegend =
+    legendItem('<span class="aw"></span>', 'Awakening') +
+    legendItem('<span class="hs"></span>', 'High Sig') +
+    legendItem('<span class="no7">7</span>', 'No 7-Star') +
+    Object.keys(TAG_BADGES).filter(k => k !== 'high_sig_needed' && k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('');
+  document.getElementById('legend').innerHTML = mainLegend;
+
+  const awLegendKeys = ['high_sig_needed', 'in_titan_crystal', 'defense'];
+  document.getElementById('aw-legend').innerHTML = awLegendKeys.map(badgeLegend).join('');
+
+  const sigLegendKeys = ['defense', 'high_sig_needed'];
+  document.getElementById('sig-legend').innerHTML = sigLegendKeys.map(badgeLegend).join('');
 
   // Page tabs
   document.querySelectorAll('.ptab[data-page]').forEach(tab => {

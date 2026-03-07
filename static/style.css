@@ -155,51 +155,72 @@ a.ptab { text-decoration: none; }
 
 .aw {
   display: inline-block;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   background: #f59e0b;
   border-radius: 50%;
-  margin-left: 3px;
+  margin-left: 4px;
   vertical-align: middle;
 }
 
 .hs {
   display: inline-block;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   background: #3b82f6;
   border-radius: 50%;
-  margin-left: 3px;
+  margin-left: 4px;
   vertical-align: middle;
 }
 
 .no7 {
   display: inline-block;
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   font-weight: 700;
   color: #ef4444;
   background: #ef444420;
-  width: 12px;
-  height: 12px;
-  line-height: 12px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
   text-align: center;
-  border-radius: 2px;
-  margin-left: 3px;
+  border-radius: 3px;
+  margin-left: 4px;
   vertical-align: middle;
   text-decoration: line-through;
 }
 
 .tb {
   display: inline-block;
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  width: 12px;
-  height: 12px;
-  line-height: 12px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
   text-align: center;
-  border-radius: 2px;
-  margin-left: 3px;
+  border-radius: 3px;
+  margin-left: 4px;
   vertical-align: middle;
+}
+
+/* Legend grid */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  padding: 0.5rem 0.6rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.25rem;
+  background: #161616;
+  border-radius: 6px;
+  border: 1px solid #1e1e1e;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.65rem;
+  color: #666;
+  white-space: nowrap;
 }
 
 .champ-class {
