@@ -241,6 +241,33 @@ def _fetch_csv(sheet_id, gid):
     return None
 
 
+def _extract_edition(rows, source_name):
+    """Try to find an edition/date string from the first rows of a sheet."""
+    import re as _re
+    if source_name == 'Vega':
+        # Look for "Nth Edition - Month, Year" pattern
+        for row in rows[:15]:
+            for cell in row:
+                m = _re.search(r'(\d+\w*\s+Edition\s*-?\s*\w+,?\s*\d{4})', cell)
+                if m:
+                    return m.group(1)
+    elif source_name == 'Lagacy':
+        # First cell typically has "Month Year ... Lagacy's ..."
+        for row in rows[:3]:
+            for cell in row:
+                m = _re.search(r'((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})', cell)
+                if m:
+                    return m.group(1)
+    elif source_name == 'Omega':
+        # Omega doesn't have dates; check anyway
+        for row in rows[:10]:
+            for cell in row:
+                m = _re.search(r'((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})', cell)
+                if m:
+                    return m.group(1)
+    return None
+
+
 def _parse_vega(rows):
     champions = {}
     current_class = None
@@ -364,17 +391,21 @@ _PARSERS = {
 def fetch_and_combine():
     """Fetch all 3 sheets, parse, normalize, and combine into champion list.
 
-    Returns (champions_dict, success_count) or (None, 0) on total failure.
+    Returns (champions_dict, success_count, source_meta) or (None, 0, []) on total failure.
+    source_meta is a list of dicts: {name, edition, champion_count}
     """
     source_data = {}
+    source_meta = []
 
     for src in SOURCES_CONFIG:
         rows = _fetch_csv(src['sheet_id'], src['gid'])
         if rows is None:
             logger.warning(f"Could not fetch {src['name']} sheet")
+            source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed'})
             continue
         parser = _PARSERS[src['parser']]
         raw = parser(rows)
+        edition = _extract_edition(rows, src['name'])
         # Normalize names
         normed = {}
         for name, data in raw.items():
@@ -383,10 +414,11 @@ def fetch_and_combine():
                 continue
             normed[n] = data
         source_data[src['name']] = normed
-        logger.info(f"Parsed {src['name']}: {len(normed)} champions")
+        source_meta.append({'name': src['name'], 'edition': edition, 'champion_count': len(normed), 'status': 'ok'})
+        logger.info(f"Parsed {src['name']}: {len(normed)} champions, edition: {edition}")
 
     if not source_data:
-        return None, 0
+        return None, 0, source_meta
 
     # Combine
     all_names = set()
@@ -395,14 +427,14 @@ def fetch_and_combine():
 
     combined = {}
     for name in sorted(all_names):
-        scores = []
+        all_scores = []
         traits = set()
         cls = None
 
         for src_name, src_champs in source_data.items():
             if name in src_champs:
                 c = src_champs[name]
-                scores.append(c['score'])
+                all_scores.append(c['score'])
                 traits |= c['traits']
                 if c.get('class') and cls is None:
                     cls = c['class']
@@ -412,7 +444,13 @@ def fetch_and_combine():
         if cls is None:
             continue  # skip champions with no class
 
-        avg = round(sum(scores) / len(scores))
+        # Exclude 0 scores from averaging unless ALL sources give 0.
+        # A 0 typically means "not rated" (e.g. rarity-locked), not "rated as worst".
+        nonzero = [s for s in all_scores if s > 0]
+        if nonzero:
+            avg = round(sum(nonzero) / len(nonzero))
+        else:
+            avg = 0
         combined[name] = {
             'class': cls,
             'score': avg,
@@ -423,26 +461,36 @@ def fetch_and_combine():
                           ('awakened', 'high_sig', 'rarity_locked', 'projected_7star')),
         }
 
-    return combined, len(source_data)
+    return combined, len(source_data), source_meta
+
+
+CACHE_META_PATH = Path(__file__).parent / "cached_source_meta.json"
 
 
 def fetch_and_cache():
-    """Fetch fresh data, cache to disk, return champion dict."""
-    combined, count = fetch_and_combine()
+    """Fetch fresh data, cache to disk, return (champion_dict, source_meta) or (None, [])."""
+    combined, count, source_meta = fetch_and_combine()
     if combined and count > 0:
         CACHE_PATH.write_text(json.dumps(combined, indent=2, default=list))
+        CACHE_META_PATH.write_text(json.dumps(source_meta, indent=2))
         logger.info(f"Cached {len(combined)} champions from {count} sources")
-        return combined
-    return None
+        return combined, source_meta
+    return None, source_meta
 
 
 def load_cached():
-    """Load previously cached tier list data."""
+    """Load previously cached tier list data and source meta."""
+    data = None
+    meta = []
     if CACHE_PATH.exists():
         try:
-            raw = json.loads(CACHE_PATH.read_text())
-            logger.info(f"Loaded {len(raw)} champions from cache")
-            return raw
+            data = json.loads(CACHE_PATH.read_text())
+            logger.info(f"Loaded {len(data)} champions from cache")
         except Exception as e:
             logger.error(f"Failed to load cache: {e}")
-    return None
+    if CACHE_META_PATH.exists():
+        try:
+            meta = json.loads(CACHE_META_PATH.read_text())
+        except Exception:
+            pass
+    return data, meta

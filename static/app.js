@@ -12,8 +12,18 @@ async function init() {
   const creators = data.sources.map(s => s.name).join(', ');
   document.getElementById('meta').innerHTML =
     `Based on ${creators}  \u00b7  Updated ${data.last_updated}`;
+
+  // Source freshness
+  const meta = data.source_meta || [];
+  const sourceInfo = meta.map(s => {
+    if (s.status === 'failed') return `<span style="color:#ef4444">${s.name}: failed</span>`;
+    const edition = s.edition || 'unknown date';
+    return `${s.name}: ${edition} (${s.champion_count})`;
+  }).join('  \u00b7  ');
+
   document.getElementById('notes').innerHTML =
     `Scores 0\u2013100 from ${data.sources.length} YouTube creators. ${data.total_champions} champions.<br>` +
+    `<span class="source-info">${sourceInfo}</span><br>` +
     `<span class="aw"></span> benefits from awakening &nbsp; ` +
     `<span class="hs"></span> wants high sig &nbsp; ` +
     `<span class="no7">7</span> not available as 7-star`;

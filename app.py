@@ -37,6 +37,7 @@ if _mcochub_path.exists():
 
 # ── Champion data (mutable, refreshed daily) ──
 _raw_champions = {}
+_source_meta = []
 _last_updated = "March 7, 2026"
 
 scheduler = BackgroundScheduler()
@@ -44,9 +45,11 @@ scheduler = BackgroundScheduler()
 
 def _refresh_tierlist():
     """Fetch fresh tier list data from Google Sheets."""
-    global _raw_champions, _last_updated
+    global _raw_champions, _source_meta, _last_updated
     logger.info("Fetching tier list data from sheets...")
-    data = fetch_and_cache()
+    data, meta = fetch_and_cache()
+    if meta:
+        _source_meta = meta
     if data:
         _raw_champions = data
         _last_updated = datetime.now(timezone.utc).strftime("%B %d, %Y")
@@ -77,13 +80,17 @@ def daily_update():
 @asynccontextmanager
 async def lifespan(app):
     # Load data: try fresh fetch, fall back to cache
-    global _raw_champions
-    data = fetch_and_cache()
+    global _raw_champions, _source_meta
+    data, meta = fetch_and_cache()
+    if meta:
+        _source_meta = meta
     if data:
         _raw_champions = data
         logger.info(f"Loaded {len(data)} champions from sheets")
     else:
-        data = load_cached()
+        data, meta = load_cached()
+        if meta:
+            _source_meta = meta
         if data:
             _raw_champions = data
             logger.info(f"Loaded {len(data)} champions from cache")
@@ -123,6 +130,7 @@ def get_tierlist():
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
         "prestige_portraits": _mcochub_portraits,
+        "source_meta": _source_meta,
         "last_updated": _last_updated,
         "total_champions": len(champions),
     }
