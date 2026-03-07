@@ -11,10 +11,11 @@ async function init() {
 
   const creators = data.sources.map(s => s.name).join(', ');
   document.getElementById('meta').innerHTML =
-    `<a href="https://docs.google.com/spreadsheets/d/1WZHQvaH_qx22b2G-TpTvgexP9rWy-4S9mWqQAOg1LSg" target="_blank" rel="noopener">Based on ${creators}</a>  \u00b7  Updated ${data.last_updated}`;
+    `Based on ${creators}  \u00b7  Updated ${data.last_updated}`;
   document.getElementById('notes').innerHTML =
     `Scores 0\u2013100 from ${data.sources.length} YouTube creators. ${data.total_champions} champions.<br>` +
-    `<span class="aw"></span> best awakened &nbsp; ` +
+    `<span class="aw"></span> benefits from awakening &nbsp; ` +
+    `<span class="hs"></span> wants high sig &nbsp; ` +
     `<span class="no7">7</span> not available as 7-star`;
 
   // Page tabs
@@ -139,7 +140,8 @@ function champHtml(c, rank) {
                    c.score >= 30 ? '#555' : '#333';
 
   let badges = '';
-  if (c.awakened) badges += '<span class="aw" title="Best Awakened"></span>';
+  if (c.awakened) badges += '<span class="aw" title="Benefits from Awakening"></span>';
+  if (c.high_sig) badges += '<span class="hs" title="Wants High Sig"></span>';
   if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
 
   const classTag = currentView === 'all'

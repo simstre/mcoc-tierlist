@@ -162,6 +162,16 @@ a.ptab { text-decoration: none; }
   vertical-align: middle;
 }
 
+.hs {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 50%;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
 .no7 {
   display: inline-block;
   font-size: 0.5rem;

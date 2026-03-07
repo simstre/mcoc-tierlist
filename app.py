@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -10,8 +11,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from champions_data import (
     compute_tier_list, get_champions_by_class,
-    SOURCES, CLASS_COLORS, TIER_COLORS, RAW_CHAMPIONS,
+    SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
 )
+from fetch_tierlist import fetch_and_cache, load_cached
 from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
 from sig_stones import SIG_STONE_DATA, SIG_PRIORITY_ORDER, SIG_PRIORITY_COLORS
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
@@ -22,6 +24,7 @@ BASE_DIR = Path(__file__).parent
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("mcoc-updater")
 
+# ── Portraits ──
 _portraits = {}
 _portraits_path = BASE_DIR / "portraits_local.json"
 if _portraits_path.exists():
@@ -32,27 +35,64 @@ _mcochub_path = BASE_DIR / "mcochub_portraits.json"
 if _mcochub_path.exists():
     _mcochub_portraits = json.loads(_mcochub_path.read_text())
 
+# ── Champion data (mutable, refreshed daily) ──
+_raw_champions = {}
+_last_updated = "March 7, 2026"
 
 scheduler = BackgroundScheduler()
 
 
-def daily_update():
-    """Scheduled task: download any missing portraits."""
+def _refresh_tierlist():
+    """Fetch fresh tier list data from Google Sheets."""
+    global _raw_champions, _last_updated
+    logger.info("Fetching tier list data from sheets...")
+    data = fetch_and_cache()
+    if data:
+        _raw_champions = data
+        _last_updated = datetime.now(timezone.utc).strftime("%B %d, %Y")
+        logger.info(f"Tier list updated: {len(data)} champions")
+    else:
+        logger.warning("Sheet fetch failed, keeping existing data")
+
+
+def _refresh_portraits():
+    """Download any missing portraits."""
     from update import update_portraits
-    logger.info("Running daily update...")
     try:
         global _portraits
-        _portraits = update_portraits(list(RAW_CHAMPIONS.keys()))
-        logger.info("Daily update complete.")
+        _portraits = update_portraits(list(_raw_champions.keys()))
+        logger.info("Portrait update complete.")
     except Exception as e:
-        logger.error(f"Daily update failed: {e}")
+        logger.error(f"Portrait update failed: {e}")
+
+
+def daily_update():
+    """Scheduled task: refresh tier list + portraits."""
+    logger.info("Running daily update...")
+    _refresh_tierlist()
+    _refresh_portraits()
+    logger.info("Daily update complete.")
 
 
 @asynccontextmanager
 async def lifespan(app):
+    # Load data: try fresh fetch, fall back to cache
+    global _raw_champions
+    data = fetch_and_cache()
+    if data:
+        _raw_champions = data
+        logger.info(f"Loaded {len(data)} champions from sheets")
+    else:
+        data = load_cached()
+        if data:
+            _raw_champions = data
+            logger.info(f"Loaded {len(data)} champions from cache")
+        else:
+            logger.error("No champion data available!")
+
     scheduler.add_job(daily_update, "cron", hour=6, minute=0, id="daily_update")
     scheduler.start()
-    logger.info("Scheduler started — daily update at 06:00")
+    logger.info("Scheduler started - daily update at 06:00")
     yield
     scheduler.shutdown()
 
@@ -62,7 +102,7 @@ app = FastAPI(title="MCOC Tier List", lifespan=lifespan)
 
 @app.get("/api/tierlist")
 def get_tierlist():
-    champions = compute_tier_list()
+    champions = compute_tier_list(_raw_champions)
     for c in champions:
         c["portrait"] = _portraits.get(c["name"]) or _mcochub_portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
@@ -73,6 +113,7 @@ def get_tierlist():
         "sources": SOURCES,
         "class_colors": CLASS_COLORS,
         "tier_colors": TIER_COLORS,
+        "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(),
         "immunity_types": IMMUNITY_TYPES,
         "sig_stone_data": SIG_STONE_DATA,
@@ -82,7 +123,7 @@ def get_tierlist():
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
         "prestige_portraits": _mcochub_portraits,
-        "last_updated": "December 21, 2025",
+        "last_updated": _last_updated,
         "total_champions": len(champions),
     }
 
