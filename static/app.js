@@ -162,6 +162,7 @@ function portraitHtml(c) {
 
 const TAG_BADGES = {
   defense: { label: 'D', color: '#22c55e', title: 'BGs Defense' },
+  high_sig_needed: { label: '\u2B06', color: '#3b82f6', title: 'High Sig Needed' },
   relic: { label: 'R', color: '#f97316', title: 'Relic Important' },
   recoil: { label: '\u2620', color: '#a855f7', title: 'Recoil Friendly' },
   high_skill: { label: 'P', color: '#06b6d4', title: 'High Skill' },
@@ -170,7 +171,6 @@ const TAG_BADGES = {
   synergy: { label: '+', color: '#14b8a6', title: 'Synergy Needed' },
   early_ranking: { label: '!', color: '#ef4444', title: 'Early Ranking' },
   meteor_tactic: { label: 'M', color: '#f97316', title: 'Meteor Tactic' },
-  high_sig_needed: { label: '\u2B06', color: '#3b82f6', title: 'High Sig Needed' },
   in_titan_crystal: { label: 'T', color: '#f59e0b', title: 'In Titan Crystal' },
 };
 
