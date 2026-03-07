@@ -297,15 +297,21 @@ function renderPriorityTab(sheetData, classView, contentId, infoId) {
     'Hot': '#3b82f6', 'Mild': '#22c55e',
   };
 
-  // Build list from sheet data, enrich with portraits from main champion list
+  // Build list from sheet data, enrich with portraits and badges from main champion list
   let champs = Object.entries(sheetData).map(([name, info]) => {
     const main = data.champions.find(c => c.name === name);
+    // Merge tags: sheet-specific tags + relevant main tierlist tags
+    const tags = new Set(info.tags || []);
+    if (main) {
+      if (main.high_sig) tags.add('high_sig_needed');
+      if (main.tags) main.tags.forEach(t => { if (t === 'defense') tags.add(t); });
+    }
     return {
       name,
       class: info.class,
       tier: info.tier,
       score: info.score,
-      tags: info.tags || [],
+      tags: [...tags].sort(),
       portrait: main ? main.portrait : null,
     };
   });
