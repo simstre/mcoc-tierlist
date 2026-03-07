@@ -191,11 +191,12 @@ function champHtml(c, rank) {
                    c.score >= 30 ? '#555' : '#333';
 
   // Merge high_sig into tags so it uses the same blue arrow badge everywhere
-  const tags = c.tags ? [...c.tags] : [];
-  if (c.high_sig && !tags.includes('high_sig_needed')) tags.push('high_sig_needed');
+  const tags = (c.tags ? [...c.tags] : []).filter(t => t !== 'high_sig_needed');
+  const hasHighSig = c.high_sig || (c.tags && c.tags.includes('high_sig_needed'));
 
   let badges = '';
   if (c.awakened) badges += '<span class="aw" title="Benefits from Awakening"></span>';
+  if (hasHighSig) badges += tagBadges(['high_sig_needed']);
   if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
   badges += tagBadges(tags);
 
