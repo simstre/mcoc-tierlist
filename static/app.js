@@ -24,9 +24,17 @@ async function init() {
   document.getElementById('notes').innerHTML =
     `Scores 0\u2013100 from ${data.sources.length} YouTube creators. ${data.total_champions} champions.<br>` +
     `<span class="source-info">${sourceInfo}</span><br>` +
-    `<span class="aw"></span> benefits from awakening &nbsp; ` +
-    `<span class="hs"></span> wants high sig &nbsp; ` +
-    `<span class="no7">7</span> not available as 7-star`;
+    `<span class="aw"></span> awakening &nbsp; ` +
+    `<span class="hs"></span> high sig &nbsp; ` +
+    `<span class="no7">7</span> no 7-star &nbsp; ` +
+    `<span class="tb" style="color:#22c55e;background:#22c55e20">D</span> defense &nbsp; ` +
+    `<span class="tb" style="color:#f97316;background:#f9731620">R</span> relic &nbsp; ` +
+    `<span class="tb" style="color:#a855f7;background:#a855f720">\u2620</span> recoil &nbsp; ` +
+    `<span class="tb" style="color:#06b6d4;background:#06b6d420">P</span> high skill &nbsp; ` +
+    `<span class="tb" style="color:#ec4899;background:#ec489920">\u2666</span> ascendable &nbsp; ` +
+    `<span class="tb" style="color:#6b7280;background:#6b728020">\u2191</span> ramp up &nbsp; ` +
+    `<span class="tb" style="color:#14b8a6;background:#14b8a620">+</span> synergy &nbsp; ` +
+    `<span class="tb" style="color:#ef4444;background:#ef444420">!</span> early ranking`;
 
   // Page tabs
   document.querySelectorAll('.ptab[data-page]').forEach(tab => {
@@ -142,6 +150,29 @@ function portraitHtml(c) {
   return `<div class="champ-portrait"><span class="fb">${c.name[0]}</span></div>`;
 }
 
+const TAG_BADGES = {
+  defense: { label: 'D', color: '#22c55e', title: 'BGs Defense' },
+  relic: { label: 'R', color: '#f97316', title: 'Relic Important' },
+  recoil: { label: '\u2620', color: '#a855f7', title: 'Recoil Friendly' },
+  high_skill: { label: 'P', color: '#06b6d4', title: 'High Skill' },
+  ascendable: { label: '\u2666', color: '#ec4899', title: 'Ascendable' },
+  ramp_up: { label: '\u2191', color: '#6b7280', title: 'Ramp Up' },
+  synergy: { label: '+', color: '#14b8a6', title: 'Synergy Needed' },
+  early_ranking: { label: '!', color: '#ef4444', title: 'Early Ranking' },
+  meteor_tactic: { label: 'M', color: '#f97316', title: 'Meteor Tactic' },
+  high_sig_needed: { label: '\u2B06', color: '#3b82f6', title: 'High Sig Needed' },
+  in_titan_crystal: { label: 'T', color: '#f59e0b', title: 'In Titan Crystal' },
+};
+
+function tagBadges(tags) {
+  if (!tags || !tags.length) return '';
+  return tags.map(t => {
+    const b = TAG_BADGES[t];
+    if (!b) return '';
+    return `<span class="tb" style="color:${b.color};background:${b.color}20" title="${b.title}">${b.label}</span>`;
+  }).join('');
+}
+
 function champHtml(c, rank) {
   const color = data.class_colors[c.class];
   const barColor = c.score >= 90 ? '#f59e0b' :
@@ -153,6 +184,7 @@ function champHtml(c, rank) {
   if (c.awakened) badges += '<span class="aw" title="Benefits from Awakening"></span>';
   if (c.high_sig) badges += '<span class="hs" title="Wants High Sig"></span>';
   if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
+  if (c.tags) badges += tagBadges(c.tags);
 
   const classTag = currentView === 'all'
     ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
@@ -160,17 +192,12 @@ function champHtml(c, rank) {
   const immTags = c.immunities && c.immunities.length
     ? `<span class="champ-imm">${c.immunities.map(i => `<span class="imm-tag">${i}</span>`).join('')}</span>`
     : '';
-  const tagLabels = data.tag_labels || {};
-  const tagHtml = c.tags && c.tags.length
-    ? `<span class="champ-tags">${c.tags.map(t => `<span class="tag" title="${tagLabels[t] || t}">${tagLabels[t] || t}</span>`).join('')}</span>`
-    : '';
 
   return `<div class="champ">
     <span class="champ-rank">${rank}</span>
     ${portraitHtml(c)}
     <span class="champ-name">${c.name}${badges}</span>
     ${classTag}
-    ${tagHtml}
     ${immTags}
     <span class="champ-bar-wrap"><div class="champ-bar"><div class="champ-bar-fill" style="width:${c.score}%;background:${barColor}"></div></div></span>
     <span class="champ-score">${c.score}</span>
@@ -296,17 +323,10 @@ function renderPriorityTab(sheetData, classView, contentId, infoId) {
         const classTag = classView === 'all'
           ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
           : '';
-        const prioTagLabels = {
-          'high_sig_needed': 'High Sig', 'defense': 'BGs Defense', 'in_titan_crystal': 'Titan Crystal',
-        };
-        const tagHtml = c.tags.length
-          ? `<span class="champ-tags">${c.tags.map(t => `<span class="tag">${prioTagLabels[t] || t}</span>`).join('')}</span>`
-          : '';
         return `<div class="aw-champ-row">
           ${portrait}
-          <span class="aw-champ-name">${c.name}</span>
+          <span class="aw-champ-name">${c.name}${tagBadges(c.tags)}</span>
           ${classTag}
-          ${tagHtml}
         </div>`;
       }).join('')}
     </div>`;

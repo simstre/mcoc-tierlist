@@ -189,6 +189,19 @@ a.ptab { text-decoration: none; }
   text-decoration: line-through;
 }
 
+.tb {
+  display: inline-block;
+  font-size: 0.5rem;
+  font-weight: 700;
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  text-align: center;
+  border-radius: 2px;
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
 .champ-class {
   font-size: 0.6rem;
   font-weight: 600;
@@ -556,7 +569,6 @@ a.ptab { text-decoration: none; }
   .champ-bar-wrap { width: 40px; }
   .champ-class { display: none; }
   .champ-imm { display: none; }
-  .champ-tags { display: none; }
   .tab { padding: 0.45rem 0.5rem; font-size: 0.7rem; }
   .ptab { padding: 0.45rem 0.7rem; font-size: 0.8rem; }
 }
