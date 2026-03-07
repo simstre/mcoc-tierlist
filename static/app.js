@@ -36,9 +36,8 @@ async function init() {
 
   const mainLegend =
     legendItem('<span class="aw"></span>', 'Awakening') +
-    legendItem('<span class="hs"></span>', 'High Sig') +
     legendItem('<span class="no7">7</span>', 'No 7-Star') +
-    Object.keys(TAG_BADGES).filter(k => k !== 'high_sig_needed' && k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('');
+    Object.keys(TAG_BADGES).filter(k => k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('');
   document.getElementById('legend').innerHTML = mainLegend;
 
   const awLegendKeys = ['high_sig_needed', 'in_titan_crystal', 'defense'];
@@ -167,7 +166,7 @@ const TAG_BADGES = {
   recoil: { label: '\u2620', color: '#a855f7', title: 'Recoil Friendly' },
   high_skill: { label: 'P', color: '#06b6d4', title: 'High Skill' },
   ascendable: { label: '\u2666', color: '#ec4899', title: 'Ascendable' },
-  ramp_up: { label: '\u2191', color: '#6b7280', title: 'Ramp Up' },
+  ramp_up: { label: '~', color: '#6b7280', title: 'Ramp Up' },
   synergy: { label: '+', color: '#14b8a6', title: 'Synergy Needed' },
   early_ranking: { label: '!', color: '#ef4444', title: 'Early Ranking' },
   meteor_tactic: { label: 'M', color: '#f97316', title: 'Meteor Tactic' },
@@ -191,11 +190,14 @@ function champHtml(c, rank) {
                    c.score >= 50 ? '#22c55e' :
                    c.score >= 30 ? '#555' : '#333';
 
+  // Merge high_sig into tags so it uses the same blue arrow badge everywhere
+  const tags = c.tags ? [...c.tags] : [];
+  if (c.high_sig && !tags.includes('high_sig_needed')) tags.push('high_sig_needed');
+
   let badges = '';
   if (c.awakened) badges += '<span class="aw" title="Benefits from Awakening"></span>';
-  if (c.high_sig) badges += '<span class="hs" title="Wants High Sig"></span>';
   if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
-  if (c.tags) badges += tagBadges(c.tags);
+  badges += tagBadges(tags);
 
   const classTag = currentView === 'all'
     ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
