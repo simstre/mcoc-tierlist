@@ -143,14 +143,26 @@ a.ptab { text-decoration: none; }
   color: #3a3a3a;
 }
 
-.champ-name {
+.champ-info {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.champ-name {
   font-size: 0.82rem;
   font-weight: 500;
-  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.champ-imm-line {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-top: 1px;
 }
 
 .aw {
@@ -275,14 +287,7 @@ a.ptab { text-decoration: none; }
   letter-spacing: 0.02em;
 }
 
-/* Immunity badges on champion rows */
-.champ-imm {
-  display: flex;
-  gap: 3px;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  max-width: 120px;
-}
+/* Immunity badges on champion rows (legacy, kept for immunity page) */
 .imm-tag {
   font-size: 0.5rem;
   padding: 0.05rem 0.25rem;
@@ -589,7 +594,7 @@ a.ptab { text-decoration: none; }
   .banner { margin-left: -1rem; margin-right: -1rem; border-radius: 0; }
   .champ-bar-wrap { width: 40px; }
   .champ-class { display: none; }
-  .champ-imm { display: none; }
+  .champ-imm-line { display: none; }
   .tab { padding: 0.45rem 0.5rem; font-size: 0.7rem; }
   .ptab { padding: 0.45rem 0.7rem; font-size: 0.8rem; }
 }

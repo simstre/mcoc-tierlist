@@ -203,16 +203,18 @@ function champHtml(c, rank) {
   const classTag = currentView === 'all'
     ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
     : '';
-  const immTags = c.immunities && c.immunities.length
-    ? `<span class="champ-imm">${c.immunities.map(i => `<span class="imm-tag">${i}</span>`).join('')}</span>`
+  const immLine = c.immunities && c.immunities.length
+    ? `<div class="champ-imm-line">${c.immunities.map(i => `<span class="imm-tag">${i}</span>`).join('')}</div>`
     : '';
 
   return `<div class="champ">
     <span class="champ-rank">${rank}</span>
     ${portraitHtml(c)}
-    <span class="champ-name">${c.name}${badges}</span>
+    <div class="champ-info">
+      <span class="champ-name">${c.name}${badges}</span>
+      ${immLine}
+    </div>
     ${classTag}
-    ${immTags}
     <span class="champ-bar-wrap"><div class="champ-bar"><div class="champ-bar-fill" style="width:${c.score}%;background:${barColor}"></div></div></span>
     <span class="champ-score">${c.score}</span>
   </div>`;
