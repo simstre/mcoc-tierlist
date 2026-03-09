@@ -1,0 +1,19 @@
+{
+  "buildCommand": null,
+  "outputDirectory": "public",
+  "crons": [
+    {
+      "path": "/api/cron/refresh",
+      "schedule": "0 6 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/data/tierlist.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=3600, stale-while-revalidate=86400" },
+        { "key": "Content-Type", "value": "application/json" }
+      ]
+    }
+  ]
+}

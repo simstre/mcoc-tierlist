@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCOC YouTubers Tier List</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="banner"><img src="/banner.jpg" alt=""></div>
+      <h1>Marvel Contest of Champions YouTubers Tier List</h1>
+      <p class="desc">A quick reference for casual players and newcomers. Rankings reflect general champion value across all game modes, not specific to any one piece of content.</p>
+      <p class="meta" id="meta"></p>
+    </header>
+
+    <div class="page-tabs" id="page-tabs">
+      <button class="ptab active" data-page="tierlist">Ranking Up</button>
+      <button class="ptab" data-page="awakening">Awakening Gems</button>
+      <button class="ptab" data-page="sigstones">Sig Stones</button>
+      <button class="ptab" data-page="prestige">Prestige</button>
+      <button class="ptab" data-page="immunities">Immunities</button>
+    </div>
+
+    <div id="page-tierlist" class="page active">
+      <p class="notes" id="notes"></p>
+      <div class="legend" id="legend"></div>
+      <nav class="tabs" id="class-tabs">
+        <button class="tab active" data-view="all">All</button>
+        <button class="tab" data-view="Cosmic">Cosmic</button>
+        <button class="tab" data-view="Mutant">Mutant</button>
+        <button class="tab" data-view="Tech">Tech</button>
+        <button class="tab" data-view="Skill">Skill</button>
+        <button class="tab" data-view="Science">Science</button>
+        <button class="tab" data-view="Mystic">Mystic</button>
+      </nav>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search champion...">
+      </div>
+      <div id="tierlist-content"></div>
+    </div>
+
+    <div id="page-immunities" class="page">
+      <p class="imm-hint">Select immunities to find matching champions. Multiple = must have all.</p>
+      <div class="imm-toggles" id="imm-toggles"></div>
+      <div class="imm-results-info" id="imm-results-info"></div>
+      <div id="imm-content"></div>
+    </div>
+
+    <div id="page-awakening" class="page">
+      <p class="page-hint">Champions that benefit most from being awakened, sorted by overall ranking.</p>
+      <div class="legend" id="aw-legend"></div>
+      <nav class="tabs" id="aw-class-tabs"></nav>
+      <div class="aw-results-info" id="aw-results-info"></div>
+      <div id="aw-content"></div>
+    </div>
+
+    <div id="page-sigstones" class="page">
+      <p class="page-hint">Champions worth investing signature stones into, grouped by priority.</p>
+      <div class="legend" id="sig-legend"></div>
+      <nav class="tabs" id="sig-class-tabs"></nav>
+      <div class="aw-results-info" id="sig-results-info"></div>
+      <div id="sig-content"></div>
+    </div>
+    <div id="page-prestige" class="page">
+      <p class="page-hint">Champion prestige values at different signature levels.</p>
+      <div class="prestige-controls">
+        <select id="prestige-rank" class="prestige-select"></select>
+        <input type="text" id="prestige-search" class="prestige-search" placeholder="Search champion...">
+      </div>
+      <div class="prestige-info" id="prestige-info"></div>
+      <div class="prestige-table-wrap" id="prestige-content"></div>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

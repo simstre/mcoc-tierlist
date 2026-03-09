@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCOC Immunity Map</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a1a;
+      color: #e5e5e5;
+      overflow: hidden;
+    }
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 0.75rem 1rem;
+      background: #0a0a1aee;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      backdrop-filter: blur(8px);
+    }
+    .header h1 { font-size: 1.1rem; font-weight: 600; }
+    .header a {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+    .header a:hover { color: #aaa; }
+    .legend {
+      display: flex;
+      gap: 0.75rem;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      color: #888;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .legend-item:hover { background: #ffffff10; }
+    .legend-item.active { background: #ffffff15; color: #ccc; }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    #canvas-wrap {
+      width: 100vw;
+      height: 100vh;
+      padding-top: 48px;
+      cursor: grab;
+    }
+    #canvas-wrap:active { cursor: grabbing; }
+    svg { width: 100%; height: 100%; }
+    .imm-circle {
+      fill-opacity: 0.08;
+      stroke-width: 2;
+      stroke-opacity: 0.4;
+    }
+    .imm-label {
+      font-size: 14px;
+      font-weight: 700;
+      fill-opacity: 0.6;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+    .champ-group { cursor: pointer; }
+    .champ-group:hover .champ-img { stroke: #fff; stroke-width: 2; }
+    .champ-img {
+      stroke: #333;
+      stroke-width: 1;
+    }
+    .champ-label {
+      font-size: 7px;
+      fill: #ccc;
+      text-anchor: middle;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .champ-group:hover .champ-label { opacity: 1; }
+    .tooltip {
+      position: fixed;
+      background: #1a1a2e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 20;
+      display: none;
+      max-width: 220px;
+    }
+    .tooltip .tt-name { font-weight: 600; margin-bottom: 0.2rem; }
+    .tooltip .tt-imm {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+    .tooltip .tt-tag {
+      font-size: 0.6rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      background: #ffffff15;
+    }
+    .no-imm-note {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Immunity Map</h1>
+    <a href="/">Back to Tier List</a>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div id="canvas-wrap">
+    <svg id="svg"></svg>
+  </div>
+  <div class="tooltip" id="tooltip"></div>
+  <div class="no-imm-note">Only champions with at least one immunity are shown</div>
+  <script src="/static/immunity-map.js"></script>
+</body>
+</html>
