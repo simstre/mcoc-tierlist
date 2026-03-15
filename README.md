@@ -1,6 +1,6 @@
-# MCOC YouTuber Tier List
+# MCOC YouTubers Tier List
 
-**Live:** https://mcoc-tierlist-sims7-f3a1c04d.koyeb.app
+**Live:** https://mcoc.app
 
 A web app that aggregates Marvel Contest of Champions (MCOC) champion rankings from top YouTube creators into a unified tier list.
 
@@ -9,31 +9,29 @@ A web app that aggregates Marvel Contest of Champions (MCOC) champion rankings f
 
 ## Features
 
-- **Ranking Up** - 310 champions scored 0-100, grouped by tier (God/Great/Good/OK/Low)
+- **Ranking Up** - 317 champions scored 0-100, grouped by tier (God/Great/Good/OK/Low)
 - **Awakening Gems** - Champions that benefit most from being awakened
 - **Sig Stones** - Champions worth investing signature stones into, grouped by priority
+- **Prestige** - Champion prestige values at different signature levels
 - **Immunities** - Multi-select filter to find champions with specific immunities
 - Class filtering and search across all views
 - Champion portraits from the Fandom wiki
 
 ## Data Sources
 
-Rankings aggregated from 5 YouTube creators via the Summoner's Tier List community spreadsheet:
-- KT1, Lagacy, Vega, MGuideBlog, Omega
+Rankings aggregated from 3 YouTube creators:
+- Vega, Lagacy, Omega
 
 ## Tech Stack
 
-- **Backend**: Python / FastAPI
+- **Hosting**: Vercel (static CDN)
 - **Frontend**: Vanilla HTML/CSS/JS
-- **Scheduling**: APScheduler (daily portrait updates at 6:00 AM)
+- **Data**: Pre-generated JSON, refreshed daily via Vercel Cron
 
 ## Running Locally
 
 ```bash
-python -m venv venv
-source venv/bin/activate
 pip install -r requirements.txt
-python app.py
+python generate_data.py   # generates public/data/tierlist.json
+# Then serve public/ with any static server
 ```
-
-App runs on `http://localhost:8100`.
