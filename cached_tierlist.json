@@ -380,7 +380,7 @@
   },
   "Captain America (Sam Wilson)": {
     "class": "Tech",
-    "score": 33,
+    "score": 40,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -522,7 +522,7 @@
   },
   "Crossbones": {
     "class": "Skill",
-    "score": 87,
+    "score": 93,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -548,7 +548,9 @@
     "awakened": false,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "meteor_tactic"
+    ]
   },
   "Cyclops (New Xavier School)": {
     "class": "Mutant",
@@ -650,6 +652,7 @@
     "no7star": true,
     "tags": [
       "defense",
+      "meteor_tactic",
       "relic"
     ]
   },
@@ -669,8 +672,7 @@
     "no7star": false,
     "tags": [
       "ascendable",
-      "early_ranking",
-      "meteor_tactic"
+      "early_ranking"
     ]
   },
   "Doctor Voodoo": {
@@ -790,14 +792,13 @@
   },
   "Emma Frost": {
     "class": "Mutant",
-    "score": 47,
+    "score": 53,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
     "tags": [
       "ascendable",
       "defense",
-      "meteor_tactic",
       "recoil"
     ]
   },
@@ -1019,7 +1020,7 @@
   },
   "Heimdall": {
     "class": "Cosmic",
-    "score": 40,
+    "score": 53,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -1274,7 +1275,7 @@
   },
   "Jabari Panther": {
     "class": "Skill",
-    "score": 47,
+    "score": 53,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1466,7 +1467,7 @@
   },
   "Korg": {
     "class": "Skill",
-    "score": 33,
+    "score": 47,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2112,7 +2113,7 @@
   },
   "Punisher": {
     "class": "Skill",
-    "score": 60,
+    "score": 53,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2269,7 +2270,7 @@
   },
   "Sandman": {
     "class": "Science",
-    "score": 47,
+    "score": 53,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2673,7 +2674,7 @@
   },
   "Star-Lord": {
     "class": "Tech",
-    "score": 40,
+    "score": 60,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -2701,7 +2702,7 @@
   },
   "Storm (Pyramid X)": {
     "class": "Mutant",
-    "score": 40,
+    "score": 47,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -2742,7 +2743,7 @@
   },
   "Super-Skrull": {
     "class": "Cosmic",
-    "score": 60,
+    "score": 53,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
