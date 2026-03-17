@@ -10,7 +10,7 @@ SOURCES = [
 ]
 
 CLASS_COLORS = {
-    "Cosmic": "#3b82f6",
+    "Cosmic": "#60a5fa",
     "Tech": "#6366f1",
     "Mutant": "#eab308",
     "Skill": "#ef4444",

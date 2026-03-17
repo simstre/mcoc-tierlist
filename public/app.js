@@ -338,8 +338,7 @@ function renderImmunities() {
 
     return `<div class="imm-champ-row">
       ${portrait}
-      <span class="imm-champ-name">${c.name}</span>
-      <span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>
+      <span class="imm-champ-name" style="color:${color}">${c.name}</span>
       <span class="imm-champ-tags">${tags}</span>
     </div>`;
   }).join('');
