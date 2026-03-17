@@ -65,16 +65,35 @@ IMMUNITY_CATEGORIES = {
 
 # Champions whose immunity to a given type is synergy-only (exclude from results)
 SYNERGY_ONLY = {
+    "Absorbing Man": ["Poison"],
+    "Anti-Venom": ["Buff Immunity"],  # inflicts Stagger, not self buff immune
+    "Black Widow (Claire Voyant)": ["Buff Immunity"],  # inflicts on opponent
+    "Dazzler": ["Incinerate"],  # synergy with Kitty Pryde
     "Doctor Strange": ["Coldsnap"],
     "Dormammu": ["Incinerate"],
-    "Hulk": ["Nullify", "Stagger", "Fate Seal"],
+    "Emma Frost": ["Inverted Controls"],  # she inflicts it, not immune
+    "Enchantress": ["Inverted Controls"],  # no evidence of immunity in abilities
+    "Hawkeye": ["Poison"],  # S.H.I.E.L.D. Survival Gear synergy
+    "Hulk": ["Nullify", "Stagger", "Fate Seal", "Inverted Controls", "Buff Immunity"],
+    "Hulk (Immortal)": ["Inverted Controls"],  # Overseer synergy
+    "Hulk (Ragnarok)": ["Inverted Controls"],  # Overseer synergy
+    "Joe Fixit": ["Inverted Controls"],  # Overseer synergy
+    "Kitty Pryde": ["Inverted Controls"],  # synergy with Emma Frost
+    "Kraven": ["Bleed"],  # synergy with Arcade
+    "Lady Deathstrike": ["Heal Block"],  # not found in abilities on wiki
     "Mordo": ["Nullify", "Fate Seal"],
-    "The Champion": ["Fate Seal"],
+    "Mysterio": ["Inverted Controls"],  # synergy with Emma Frost
+    "Prowler": ["Inverted Controls"],  # synergy with Spider-Punk
+    "Spider-Punk": ["Inverted Controls"],  # synergy with Prowler
+    "Spiral": ["Inverted Controls"],  # synergy with Rogue/Gambit
+    "Spot": ["Buff Immunity"],  # applies to teammate, not self
+    "Storm": ["Incinerate", "Coldsnap"],  # synergy with Storm (Pyramid X)
+    "Thanos (Deathless)": ["Power Drain", "Power Burn"],  # synergy with Vision (Deathless)
+    "The Overseer": ["Inverted Controls"],  # same Hulk synergy
     "Titania": ["Bleed"],
     "Venompool": ["Incinerate", "Shock", "Armor Break"],
+    "Vision (Deathless)": ["Inverted Controls"],  # synergy with Thanos (Deathless)
     "Vulture": ["Poison", "Shock", "Nullify"],
-    "Absorbing Man": ["Poison"],  # synergy with Abomination (Immortal)
-    "Emma Frost": ["Inverted Controls"],  # she inflicts it, not immune to it
 }
 
 # Champions whose immunity to a given type requires a condition (mode, buff, pre-fight, etc.)
@@ -84,14 +103,24 @@ CONDITIONAL = {
     "Apocalypse": ["Bleed", "Incinerate"],
     "Arcade": ["Poison", "Incinerate", "Shock"],
     "Black Widow (Claire Voyant)": ["Bleed", "Poison", "Incinerate"],
+    "Cassie Lang": ["Power Steal"],  # requires Signature Ability
+    "Doombot": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite",
+                 "Nullify", "Stagger", "Fate Seal", "Power Drain", "Power Burn"],  # class-variant dependent
     "Emma Frost": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
     "Iron Man": ["Incinerate", "Coldsnap", "Frostbite", "Nullify", "Stagger"],
     "Iron Man (Infamous)": ["Incinerate", "Shock"],
     "Iron Man (Infinity War)": ["Bleed", "Coldsnap"],
-    "Ironheart": ["Incinerate", "Coldsnap", "Frostbite"],
+    "Ironheart": ["Incinerate", "Coldsnap", "Frostbite", "Inverted Controls"],  # Armor Up required
+    "Lizard": ["Heal Block", "Buff Immunity"],  # during specials / unstoppable only
+    "Madelyne Pryor": ["Bleed", "Rupture"],  # while Force Field has integrity
     "Mangog": ["Incinerate", "Shock", "Coldsnap", "Frostbite"],
+    "Nico Minoru": ["Rupture", "Buff Immunity"],  # requires Ward pre-fight spell
     "Scorpion": ["Poison", "Shock"],
-    "Viv Vision": ["Nullify", "Fate Seal"],
+    "Terrax": ["Power Drain", "Power Lock", "Power Burn", "Power Steal"],  # vs #Metal only
+    "The Champion": ["Fate Seal"],  # from Signature Ability, not synergy
+    "Venom": ["Power Drain", "Power Burn"],  # vs Tech only
+    "Venompool": ["Power Drain", "Power Burn"],  # vs Tech only
+    "Viv Vision": ["Nullify", "Fate Seal", "Inverted Controls"],  # SP3 buff required
 }
 
 # Hardcoded fallback data (used if wiki fetch fails and no cache exists)
