@@ -8,14 +8,16 @@ let prestigeKey = '';
 
 const immColors = {
   'Armor Break': '#94a3b8', 'Armor Shattered': '#64748b',
-  Bleed: '#ef4444', Coldsnap: '#38bdf8', Concussion: '#a78bfa',
-  Damnation: '#991b1b', Degeneration: '#f472b6', Disorient: '#c084fc',
-  Enervate: '#fb923c', Exhaustion: '#d97706', Falter: '#6ee7b7',
-  'Fate Seal': '#c084fc', Fatigue: '#a3a3a3', Frostbite: '#7dd3fc',
-  'Heal Block': '#fb923c', Incinerate: '#f97316', Neutralize: '#2dd4bf',
+  Bleed: '#ef4444', 'Buff Immunity': '#d946ef', Coldsnap: '#38bdf8',
+  Concussion: '#a78bfa', Damnation: '#991b1b', Degeneration: '#f472b6',
+  Disorient: '#c084fc', Enervate: '#fb923c', Exhaustion: '#d97706',
+  Falter: '#6ee7b7', 'Fate Seal': '#c084fc', Fatigue: '#a3a3a3',
+  Frostbite: '#7dd3fc', 'Heal Block': '#fb923c', Incinerate: '#f97316',
+  'Inverted Controls': '#f472b6', Neutralize: '#2dd4bf',
   'Nova Flame': '#dc2626', Nullify: '#a855f7', Petrify: '#78716c',
   Plasma: '#e879f9', Poison: '#22c55e', 'Power Burn': '#c084fc',
-  'Power Drain': '#60a5fa', 'Power Lock': '#818cf8', 'Power Sting': '#e11d48',
+  'Power Drain': '#60a5fa', 'Power Lock': '#818cf8', 'Power Steal': '#7c3aed',
+  'Power Sting': '#e11d48', 'Regen Rate Mod': '#4ade80',
   Rupture: '#b91c1c', Sabotage: '#65a30d', Shock: '#facc15',
   Sleep: '#6366f1', Slow: '#14b8a6', Stagger: '#a855f7',
   Stun: '#fbbf24', Taunt: '#f43f5e', Weakness: '#9ca3af',
@@ -229,10 +231,10 @@ function tagBadges(tags) {
 
 function champHtml(c, rank) {
   const color = data.class_colors[c.class];
-  const barColor = c.score >= 90 ? '#f59e0b' :
-                   c.score >= 70 ? '#3b82f6' :
-                   c.score >= 50 ? '#22c55e' :
-                   c.score >= 30 ? '#555' : '#333';
+  const scoreColor = c.score >= 90 ? '#f59e0b' :
+                     c.score >= 70 ? '#3b82f6' :
+                     c.score >= 50 ? '#22c55e' :
+                     c.score >= 30 ? '#555' : '#333';
 
   // Merge high_sig into tags so it uses the same blue arrow badge everywhere
   const tags = (c.tags ? [...c.tags] : []).filter(t => t !== 'high_sig_needed');
@@ -263,8 +265,7 @@ function champHtml(c, rank) {
       ${immLine}
     </div>
     ${classTag}
-    <span class="champ-bar-wrap"><div class="champ-bar"><div class="champ-bar-fill" style="width:${c.score}%;background:${barColor}"></div></div></span>
-    <span class="champ-score">${c.score}</span>
+    <span class="champ-score" style="color:${scoreColor}">${c.score}</span>
   </div>`;
 }
 

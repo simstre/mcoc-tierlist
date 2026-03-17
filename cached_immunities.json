@@ -5,7 +5,8 @@
     "Shock",
     "Coldsnap",
     "Frostbite",
-    "Armor Break"
+    "Armor Break",
+    "Armor Shattered"
   ],
   "Adaptoid (Super Adaptoid Hydra)": [
     "Bleed",
@@ -22,24 +23,28 @@
   "Black Widow (Claire Voyant)": [
     "Bleed",
     "Poison",
-    "Incinerate"
+    "Incinerate",
+    "Buff Immunity"
   ],
   "Blue Marvel": [
-    "Bleed"
+    "Bleed",
+    "Power Steal"
   ],
   "Colossus": [
     "Bleed",
     "Incinerate",
     "Coldsnap",
     "Frostbite",
-    "Armor Break"
+    "Armor Break",
+    "Armor Shattered"
   ],
   "Cosmic Ghost Rider": [
     "Bleed",
     "Incinerate"
   ],
   "Count Nefaria": [
-    "Bleed"
+    "Bleed",
+    "Power Steal"
   ],
   "Darkhawk": [
     "Bleed",
@@ -54,7 +59,9 @@
     "Frostbite",
     "Nullify",
     "Stagger",
-    "Fate Seal"
+    "Fate Seal",
+    "Power Drain",
+    "Power Burn"
   ],
   "Dormammu": [
     "Bleed",
@@ -62,7 +69,8 @@
   ],
   "Dragon Man": [
     "Bleed",
-    "Poison"
+    "Poison",
+    "Armor Shattered"
   ],
   "Dust": [
     "Bleed",
@@ -75,7 +83,8 @@
     "Incinerate",
     "Shock",
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Inverted Controls"
   ],
   "Gentle": [
     "Bleed"
@@ -102,7 +111,8 @@
     "Frostbite"
   ],
   "Imperiosa": [
-    "Bleed"
+    "Bleed",
+    "Power Drain"
   ],
   "Iron Man (Infinity War)": [
     "Bleed",
@@ -114,10 +124,14 @@
     "Frostbite"
   ],
   "King Groot": [
-    "Bleed"
+    "Bleed",
+    "Power Drain",
+    "Power Burn"
   ],
   "King Groot (Deathless)": [
-    "Bleed"
+    "Bleed",
+    "Power Drain",
+    "Power Burn"
   ],
   "Korg": [
     "Bleed",
@@ -134,17 +148,20 @@
     "Bleed"
   ],
   "Lumatrix": [
-    "Bleed"
+    "Bleed",
+    "Rupture"
   ],
   "Madelyne Pryor": [
-    "Bleed"
+    "Bleed",
+    "Rupture"
   ],
   "Magneto (House of X)": [
     "Bleed"
   ],
   "Man-Thing": [
     "Bleed",
-    "Armor Break"
+    "Armor Break",
+    "Armor Shattered"
   ],
   "Mangog": [
     "Bleed",
@@ -168,11 +185,13 @@
     "Poison"
   ],
   "Photon": [
-    "Bleed"
+    "Bleed",
+    "Power Steal"
   ],
   "Prowler": [
     "Bleed",
-    "Incinerate"
+    "Incinerate",
+    "Inverted Controls"
   ],
   "Sandman": [
     "Bleed",
@@ -204,11 +223,16 @@
   ],
   "Terrax": [
     "Bleed",
-    "Shock"
+    "Shock",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn",
+    "Power Steal"
   ],
   "The Collector": [
     "Bleed",
-    "Poison"
+    "Poison",
+    "Power Lock"
   ],
   "The Destroyer": [
     "Bleed",
@@ -221,6 +245,7 @@
     "Nullify",
     "Stagger",
     "Armor Break",
+    "Armor Shattered",
     "Fate Seal"
   ],
   "Ultron": [
@@ -246,27 +271,32 @@
     "Bleed",
     "Poison",
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Inverted Controls"
   ],
   "Viv Vision": [
     "Bleed",
     "Poison",
     "Nullify",
-    "Fate Seal"
+    "Fate Seal",
+    "Inverted Controls"
   ],
   "X-23 (Orochi)": [
-    "Bleed"
+    "Bleed",
+    "Heal Block"
   ],
   "Abomination": [
     "Poison"
   ],
   "Ant-Man": [
     "Poison",
-    "Shock"
+    "Shock",
+    "Buff Immunity"
   ],
   "Anti-Venom": [
     "Poison",
-    "Incinerate"
+    "Incinerate",
+    "Buff Immunity"
   ],
   "Anti-Venomoid": [
     "Poison",
@@ -288,10 +318,13 @@
   ],
   "Cassie Lang": [
     "Poison",
-    "Shock"
+    "Shock",
+    "Power Steal",
+    "Buff Immunity"
   ],
   "Franken-Castle": [
-    "Poison"
+    "Poison",
+    "Regen Rate Mod"
   ],
   "Hawkeye": [
     "Poison"
@@ -301,30 +334,42 @@
     "Armor Break"
   ],
   "Hulk": [
-    "Poison"
+    "Poison",
+    "Buff Immunity",
+    "Inverted Controls"
   ],
   "Hulk (Immortal)": [
-    "Poison"
+    "Poison",
+    "Inverted Controls",
+    "Regen Rate Mod"
   ],
   "Hulk (Ragnarok)": [
-    "Poison"
+    "Poison",
+    "Inverted Controls"
   ],
   "Hulkling": [
     "Poison",
-    "Shock"
+    "Shock",
+    "Power Drain",
+    "Power Burn",
+    "Power Steal"
   ],
   "Hyperion": [
     "Poison"
   ],
   "Joe Fixit": [
-    "Poison"
+    "Poison",
+    "Inverted Controls"
   ],
   "Kindred": [
     "Poison",
-    "Incinerate"
+    "Incinerate",
+    "Heal Block"
   ],
   "Lizard": [
-    "Poison"
+    "Poison",
+    "Heal Block",
+    "Buff Immunity"
   ],
   "Maestro (Cosmic)": [
     "Poison",
@@ -346,10 +391,13 @@
     "Poison"
   ],
   "Mysterio": [
-    "Poison"
+    "Poison",
+    "Inverted Controls"
   ],
   "Nico Minoru": [
-    "Poison"
+    "Poison",
+    "Rupture",
+    "Buff Immunity"
   ],
   "Omega Red": [
     "Poison"
@@ -362,25 +410,31 @@
     "Poison"
   ],
   "Sauron": [
-    "Poison"
+    "Poison",
+    "Power Steal"
   ],
   "Scorpion": [
     "Poison",
-    "Shock"
+    "Shock",
+    "Rupture"
   ],
   "She-Hulk": [
     "Poison"
   ],
   "She-Hulk (Deathless)": [
-    "Poison"
+    "Poison",
+    "Rupture"
   ],
   "Spider-Woman (Jessica Drew)": [
-    "Poison"
+    "Poison",
+    "Power Steal"
   ],
   "Thanos (Deathless)": [
     "Poison",
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Power Drain",
+    "Power Burn"
   ],
   "The Leader": [
     "Poison"
@@ -389,13 +443,18 @@
     "Poison",
     "Nullify",
     "Stagger",
-    "Fate Seal"
+    "Fate Seal",
+    "Inverted Controls"
   ],
   "Toad": [
-    "Poison"
+    "Poison",
+    "Regen Rate Mod"
   ],
   "Vox": [
-    "Poison"
+    "Poison",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn"
   ],
   "Adam Warlock": [
     "Incinerate",
@@ -409,13 +468,18 @@
   "Annihilus": [
     "Incinerate",
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn",
+    "Power Steal"
   ],
   "Attuma": [
     "Incinerate"
   ],
   "Dark Phoenix": [
-    "Incinerate"
+    "Incinerate",
+    "Power Drain"
   ],
   "Dazzler": [
     "Incinerate",
@@ -447,25 +511,33 @@
   "Ironheart": [
     "Incinerate",
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Inverted Controls"
   ],
   "Jack O'Lantern": [
-    "Incinerate"
+    "Incinerate",
+    "Inverted Controls"
   ],
   "Kitty Pryde": [
-    "Incinerate"
+    "Incinerate",
+    "Inverted Controls"
   ],
   "Night Thrasher": [
     "Incinerate"
   ],
   "Phoenix": [
-    "Incinerate"
+    "Incinerate",
+    "Heal Block",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn"
   ],
   "Purgatory": [
     "Incinerate"
   ],
   "Red Goblin": [
-    "Incinerate"
+    "Incinerate",
+    "Power Burn"
   ],
   "Sentry": [
     "Incinerate",
@@ -491,11 +563,13 @@
     "Incinerate"
   ],
   "Beta Ray Bill": [
-    "Shock"
+    "Shock",
+    "Power Drain"
   ],
   "Doctor Doom": [
     "Shock",
-    "Armor Break"
+    "Armor Break",
+    "Armor Shattered"
   ],
   "Mole Man": [
     "Shock"
@@ -508,7 +582,8 @@
   ],
   "Karolina Dean": [
     "Coldsnap",
-    "Frostbite"
+    "Frostbite",
+    "Power Lock"
   ],
   "Sabretooth": [
     "Coldsnap",
@@ -522,7 +597,9 @@
     "Coldsnap",
     "Nullify",
     "Stagger",
-    "Fate Seal"
+    "Fate Seal",
+    "Heal Block",
+    "Power Lock"
   ],
   "M'Baku": [
     "Frostbite"
@@ -541,7 +618,10 @@
   ],
   "Galan": [
     "Nullify",
-    "Fate Seal"
+    "Fate Seal",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn"
   ],
   "Mister Negative": [
     "Nullify",
@@ -562,9 +642,88 @@
     "Armor Break"
   ],
   "Lady Deathstrike": [
-    "Armor Break"
+    "Armor Break",
+    "Heal Block",
+    "Rupture"
   ],
   "Heimdall": [
     "Fate Seal"
+  ],
+  "Dracula": [
+    "Heal Block"
+  ],
+  "Gorr": [
+    "Heal Block"
+  ],
+  "The Champion": [
+    "Heal Block",
+    "Regen Rate Mod"
+  ],
+  "Werewolf By Night": [
+    "Heal Block"
+  ],
+  "Gladiator": [
+    "Power Drain",
+    "Power Burn"
+  ],
+  "Venom": [
+    "Power Drain",
+    "Power Burn"
+  ],
+  "Venompool": [
+    "Power Drain",
+    "Power Burn"
+  ],
+  "Enchantress": [
+    "Power Lock",
+    "Inverted Controls"
+  ],
+  "High Evolutionary": [
+    "Rupture",
+    "Buff Immunity"
+  ],
+  "Spider-Punk": [
+    "Rupture",
+    "Inverted Controls"
+  ],
+  "Red Guardian": [
+    "Buff Immunity"
+  ],
+  "Spider-Man 2099": [
+    "Buff Immunity"
+  ],
+  "Spot": [
+    "Buff Immunity"
+  ],
+  "Titania": [
+    "Buff Immunity"
+  ],
+  "Jean Grey": [
+    "Inverted Controls"
+  ],
+  "Juggernaut": [
+    "Inverted Controls"
+  ],
+  "Mister Sinister": [
+    "Inverted Controls",
+    "Regen Rate Mod"
+  ],
+  "Moondragon": [
+    "Inverted Controls"
+  ],
+  "Professor X": [
+    "Inverted Controls"
+  ],
+  "Spiral": [
+    "Inverted Controls"
+  ],
+  "The Maker": [
+    "Inverted Controls"
+  ],
+  "Kingpin": [
+    "Regen Rate Mod"
+  ],
+  "Wolverine (Weapon X)": [
+    "Regen Rate Mod"
   ]
 }

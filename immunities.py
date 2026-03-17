@@ -26,7 +26,17 @@ IMMUNITY_TYPES = [
     "Nullify",
     "Stagger",
     "Armor Break",
+    "Armor Shattered",
     "Fate Seal",
+    "Heal Block",
+    "Power Drain",
+    "Power Lock",
+    "Power Burn",
+    "Power Steal",
+    "Rupture",
+    "Buff Immunity",
+    "Inverted Controls",
+    "Regen Rate Mod",
 ]
 
 # Wiki category name -> display name
@@ -40,7 +50,17 @@ IMMUNITY_CATEGORIES = {
     "Nullify_Immunity": "Nullify",
     "Stagger_Immunity": "Stagger",
     "Armor_Break_Immunity": "Armor Break",
+    "Armor_Shattered_Immunity": "Armor Shattered",
     "Fate_Seal_Immunity": "Fate Seal",
+    "Heal_Block_Immunity": "Heal Block",
+    "Power_Drain_Immunity": "Power Drain",
+    "Power_Lock_Immunity": "Power Lock",
+    "Power_Burn_Immunity": "Power Burn",
+    "Power_Steal_Immunity": "Power Steal",
+    "Rupture_Immunity": "Rupture",
+    "Buff_Immunity": "Buff Immunity",
+    "Inverted_Controls_Immunity": "Inverted Controls",
+    "Regeneration_Rate_Modification_Immunity": "Regen Rate Mod",
 }
 
 # Champions whose immunity to a given type is synergy-only (exclude from results)
