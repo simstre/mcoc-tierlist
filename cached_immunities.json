@@ -8,10 +8,6 @@
     "Armor Break",
     "Armor Shattered"
   ],
-  "Adaptoid (Super Adaptoid Hydra)": [
-    "Bleed",
-    "Poison"
-  ],
   "Apocalypse": [
     "Bleed",
     "Incinerate"
@@ -48,19 +44,6 @@
   "Darkhawk": [
     "Bleed",
     "Poison"
-  ],
-  "Doombot": [
-    "Bleed",
-    "Poison",
-    "Incinerate",
-    "Shock",
-    "Coldsnap",
-    "Frostbite",
-    "Nullify",
-    "Stagger",
-    "Fate Seal",
-    "Power Drain",
-    "Power Burn"
   ],
   "Dormammu": [
     "Bleed",
@@ -198,10 +181,6 @@
     "Frostbite",
     "Armor Break"
   ],
-  "Sentinelbot": [
-    "Bleed",
-    "Poison"
-  ],
   "Silver Centurion": [
     "Bleed",
     "Shock"
@@ -273,6 +252,12 @@
     "Fate Seal",
     "Inverted Controls"
   ],
+  "Warlock": [
+    "Bleed",
+    "Poison",
+    "Coldsnap",
+    "Frostbite"
+  ],
   "X-23 (Orochi)": [
     "Bleed",
     "Heal Block"
@@ -286,10 +271,6 @@
     "Buff Immunity"
   ],
   "Anti-Venom": [
-    "Poison",
-    "Incinerate"
-  ],
-  "Anti-Venomoid": [
     "Poison",
     "Incinerate"
   ],
@@ -314,10 +295,6 @@
   "Franken-Castle": [
     "Poison",
     "Regen Rate Mod"
-  ],
-  "Henchpool": [
-    "Poison",
-    "Armor Break"
   ],
   "Hulk": [
     "Poison"
@@ -686,11 +663,5 @@
   ],
   "Wolverine (Weapon X)": [
     "Regen Rate Mod"
-  ],
-  "Warlock": [
-    "Bleed",
-    "Poison",
-    "Coldsnap",
-    "Frostbite"
   ]
 }

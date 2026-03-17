@@ -16,6 +16,16 @@ logger = logging.getLogger("mcoc-immunities")
 WIKI_API = "https://marvel-contestofchampions.fandom.com/api.php"
 CACHE_PATH = Path(__file__).parent / "cached_immunities.json"
 
+# Non-playable champions to exclude from results
+NPC_EXCLUSIONS = {
+    "Adaptoid (Super Adaptoid Hydra)",
+    "Anti-Venomoid",
+    "Doombot",
+    "Henchpool",
+    "Sentinelbot",
+    "Symbioid",
+}
+
 # Wiki name -> canonical tier list name
 WIKI_NAME_MAP = {
     "Captain Marvel": "Captain Marvel (Classic)",
@@ -121,8 +131,6 @@ CONDITIONAL = {
     "Cassie Lang": ["Power Steal"],  # requires Signature Ability
     "Colossus": ["Armor Break", "Armor Shattered"],  # not vs Tech champions
     "Diablo": ["Armor Break"],  # requires Grain of Uru ingredient
-    "Doombot": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite",
-                 "Nullify", "Stagger", "Fate Seal", "Power Drain", "Power Burn"],  # class-variant dependent
     "Emma Frost": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
     "Iron Man": ["Incinerate", "Coldsnap", "Frostbite", "Nullify", "Stagger"],
     "Iron Man (Infamous)": ["Incinerate", "Shock"],
@@ -336,6 +344,8 @@ def fetch_immunity_data():
 
             for champ in members:
                 champ = WIKI_NAME_MAP.get(champ, champ)
+                if champ in NPC_EXCLUSIONS:
+                    continue
                 # Skip synergy-only immunities
                 if champ in SYNERGY_ONLY and display_name in SYNERGY_ONLY[champ]:
                     continue

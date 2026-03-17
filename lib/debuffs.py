@@ -14,6 +14,16 @@ logger = logging.getLogger("mcoc-debuffs")
 WIKI_API = "https://marvel-contestofchampions.fandom.com/api.php"
 CACHE_PATH = Path(__file__).parent / "cached_debuffs.json"
 
+# Non-playable champions to exclude from results
+NPC_EXCLUSIONS = {
+    "Adaptoid (Super Adaptoid Hydra)",
+    "Anti-Venomoid",
+    "Doombot",
+    "Henchpool",
+    "Sentinelbot",
+    "Symbioid",
+}
+
 # Wiki name -> canonical tier list name
 WIKI_NAME_MAP = {
     "Captain Marvel": "Captain Marvel (Classic)",
@@ -116,7 +126,7 @@ def fetch_debuff_data():
     for category, display_name in DEBUFF_CATEGORIES.items():
         try:
             raw_members = _fetch_category_members(category)
-            members = [WIKI_NAME_MAP.get(m, m) for m in raw_members]
+            members = [WIKI_NAME_MAP.get(m, m) for m in raw_members if m not in NPC_EXCLUSIONS]
             debuff_map[display_name] = sorted(members)
             logger.info(f"Fetched {display_name}: {len(members)} champions")
 

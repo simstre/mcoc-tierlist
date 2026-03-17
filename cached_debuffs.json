@@ -6,7 +6,6 @@
       "Air-Walker",
       "Angela",
       "Annihilus",
-      "Anti-Venomoid",
       "Arnim Zola",
       "Black Bolt",
       "Captain America (Infinity War)",
@@ -24,7 +23,6 @@
       "Gamora",
       "Gwenpool",
       "Hela",
-      "Henchpool",
       "Hercules",
       "Hit-Monkey",
       "Howard the Duck",
@@ -65,7 +63,6 @@
       "Scarlet Witch",
       "Scream",
       "Sentinel",
-      "Sentinelbot",
       "Silver Surfer",
       "Sorcerer Supreme",
       "Spider-Man",
@@ -116,7 +113,6 @@
       "Deadpool (X-Force)",
       "Doctor Strange",
       "Domino",
-      "Doombot",
       "Dracula",
       "Drax",
       "Elektra",
@@ -130,7 +126,6 @@
       "Guillotine",
       "Gwenpool",
       "Hawkeye",
-      "Henchpool",
       "Hit-Monkey",
       "Jabari Panther",
       "Joe Fixit",
@@ -166,7 +161,6 @@
       "Sabretooth",
       "Sauron",
       "Scream",
-      "Sentinelbot",
       "Squirrel Girl",
       "Storm",
       "Summoned Symbiote",
@@ -178,13 +172,13 @@
       "Venom",
       "Venom the Duck",
       "Venompool",
+      "Warlock",
       "Wolverine",
       "Wolverine (Weapon X)",
       "Wolverine (X-23)",
       "X-23 (Orochi)"
     ],
     "Coldsnap": [
-      "Anti-Venomoid",
       "Doctor Strange",
       "Elsa Bloodstone",
       "Enchantress",
@@ -227,7 +221,6 @@
       "Apocalypse",
       "Cable",
       "Captain Britain",
-      "Doombot",
       "Dormammu",
       "Dracula",
       "Dragon Man",
@@ -238,7 +231,6 @@
       "Guillotine",
       "Guillotine (Deathless)",
       "Guillotine 2099",
-      "Henchpool",
       "Isophyne",
       "Kindred",
       "Kingpin",
@@ -259,7 +251,6 @@
       "Rogue",
       "Sauron",
       "Scarlet Witch",
-      "Sentinelbot",
       "Spider-Slayer (J. Jonah Jameson)",
       "The Destroyer",
       "The Leader",
@@ -347,7 +338,6 @@
       "Ant-Man",
       "Captain America",
       "Colossus",
-      "Doombot",
       "M.O.D.O.K.",
       "Mister Negative",
       "Scarlet Witch (Classic)",
@@ -363,7 +353,6 @@
       "Misty Knight"
     ],
     "Heal Block": [
-      "Adaptoid (Super Adaptoid Hydra)",
       "Archangel",
       "Captain America (Sam Wilson)",
       "Civil Warrior",
@@ -371,7 +360,6 @@
       "Darkhawk",
       "Doctor Octopus",
       "Doctor Strange",
-      "Doombot",
       "Elsa Bloodstone",
       "Falcon (Joaqu\u00edn Torres)",
       "Howard the Duck",
@@ -399,7 +387,6 @@
       "Silver Centurion",
       "Solvarch",
       "Star-Lord",
-      "Symbioid",
       "Thanos",
       "The Maker",
       "Thing",
@@ -414,7 +401,6 @@
     "Incinerate": [
       "Absorbing Man",
       "Agent Venom",
-      "Anti-Venomoid",
       "Arcade",
       "Baron Zemo",
       "Bishop",
@@ -474,7 +460,6 @@
       "Sauron",
       "Scarlet Witch",
       "Sentinel",
-      "Sentinelbot",
       "Sersi",
       "Silver Centurion",
       "Sunspot",
@@ -484,7 +469,6 @@
       "Vulture"
     ],
     "Neutralize": [
-      "Anti-Venomoid",
       "Doctor Strange",
       "Enchantress",
       "Guillotine (Deathless)",
@@ -506,13 +490,11 @@
       "Doctor Doom",
       "Doctor Strange",
       "Doctor Voodoo",
-      "Doombot",
       "Dormammu",
       "Dracula",
       "Ebony Maw",
       "Enchantress",
       "Guillotine (Deathless)",
-      "Henchpool",
       "Iron Fist",
       "Iron Fist (Immortal)",
       "Isophyne",
@@ -532,14 +514,12 @@
       "Rogue",
       "Scarlet Witch",
       "Scarlet Witch (Classic)",
-      "Sentinelbot",
       "Shathra",
       "Sorcerer Supreme",
       "Spider-Gwen",
       "Spider-Man (Pavitr Prabhakar)",
       "Spider-Man (Supreme)",
       "Summoned Symbiote",
-      "Symbioid",
       "Symbiote Supreme",
       "Thing",
       "Thor (Jane Foster)",
@@ -552,7 +532,6 @@
       "Anti-Venom",
       "Bishop",
       "Captain America (Infinity War)",
-      "Doombot",
       "Enchantress",
       "Hulk (Immortal)",
       "Joe Fixit",
@@ -584,7 +563,6 @@
       "Abomination",
       "Abomination (Immortal)",
       "Ant-Man",
-      "Anti-Venomoid",
       "Apocalypse",
       "Arcade",
       "Archangel",
@@ -597,7 +575,6 @@
       "Gorr",
       "Green Goblin",
       "Hawkeye",
-      "Henchpool",
       "Jack O'Lantern",
       "King Groot",
       "Kraven",
@@ -610,25 +587,21 @@
       "Scorpion",
       "Spider-Man 2099",
       "Summoned Symbiote",
-      "Symbioid",
       "Toad",
       "Ultron (Classic)",
       "X-23 (Orochi)"
     ],
     "Power Burn": [
-      "Adaptoid (Super Adaptoid Hydra)",
       "Civil Warrior",
       "Doctor Voodoo",
       "Dormammu",
       "Guillotine 2099",
-      "Henchpool",
       "Hulkbuster",
       "Iron Man (Infamous)",
       "Maestro",
       "Peni Parker",
       "Prowler",
       "Psylocke",
-      "Sentinelbot",
       "Spider-Slayer (J. Jonah Jameson)",
       "Ultron",
       "Vision",
@@ -644,7 +617,6 @@
       "Cosmic Ghost Rider",
       "Doctor Octopus",
       "Doctor Voodoo",
-      "Doombot",
       "Dormammu",
       "Enchantress",
       "Ghost Rider",
@@ -679,7 +651,8 @@
       "Star-Lord",
       "Terrax",
       "Viv Vision",
-      "Vulture"
+      "Vulture",
+      "Warlock"
     ],
     "Power Lock": [
       "Captain Marvel (Classic)",
@@ -737,7 +710,6 @@
     ],
     "Rupture": [
       "Anti-Venom",
-      "Anti-Venomoid",
       "Arcade",
       "Captain America (Sam Wilson)",
       "Gentle",
@@ -755,7 +727,6 @@
       "Rocket Raccoon",
       "Sasquatch",
       "Scorpion",
-      "Sentinelbot",
       "Silk",
       "Spider-Man (Miles Morales)",
       "Spider-Man (Stark Enhanced)",
@@ -774,13 +745,11 @@
       "Taskmaster"
     ],
     "Shock": [
-      "Anti-Venomoid",
       "Arcade",
       "Beta Ray Bill",
       "Black Widow (Deadly Origin)",
       "Darkhawk",
       "Doctor Doom",
-      "Doombot",
       "Electro",
       "Enchantress",
       "Gamora",
@@ -819,7 +788,8 @@
       "The Hood",
       "Thor",
       "Thor (Jane Foster)",
-      "Thor (Ragnarok)"
+      "Thor (Ragnarok)",
+      "Warlock"
     ],
     "Sleep": [
       "Arnim Zola",
@@ -831,7 +801,6 @@
       "Black Widow (Claire Voyant)",
       "Captain Britain",
       "Dani Moonstar",
-      "Doombot",
       "Dracula",
       "Dragon Man",
       "Elsa Bloodstone",
@@ -886,7 +855,6 @@
       "Air-Walker",
       "America Chavez",
       "Ant-Man (Future)",
-      "Anti-Venomoid",
       "Apocalypse",
       "Arcade",
       "Archangel",
@@ -918,7 +886,6 @@
       "Doctor Doom",
       "Doctor Strange",
       "Domino",
-      "Doombot",
       "Dust",
       "Electro",
       "Enchantress",
@@ -1003,7 +970,6 @@
       "Stryfe",
       "Summoned Symbiote",
       "Super-Skrull",
-      "Symbioid",
       "Terrax",
       "Thanos (Deathless)",
       "The Collector",
@@ -1052,7 +1018,6 @@
       "Blue Marvel",
       "Captain America (Infinity War)",
       "Civil Warrior",
-      "Doombot",
       "Green Goblin",
       "Hulk (Immortal)",
       "Hulk (Ragnarok)",
@@ -1104,16 +1069,6 @@
     "Annihilus": [
       "Armor Break",
       "Taunt"
-    ],
-    "Anti-Venomoid": [
-      "Armor Break",
-      "Coldsnap",
-      "Incinerate",
-      "Neutralize",
-      "Poison",
-      "Rupture",
-      "Shock",
-      "Stun"
     ],
     "Arnim Zola": [
       "Armor Break",
@@ -1207,14 +1162,6 @@
     ],
     "Hela": [
       "Armor Break"
-    ],
-    "Henchpool": [
-      "Armor Break",
-      "Bleed",
-      "Degeneration",
-      "Nullify",
-      "Poison",
-      "Power Burn"
     ],
     "Hercules": [
       "Armor Break",
@@ -1445,15 +1392,6 @@
       "Incinerate",
       "Shock"
     ],
-    "Sentinelbot": [
-      "Armor Break",
-      "Bleed",
-      "Degeneration",
-      "Incinerate",
-      "Nullify",
-      "Power Burn",
-      "Rupture"
-    ],
     "Silver Surfer": [
       "Armor Break"
     ],
@@ -1557,9 +1495,12 @@
     ],
     "Warlock": [
       "Armor Break",
+      "Bleed",
       "Degeneration",
       "Heal Block",
-      "Power Burn"
+      "Power Burn",
+      "Power Drain",
+      "Shock"
     ],
     "Agent Venom": [
       "Bleed",
@@ -1653,19 +1594,6 @@
       "Nullify",
       "Poison",
       "Stun"
-    ],
-    "Doombot": [
-      "Bleed",
-      "Degeneration",
-      "Fatigue",
-      "Heal Block",
-      "Nullify",
-      "Petrify",
-      "Power Drain",
-      "Shock",
-      "Slow",
-      "Stun",
-      "Weakness"
     ],
     "Dracula": [
       "Bleed",
@@ -2297,10 +2225,6 @@
       "Stun",
       "Weakness"
     ],
-    "Adaptoid (Super Adaptoid Hydra)": [
-      "Heal Block",
-      "Power Burn"
-    ],
     "Captain America (Sam Wilson)": [
       "Heal Block",
       "Power Drain",
@@ -2356,12 +2280,6 @@
       "Power Drain",
       "Shock",
       "Slow"
-    ],
-    "Symbioid": [
-      "Heal Block",
-      "Nullify",
-      "Poison",
-      "Stun"
     ],
     "Thanos": [
       "Heal Block"
