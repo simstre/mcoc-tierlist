@@ -24,11 +24,17 @@ const immColors = {
 function buildImmToggles() {
   const container = document.getElementById('imm-toggles');
   const hint = document.getElementById('imm-hint');
+  const legend = document.getElementById('imm-legend');
   const types = immMode === 'immune' ? (data.immunity_types || []) : (data.debuff_types || []);
 
   hint.textContent = immMode === 'immune'
     ? 'Select immunities to find matching champions. Multiple = must have all.'
     : 'Select debuffs to find champions who inflict them. Multiple = must inflict all.';
+
+  legend.innerHTML = immMode === 'immune'
+    ? '<span class="imm-legend-item"><span class="imm-tag">ALWAYS</span> Always active</span>' +
+      '<span class="imm-legend-item"><span class="imm-tag cond">CONDITIONAL</span> Requires specific mode or ability</span>'
+    : '';
 
   container.innerHTML = types.map(t => {
     const color = immColors[t] || '#888';
@@ -240,7 +246,11 @@ function champHtml(c, rank) {
     ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
     : '';
   const immLine = c.immunities && c.immunities.length
-    ? `<div class="champ-imm-line">${c.immunities.map(i => `<span class="imm-tag">${i}</span>`).join('')}</div>`
+    ? `<div class="champ-imm-line">${c.immunities.map(i => {
+        const label = typeof i === 'string' ? i : i.type;
+        const cond = (typeof i === 'object' && i.conditional) ? ' cond' : '';
+        return `<span class="imm-tag${cond}">${label}</span>`;
+      }).join('')}</div>`
     : '';
 
   return `<div class="champ">
@@ -282,6 +292,14 @@ function render() {
     '<p class="empty">No champions found.</p>';
 }
 
+// Helper to get immunity/inflict type string from entry (handles both old string and new object format)
+function immType(entry) {
+  return typeof entry === 'string' ? entry : entry.type;
+}
+function immCond(entry) {
+  return typeof entry === 'object' && entry.conditional;
+}
+
 function renderImmunities() {
   const info = document.getElementById('imm-results-info');
   const field = immMode === 'immune' ? 'immunities' : 'inflicts';
@@ -291,7 +309,7 @@ function renderImmunities() {
 
   if (selectedImms.size > 0) {
     champs = champs.filter(c =>
-      [...selectedImms].every(imm => c[field].includes(imm))
+      [...selectedImms].every(imm => c[field].some(e => immType(e) === imm))
     );
     const labels = [...selectedImms].join(' + ');
     info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''} ${verb} ${labels}`;
@@ -309,8 +327,10 @@ function renderImmunities() {
       : `<span class="fb">${c.name[0]}</span>`;
     const color = data.class_colors[c.class];
     const tags = c[field].map(i => {
-      const matched = selectedImms.has(i) ? ' matched' : '';
-      return `<span class="imm-tag${matched}">${i}</span>`;
+      const label = immType(i);
+      const matched = selectedImms.has(label) ? ' matched' : '';
+      const cond = immCond(i) ? ' cond' : '';
+      return `<span class="imm-tag${matched}${cond}">${label}</span>`;
     }).join('');
 
     return `<div class="imm-champ-row">

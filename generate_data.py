@@ -14,7 +14,7 @@ from champions_data import (
     SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
 )
 from fetch_tierlist import fetch_and_cache, load_cached
-from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
+from immunities import get_immunities_for_champion, get_immunity_map, IMMUNITY_TYPES
 from debuffs import fetch_and_cache_debuffs, load_cached_debuffs
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
@@ -45,7 +45,7 @@ def main():
     champions = compute_tier_list(data)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
-        c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
+        c["immunities"] = get_immunities_for_champion(c["name"])
         c["inflicts"] = champion_debuffs.get(c["name"], [])
 
     by_class = get_champions_by_class(champions)
