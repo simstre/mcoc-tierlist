@@ -1,5 +1,97 @@
 {
   "debuff_map": {
+    "Armor Break": [
+      "Abomination (Immortal)",
+      "Absorbing Man",
+      "Air-Walker",
+      "Angela",
+      "Annihilus",
+      "Anti-Venomoid",
+      "Arnim Zola",
+      "Black Bolt",
+      "Captain America (Infinity War)",
+      "Captain Marvel",
+      "Carnage",
+      "Corvus Glaive",
+      "Cosmic Ghost Rider",
+      "Cull Obsidian",
+      "Cyclops (New Xavier School)",
+      "Deadpool",
+      "Deadpool (X-Force)",
+      "Doctor Doom",
+      "Domino",
+      "Elektra",
+      "Gamora",
+      "Gwenpool",
+      "Hela",
+      "Henchpool",
+      "Hercules",
+      "Hit-Monkey",
+      "Howard the Duck",
+      "Hulkbuster",
+      "Hulkling",
+      "Hyperion",
+      "Iron Fist",
+      "Iron Fist (Immortal)",
+      "Iron Man",
+      "Iron Man (Infinity War)",
+      "Iron Patriot",
+      "King Groot",
+      "King Groot (Deathless)",
+      "Knull",
+      "Korg",
+      "M.O.D.O.K.",
+      "Magneto",
+      "Magneto (House of X)",
+      "Man-Thing",
+      "Mangog",
+      "Medusa",
+      "Misty Knight",
+      "Ms. Marvel (Kamala Khan)",
+      "Northstar",
+      "Nova",
+      "Old Man Logan",
+      "Omega Sentinel",
+      "Phoenix",
+      "Proxima Midnight",
+      "Punisher 2099",
+      "Purgatory",
+      "Red Goblin",
+      "Red Hulk",
+      "Red Skull",
+      "Rocket Raccoon",
+      "Ronan",
+      "Sabretooth",
+      "Scarlet Witch",
+      "Scream",
+      "Sentinel",
+      "Sentinelbot",
+      "Silver Surfer",
+      "Sorcerer Supreme",
+      "Spider-Man (Classic)",
+      "Spider-Man (Symbiote)",
+      "Star-Lord",
+      "Summoned Symbiote",
+      "Super-Skrull",
+      "Superior Iron Man",
+      "Symbiote Supreme",
+      "Taskmaster",
+      "Terrax",
+      "Thanos (Deathless)",
+      "The Champion",
+      "Thor",
+      "Thor (Ragnarok)",
+      "Venom",
+      "Vision (Aarkus)",
+      "Vulture",
+      "War Machine",
+      "Warlock"
+    ],
+    "Armor Shattered": [
+      "Medusa",
+      "Thanos (Deathless)",
+      "Vision (Aarkus)"
+    ],
     "Bleed": [
       "Agent Venom",
       "Apocalypse",
@@ -91,40 +183,233 @@
       "X-23 (Orochi)",
       "\u00c6gon"
     ],
-    "Poison": [
+    "Coldsnap": [
+      "Anti-Venomoid",
+      "Doctor Strange",
+      "Elsa Bloodstone",
+      "Enchantress",
+      "Gladiator",
+      "Iceman",
+      "Kate Bishop",
+      "Misty Knight",
+      "Scarlet Witch",
+      "Solvarch",
+      "Storm (Pyramid X)",
+      "The Serpent",
+      "Vision (Aarkus)"
+    ],
+    "Concussion": [
+      "Apocalypse",
+      "Attuma",
+      "Beast",
+      "Cable",
+      "Dragon Man",
+      "Emma Frost",
+      "Gambit",
+      "Jubilee",
+      "Kraven",
+      "Luke Cage",
+      "M.O.D.O.K.",
+      "Mister Sinister",
+      "Psycho-Man",
+      "Quake",
+      "Sasquatch",
+      "Spider-Ham",
+      "Spider-Woman (Jessica Drew)",
+      "Stryfe",
+      "Taskmaster"
+    ],
+    "Damnation": [
+      "Cosmic Ghost Rider",
+      "Ghost Rider"
+    ],
+    "Degeneration": [
+      "Apocalypse",
+      "Cable",
+      "Captain Britain",
+      "Doombot",
+      "Dormammu",
+      "Dracula",
+      "Dragon Man",
+      "Ebony Maw",
+      "Elsa Bloodstone",
+      "Gamora",
+      "Gorr",
+      "Guillotine",
+      "Guillotine (Deathless)",
+      "Guillotine 2099",
+      "Henchpool",
+      "Isophyne",
+      "Kindred",
+      "Kingpin",
+      "Knull",
+      "Kushala",
+      "Longshot",
+      "Madelyne Pryor",
+      "Maestro",
+      "Magneto (House of X)",
+      "Mister Negative",
+      "Mister Sinister",
+      "Mojo",
+      "Mordo",
+      "Omega Red",
+      "Onslaught",
+      "Psylocke",
+      "Purgatory",
+      "Rogue",
+      "Sauron",
+      "Scarlet Witch",
+      "Sentinelbot",
+      "Spider-Slayer (J. Jonah Jameson)",
+      "The Destroyer",
+      "The Leader",
+      "Thor (Jane Foster)",
+      "Ultron",
+      "Venom the Duck",
+      "Venompool",
+      "Vision (Deathless)",
+      "Void",
+      "Vox",
+      "Warlock",
+      "X-23 (Orochi)"
+    ],
+    "Disorient": [
+      "Anti-Venom",
+      "Baron Zemo",
+      "Bullseye",
+      "Captain America (Infinity War)",
+      "Cyclops (Blue Team)",
+      "Cyclops (New Xavier School)",
+      "Daredevil (Hell's Kitchen)",
+      "Elsa Bloodstone",
+      "Hit-Monkey",
+      "Joe Fixit",
+      "Karnak",
+      "Kraven",
+      "Masacre",
+      "Misty Knight",
+      "Nick Fury",
+      "Night Thrasher",
+      "Ronin",
+      "Silver Sable",
+      "Star-Lord",
+      "The Overseer",
+      "Titania",
+      "Toad"
+    ],
+    "Enervate": [
       "Abomination",
       "Abomination (Immortal)",
-      "Ant-Man",
-      "Anti-Venomoid",
-      "Apocalypse",
-      "Arcade",
-      "Archangel",
-      "Black Widow (Claire Voyant)",
-      "Cassie Lang",
-      "Diablo",
-      "Doctor Strange",
-      "Doctor Voodoo",
-      "Enchantress",
-      "Gorr",
-      "Green Goblin",
-      "Hawkeye",
-      "Henchpool",
-      "Jack O'Lantern",
-      "King Groot",
-      "Kraven",
+      "Gwenpool",
+      "Hulk (Ragnarok)",
+      "Mister Negative",
+      "Psylocke",
+      "Spider-Gwen",
+      "Spider-Man (Stealth Suit)"
+    ],
+    "Exhaustion": [
+      "Captain Britain",
+      "High Evolutionary",
+      "Invisible Woman",
+      "Jean Grey",
+      "Jessica Jones",
+      "Luke Cage",
       "M.O.D.O.K.",
-      "Man-Thing",
+      "Mister Negative",
+      "Sentry",
+      "She-Hulk",
+      "Spider-Man 2099",
+      "Titania"
+    ],
+    "Falter": [
+      "Dani Moonstar",
+      "Dazzler",
+      "Ebony Maw",
+      "Mojo",
       "Mysterio",
-      "Nico Minoru",
+      "Professor X",
+      "Prowler",
+      "Shang-Chi",
+      "Spider-Slayer (J. Jonah Jameson)",
+      "Stryfe",
+      "Super-Skrull",
+      "Titania"
+    ],
+    "Fate Seal": [
+      "Doctor Strange",
+      "Ghost Rider",
+      "Iron Fist",
+      "Iron Fist (Immortal)",
+      "Longshot",
+      "The Hood"
+    ],
+    "Fatigue": [
+      "Ant-Man",
+      "Captain America",
+      "Colossus",
+      "Doombot",
+      "M.O.D.O.K.",
+      "Mister Negative",
+      "Scarlet Witch (Classic)",
+      "Titania",
+      "Void"
+    ],
+    "Frostbite": [
+      "Elsa Bloodstone",
+      "Emma Frost",
+      "Enchantress",
+      "Iceman",
+      "Kate Bishop",
+      "Misty Knight"
+    ],
+    "Heal Block": [
+      "Adaptoid (Super Adaptoid Hydra)",
+      "Archangel",
+      "Captain America (Sam Wilson)",
+      "Civil Warrior",
+      "Dani Moonstar",
+      "Darkhawk",
+      "Doctor Octopus",
+      "Doctor Strange",
+      "Doombot",
+      "Elsa Bloodstone",
+      "Falcon (Joaqu\u00edn Torres)",
+      "Howard the Duck",
+      "Hulk (Ragnarok)",
+      "Invisible Woman",
+      "Iron Man (Infinity War)",
+      "Kang the Conqueror",
+      "Lady Deathstrike",
+      "M.O.D.O.K.",
+      "Magneto",
+      "Mister Fantastic",
+      "Mister Sinister",
+      "Mysterio",
+      "Omega Sentinel",
+      "Peni Parker",
+      "Proxima Midnight",
+      "Psycho-Man",
+      "Punisher 2099",
+      "Red Skull",
+      "Rocket Raccoon",
+      "Sauron",
       "Scarlet Witch",
       "Scarlet Witch (Classic)",
-      "Scorpion",
-      "Spider-Man 2099",
-      "Summoned Symbiote",
+      "Sentinel",
+      "Silver Centurion",
+      "Solvarch",
+      "Star-Lord",
       "Symbioid",
-      "Toad",
+      "Thanos",
+      "The Maker",
+      "Thing",
+      "Ultron",
       "Ultron (Classic)",
-      "X-23 (Orochi)"
+      "Vision",
+      "Vision (Age of Ultron)",
+      "Vision (Deathless)",
+      "Viv Vision",
+      "Warlock"
     ],
     "Incinerate": [
       "Absorbing Man",
@@ -198,76 +483,20 @@
       "Viv Vision",
       "Vulture"
     ],
-    "Shock": [
-      "Anti-Venomoid",
-      "Arcade",
-      "Beta Ray Bill",
-      "Black Widow (Deadly Origin)",
-      "Darkhawk",
-      "Doctor Doom",
-      "Doombot",
-      "Electro",
-      "Enchantress",
-      "Gamora",
-      "Gorr",
-      "Guardian",
-      "Hulkbuster",
-      "Iron Man (Infamous)",
-      "Iron Man (Infinity War)",
-      "Jubilee",
-      "Mister Fantastic",
-      "Mole Man",
-      "Nebula",
-      "Night Thrasher",
-      "Nimrod",
-      "Okoye",
-      "Omega Sentinel",
-      "Peni Parker",
-      "Psycho-Man",
-      "Red Skull",
-      "Scorpion",
-      "Sentinel",
-      "Shocker",
-      "Shuri",
-      "Silver Centurion",
-      "Silver Sable",
-      "Spider-Man (Classic)",
-      "Spider-Man (Miles Morales)",
-      "Spider-Man (Stark Enhanced)",
-      "Spider-Slayer (J. Jonah Jameson)",
-      "Spider-Woman (Jessica Drew)",
-      "Squirrel Girl",
-      "Star-Lord",
-      "Storm",
-      "Storm (Pyramid X)",
-      "Stryfe",
-      "The Hood",
-      "Thor",
-      "Thor (Jane Foster)",
-      "Thor (Ragnarok)"
-    ],
-    "Coldsnap": [
+    "Neutralize": [
       "Anti-Venomoid",
       "Doctor Strange",
-      "Elsa Bloodstone",
       "Enchantress",
-      "Gladiator",
-      "Iceman",
-      "Kate Bishop",
-      "Misty Knight",
-      "Scarlet Witch",
-      "Solvarch",
-      "Storm (Pyramid X)",
-      "The Serpent",
-      "Vision (Aarkus)"
+      "Guillotine (Deathless)",
+      "Rintrah",
+      "Spider-Man (Pavitr Prabhakar)",
+      "Tigra",
+      "Vox"
     ],
-    "Frostbite": [
-      "Elsa Bloodstone",
-      "Emma Frost",
-      "Enchantress",
-      "Iceman",
-      "Kate Bishop",
-      "Misty Knight"
+    "Nova Flame": [
+      "Dark Phoenix",
+      "Human Torch",
+      "Super-Skrull"
     ],
     "Nullify": [
       "Black Widow (Claire Voyant)",
@@ -317,167 +546,94 @@
       "Tigra",
       "Venom"
     ],
-    "Stagger": [
+    "Petrify": [
+      "Abomination (Immortal)",
       "Ant-Man",
       "Anti-Venom",
+      "Bishop",
       "Captain America (Infinity War)",
-      "Captain America (WWII)",
-      "Doctor Doom",
-      "Iron Fist",
-      "Iron Fist (Immortal)",
-      "Jessica Jones",
-      "Juggernaut",
-      "Mangog",
+      "Doombot",
+      "Enchantress",
+      "Hulk (Immortal)",
+      "Joe Fixit",
+      "M.O.D.O.K.",
       "Mister Fantastic",
-      "Sasquatch",
-      "Symbiote Supreme",
-      "The Hood",
-      "Thing",
-      "Thor (Jane Foster)",
-      "Titania"
+      "Mister Negative",
+      "Morbius",
+      "Photon",
+      "Psylocke",
+      "Sandman",
+      "Scarlet Witch",
+      "Scorpion",
+      "She-Hulk",
+      "Titania",
+      "Void"
     ],
-    "Armor Break": [
-      "Abomination (Immortal)",
-      "Absorbing Man",
-      "Air-Walker",
-      "Angela",
-      "Annihilus",
-      "Anti-Venomoid",
-      "Arnim Zola",
-      "Black Bolt",
-      "Captain America (Infinity War)",
-      "Captain Marvel",
-      "Carnage",
-      "Corvus Glaive",
-      "Cosmic Ghost Rider",
-      "Cull Obsidian",
-      "Cyclops (New Xavier School)",
-      "Deadpool",
-      "Deadpool (X-Force)",
-      "Doctor Doom",
-      "Domino",
-      "Elektra",
-      "Gamora",
-      "Gwenpool",
-      "Hela",
-      "Henchpool",
-      "Hercules",
-      "Hit-Monkey",
-      "Howard the Duck",
-      "Hulkbuster",
-      "Hulkling",
-      "Hyperion",
-      "Iron Fist",
-      "Iron Fist (Immortal)",
+    "Plasma": [
+      "Count Nefaria",
       "Iron Man",
       "Iron Man (Infinity War)",
-      "Iron Patriot",
-      "King Groot",
-      "King Groot (Deathless)",
-      "Knull",
-      "Korg",
-      "M.O.D.O.K.",
-      "Magneto",
-      "Magneto (House of X)",
-      "Man-Thing",
-      "Mangog",
-      "Medusa",
-      "Misty Knight",
-      "Ms. Marvel (Kamala Khan)",
-      "Northstar",
-      "Nova",
-      "Old Man Logan",
+      "Jack O'Lantern",
+      "Karolina Dean",
       "Omega Sentinel",
-      "Phoenix",
-      "Proxima Midnight",
-      "Punisher 2099",
-      "Purgatory",
-      "Red Goblin",
-      "Red Hulk",
-      "Red Skull",
-      "Rocket Raccoon",
-      "Ronan",
-      "Sabretooth",
-      "Scarlet Witch",
-      "Scream",
-      "Sentinel",
-      "Sentinelbot",
-      "Silver Surfer",
-      "Sorcerer Supreme",
-      "Spider-Man (Classic)",
-      "Spider-Man (Symbiote)",
-      "Star-Lord",
-      "Summoned Symbiote",
-      "Super-Skrull",
-      "Superior Iron Man",
-      "Symbiote Supreme",
-      "Taskmaster",
-      "Terrax",
-      "Thanos (Deathless)",
-      "The Champion",
-      "Thor",
-      "Thor (Ragnarok)",
-      "Venom",
-      "Vision (Aarkus)",
-      "Vulture",
-      "War Machine",
-      "Warlock"
+      "Silver Centurion",
+      "The Maker",
+      "Viv Vision"
     ],
-    "Fate Seal": [
-      "Doctor Strange",
-      "Ghost Rider",
-      "Iron Fist",
-      "Iron Fist (Immortal)",
-      "Longshot",
-      "The Hood"
-    ],
-    "Heal Block": [
-      "Adaptoid (Super Adaptoid Hydra)",
+    "Poison": [
+      "Abomination",
+      "Abomination (Immortal)",
+      "Ant-Man",
+      "Anti-Venomoid",
+      "Apocalypse",
+      "Arcade",
       "Archangel",
-      "Captain America (Sam Wilson)",
-      "Civil Warrior",
-      "Dani Moonstar",
-      "Darkhawk",
-      "Doctor Octopus",
+      "Black Widow (Claire Voyant)",
+      "Cassie Lang",
+      "Diablo",
       "Doctor Strange",
-      "Doombot",
-      "Elsa Bloodstone",
-      "Falcon (Joaqu\u00edn Torres)",
-      "Howard the Duck",
-      "Hulk (Ragnarok)",
-      "Invisible Woman",
-      "Iron Man (Infinity War)",
-      "Kang the Conqueror",
-      "Lady Deathstrike",
+      "Doctor Voodoo",
+      "Enchantress",
+      "Gorr",
+      "Green Goblin",
+      "Hawkeye",
+      "Henchpool",
+      "Jack O'Lantern",
+      "King Groot",
+      "Kraven",
       "M.O.D.O.K.",
-      "Magneto",
-      "Mister Fantastic",
-      "Mister Sinister",
+      "Man-Thing",
       "Mysterio",
-      "Omega Sentinel",
-      "Peni Parker",
-      "Proxima Midnight",
-      "Psycho-Man",
-      "Punisher 2099",
-      "Red Skull",
-      "Rocket Raccoon",
-      "Sauron",
+      "Nico Minoru",
       "Scarlet Witch",
       "Scarlet Witch (Classic)",
-      "Sentinel",
-      "Silver Centurion",
-      "Solvarch",
-      "Star-Lord",
+      "Scorpion",
+      "Spider-Man 2099",
+      "Summoned Symbiote",
       "Symbioid",
-      "Thanos",
-      "The Maker",
-      "Thing",
-      "Ultron",
+      "Toad",
       "Ultron (Classic)",
+      "X-23 (Orochi)"
+    ],
+    "Power Burn": [
+      "Adaptoid (Super Adaptoid Hydra)",
+      "Civil Warrior",
+      "Doctor Voodoo",
+      "Dormammu",
+      "Guillotine 2099",
+      "Henchpool",
+      "Hulkbuster",
+      "Iron Man (Infamous)",
+      "Maestro",
+      "Peni Parker",
+      "Prowler",
+      "Psylocke",
+      "Sentinelbot",
+      "Spider-Slayer (J. Jonah Jameson)",
+      "Ultron",
       "Vision",
       "Vision (Age of Ultron)",
       "Vision (Deathless)",
-      "Viv Vision",
       "Warlock"
     ],
     "Power Drain": [
@@ -570,26 +726,159 @@
       "Vision (Deathless)",
       "Viv Vision"
     ],
-    "Power Burn": [
-      "Adaptoid (Super Adaptoid Hydra)",
-      "Civil Warrior",
-      "Doctor Voodoo",
-      "Dormammu",
-      "Guillotine 2099",
-      "Henchpool",
+    "Power Sting": [
+      "Ant-Man",
+      "Cassie Lang",
+      "Emma Frost",
+      "Human Torch",
+      "Scarlet Witch",
+      "Spider-Man (Miles Morales)",
+      "Spider-Woman (Jessica Drew)"
+    ],
+    "Rupture": [
+      "Anti-Venom",
+      "Anti-Venomoid",
+      "Arcade",
+      "Captain America (Sam Wilson)",
+      "Gentle",
+      "Guillotine",
+      "Hawkeye",
+      "Ironheart",
+      "Jessica Jones",
+      "Lady Deathstrike",
+      "Lizard",
+      "Morbius",
+      "Negasonic Teenage Warhead",
+      "Patriot",
+      "Prowler",
+      "Rintrah",
+      "Rocket Raccoon",
+      "Sasquatch",
+      "Scorpion",
+      "Sentinelbot",
+      "Silk",
+      "Spider-Man (Miles Morales)",
+      "Spider-Man (Stark Enhanced)",
+      "Spider-Man 2099",
+      "Spider-Punk",
+      "Spiral",
+      "Spot",
+      "The Destroyer",
+      "Tigra",
+      "War Machine",
+      "Werewolf By Night"
+    ],
+    "Sabotage": [
+      "Black Cat",
+      "Black Widow (Deadly Origin)",
+      "Taskmaster"
+    ],
+    "Shock": [
+      "Anti-Venomoid",
+      "Arcade",
+      "Beta Ray Bill",
+      "Black Widow (Deadly Origin)",
+      "Darkhawk",
+      "Doctor Doom",
+      "Doombot",
+      "Electro",
+      "Enchantress",
+      "Gamora",
+      "Gorr",
+      "Guardian",
       "Hulkbuster",
       "Iron Man (Infamous)",
-      "Maestro",
+      "Iron Man (Infinity War)",
+      "Jubilee",
+      "Mister Fantastic",
+      "Mole Man",
+      "Nebula",
+      "Night Thrasher",
+      "Nimrod",
+      "Okoye",
+      "Omega Sentinel",
       "Peni Parker",
-      "Prowler",
-      "Psylocke",
-      "Sentinelbot",
+      "Psycho-Man",
+      "Red Skull",
+      "Scorpion",
+      "Sentinel",
+      "Shocker",
+      "Shuri",
+      "Silver Centurion",
+      "Silver Sable",
+      "Spider-Man (Classic)",
+      "Spider-Man (Miles Morales)",
+      "Spider-Man (Stark Enhanced)",
       "Spider-Slayer (J. Jonah Jameson)",
-      "Ultron",
-      "Vision",
-      "Vision (Age of Ultron)",
-      "Vision (Deathless)",
-      "Warlock"
+      "Spider-Woman (Jessica Drew)",
+      "Squirrel Girl",
+      "Star-Lord",
+      "Storm",
+      "Storm (Pyramid X)",
+      "Stryfe",
+      "The Hood",
+      "Thor",
+      "Thor (Jane Foster)",
+      "Thor (Ragnarok)"
+    ],
+    "Sleep": [
+      "Arnim Zola",
+      "Mantis",
+      "Mr. Knight",
+      "Pixie"
+    ],
+    "Slow": [
+      "Black Widow (Claire Voyant)",
+      "Captain Britain",
+      "Dani Moonstar",
+      "Doombot",
+      "Dracula",
+      "Dragon Man",
+      "Elsa Bloodstone",
+      "Falcon (Joaqu\u00edn Torres)",
+      "Hawkeye",
+      "High Evolutionary",
+      "Human Torch",
+      "Jubilee",
+      "Mephisto",
+      "Mister Negative",
+      "Northstar",
+      "Purgatory",
+      "Quicksilver",
+      "Red Guardian",
+      "Rhino",
+      "Scorpion",
+      "Shang-Chi",
+      "She-Hulk",
+      "Silk",
+      "Silver Centurion",
+      "Sorcerer Supreme",
+      "Spider-Gwen",
+      "Spider-Man (Stealth Suit)",
+      "Spider-Man 2099",
+      "Spider-Slayer (J. Jonah Jameson)",
+      "Storm (Pyramid X)",
+      "Sunspot",
+      "Toad"
+    ],
+    "Stagger": [
+      "Ant-Man",
+      "Anti-Venom",
+      "Captain America (Infinity War)",
+      "Captain America (WWII)",
+      "Doctor Doom",
+      "Iron Fist",
+      "Iron Fist (Immortal)",
+      "Jessica Jones",
+      "Juggernaut",
+      "Mangog",
+      "Mister Fantastic",
+      "Sasquatch",
+      "Symbiote Supreme",
+      "The Hood",
+      "Thing",
+      "Thor (Jane Foster)",
+      "Titania"
     ],
     "Stun": [
       "Adam Warlock",
@@ -732,1086 +1021,78 @@
       "Werewolf By Night",
       "\u00c6gon"
     ],
-    "Degeneration": [
+    "Taunt": [
+      "Adam Warlock",
+      "Annihilus",
+      "Cassie Lang",
+      "Deadpool (X-Force)",
+      "Domino",
+      "Emma Frost",
+      "Goldpool",
+      "Guardian",
+      "Jubilee",
+      "Mister Fantastic",
+      "Night Thrasher",
+      "Photon",
+      "Prowler",
+      "Rhino",
+      "Rintrah",
+      "Scorpion",
+      "Spider-Ham",
+      "Spider-Man (Classic)",
+      "Spider-Man (Miles Morales)",
+      "Spider-Man (Stark Enhanced)",
+      "Spider-Punk",
+      "Spot",
+      "The Overseer"
+    ],
+    "Weakness": [
+      "Abomination (Immortal)",
       "Apocalypse",
-      "Cable",
-      "Captain Britain",
+      "Blue Marvel",
+      "Captain America (Infinity War)",
+      "Civil Warrior",
       "Doombot",
-      "Dormammu",
-      "Dracula",
-      "Dragon Man",
-      "Ebony Maw",
-      "Elsa Bloodstone",
-      "Gamora",
-      "Gorr",
-      "Guillotine",
-      "Guillotine (Deathless)",
-      "Guillotine 2099",
-      "Henchpool",
-      "Isophyne",
+      "Green Goblin",
+      "Hulk (Immortal)",
+      "Hulk (Ragnarok)",
+      "Human Torch",
+      "Jessica Jones",
+      "Joe Fixit",
+      "Juggernaut",
       "Kindred",
-      "Kingpin",
-      "Knull",
-      "Kushala",
-      "Longshot",
-      "Madelyne Pryor",
-      "Maestro",
-      "Magneto (House of X)",
-      "Mister Negative",
-      "Mister Sinister",
-      "Mojo",
-      "Mordo",
-      "Omega Red",
-      "Onslaught",
-      "Psylocke",
-      "Purgatory",
-      "Rogue",
-      "Sauron",
-      "Scarlet Witch",
-      "Sentinelbot",
-      "Spider-Slayer (J. Jonah Jameson)",
-      "The Destroyer",
-      "The Leader",
-      "Thor (Jane Foster)",
-      "Ultron",
-      "Venom the Duck",
-      "Venompool",
-      "Vision (Deathless)",
-      "Void",
-      "Vox",
-      "Warlock",
-      "X-23 (Orochi)"
+      "M.O.D.O.K.",
+      "Magneto",
+      "Mister Fantastic",
+      "Morbius",
+      "Okoye",
+      "Patriot",
+      "Psycho-Man",
+      "Ronan",
+      "Scarlet Witch (Classic)",
+      "She-Hulk",
+      "She-Hulk (Deathless)",
+      "Spider-Man (Classic)",
+      "Spider-Man (Miles Morales)",
+      "Spider-Man (Symbiote)",
+      "Summoned Symbiote",
+      "Symbiote Supreme",
+      "Thing",
+      "Titania",
+      "Void"
     ]
   },
   "champion_debuffs": {
-    "Agent Venom": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Apocalypse": [
-      "Bleed",
-      "Poison",
-      "Stun",
-      "Degeneration"
-    ],
-    "Arcade": [
-      "Bleed",
-      "Poison",
-      "Incinerate",
-      "Shock",
-      "Stun"
-    ],
-    "Archangel": [
-      "Bleed",
-      "Poison",
-      "Heal Block",
-      "Stun"
-    ],
-    "Attuma": [
-      "Bleed"
-    ],
-    "Baron Zemo": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Beast": [
-      "Bleed",
-      "Stun"
-    ],
-    "Black Cat": [
-      "Bleed"
-    ],
-    "Black Panther": [
-      "Bleed"
-    ],
-    "Black Panther (Civil War)": [
-      "Bleed",
-      "Stun"
-    ],
-    "Black Widow (Claire Voyant)": [
-      "Bleed",
-      "Poison",
-      "Incinerate",
-      "Nullify",
-      "Stun"
-    ],
-    "Blade": [
-      "Bleed",
-      "Stun"
-    ],
-    "Bullseye": [
-      "Bleed",
-      "Stun"
-    ],
-    "Captain America (Infinity War)": [
-      "Bleed",
-      "Nullify",
-      "Stagger",
-      "Armor Break",
-      "Stun"
-    ],
-    "Captain America (WWII)": [
-      "Bleed",
-      "Nullify",
-      "Stagger",
-      "Stun"
-    ],
-    "Carnage": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Chee'ilth": [
-      "Bleed"
-    ],
-    "Daredevil (Hell's Kitchen)": [
-      "Bleed",
-      "Stun"
-    ],
-    "Deadpool": [
-      "Bleed",
-      "Armor Break",
-      "Stun"
-    ],
-    "Deadpool (X-Force)": [
-      "Bleed",
-      "Armor Break",
-      "Stun"
-    ],
-    "Doctor Strange": [
-      "Bleed",
-      "Poison",
-      "Incinerate",
-      "Coldsnap",
-      "Nullify",
-      "Fate Seal",
-      "Heal Block",
-      "Stun"
-    ],
-    "Domino": [
-      "Bleed",
-      "Incinerate",
-      "Armor Break",
-      "Stun"
-    ],
-    "Doombot": [
-      "Bleed",
-      "Shock",
-      "Nullify",
-      "Heal Block",
-      "Power Drain",
-      "Stun",
-      "Degeneration"
-    ],
-    "Dracula": [
-      "Bleed",
-      "Nullify",
-      "Degeneration"
-    ],
-    "Drax": [
-      "Bleed"
-    ],
-    "Elektra": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Falcon": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Falcon (Joaqu\u00edn Torres)": [
-      "Bleed",
-      "Heal Block"
-    ],
-    "Gamora": [
-      "Bleed",
-      "Shock",
-      "Armor Break",
-      "Degeneration"
-    ],
-    "Ghost Rider": [
-      "Bleed",
-      "Fate Seal",
-      "Power Drain"
-    ],
-    "Goldpool": [
-      "Bleed",
-      "Stun"
-    ],
-    "Gorr": [
-      "Bleed",
-      "Poison",
-      "Shock",
-      "Degeneration"
-    ],
-    "Groot": [
-      "Bleed"
-    ],
-    "Guillotine": [
-      "Bleed",
-      "Degeneration"
-    ],
-    "Gwenpool": [
-      "Bleed",
-      "Incinerate",
-      "Armor Break",
-      "Stun"
-    ],
-    "Hawkeye": [
-      "Bleed",
-      "Poison",
-      "Power Drain"
-    ],
-    "Henchpool": [
-      "Bleed",
-      "Poison",
-      "Nullify",
-      "Armor Break",
-      "Power Burn",
-      "Degeneration"
-    ],
-    "Hit-Monkey": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Jabari Panther": [
-      "Bleed",
-      "Stun"
-    ],
-    "Joe Fixit": [
-      "Bleed",
-      "Stun"
-    ],
-    "Jubilee": [
-      "Bleed",
-      "Incinerate",
-      "Shock"
-    ],
-    "Karnak": [
-      "Bleed"
-    ],
-    "Killmonger": [
-      "Bleed"
-    ],
-    "Knull": [
-      "Bleed",
-      "Armor Break",
-      "Degeneration"
-    ],
-    "Korg": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Kraven": [
-      "Bleed",
-      "Poison",
-      "Power Lock"
-    ],
-    "Longshot": [
-      "Bleed",
-      "Incinerate",
-      "Nullify",
-      "Fate Seal",
-      "Stun",
-      "Degeneration"
-    ],
-    "M'Baku": [
-      "Bleed"
-    ],
-    "M.O.D.O.K.": [
-      "Bleed",
-      "Poison",
-      "Incinerate",
-      "Armor Break",
-      "Heal Block",
-      "Power Lock"
-    ],
-    "Maestro": [
-      "Bleed",
-      "Power Lock",
-      "Power Burn",
-      "Stun",
-      "Degeneration"
-    ],
-    "Magneto": [
-      "Bleed",
-      "Armor Break",
-      "Heal Block"
-    ],
-    "Magneto (House of X)": [
-      "Bleed",
-      "Armor Break",
-      "Degeneration"
-    ],
-    "Masacre": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Medusa": [
-      "Bleed",
-      "Armor Break",
-      "Stun"
-    ],
-    "Mister Sinister": [
-      "Bleed",
-      "Heal Block",
-      "Power Lock",
-      "Stun",
-      "Degeneration"
-    ],
-    "Mole Man": [
-      "Bleed",
-      "Shock"
-    ],
-    "Moon Knight": [
-      "Bleed",
-      "Stun"
-    ],
-    "Morbius": [
-      "Bleed"
-    ],
-    "Morningstar": [
-      "Bleed",
-      "Nullify"
-    ],
-    "Namor": [
-      "Bleed",
-      "Power Drain",
-      "Power Lock",
-      "Stun"
-    ],
-    "Nick Fury": [
-      "Bleed",
-      "Stun"
-    ],
-    "Night Thrasher": [
-      "Bleed",
-      "Incinerate",
-      "Shock"
-    ],
-    "Nightcrawler": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Okoye": [
-      "Bleed",
-      "Shock"
-    ],
-    "Old Man Logan": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Platinumpool": [
-      "Bleed",
-      "Stun"
-    ],
-    "Punisher": [
-      "Bleed",
-      "Incinerate"
-    ],
-    "Rocket Raccoon": [
-      "Bleed",
-      "Armor Break",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Ronin": [
-      "Bleed",
-      "Stun"
-    ],
-    "Sabretooth": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Sauron": [
-      "Bleed",
-      "Incinerate",
-      "Heal Block",
-      "Degeneration"
-    ],
-    "Scream": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "Sentinelbot": [
-      "Bleed",
-      "Incinerate",
-      "Nullify",
-      "Armor Break",
-      "Power Burn",
-      "Degeneration"
-    ],
-    "Squirrel Girl": [
-      "Bleed",
-      "Shock"
-    ],
-    "Storm": [
-      "Bleed",
-      "Shock",
-      "Power Lock",
-      "Stun"
-    ],
-    "Summoned Symbiote": [
-      "Bleed",
-      "Poison",
-      "Nullify",
-      "Armor Break",
-      "Stun"
-    ],
-    "Symbiote Supreme": [
-      "Bleed",
-      "Nullify",
-      "Stagger",
-      "Armor Break"
-    ],
-    "Taskmaster": [
-      "Bleed",
-      "Armor Break"
-    ],
-    "The Hood": [
-      "Bleed",
-      "Shock",
-      "Stagger",
-      "Fate Seal",
-      "Power Lock",
-      "Stun"
-    ],
-    "Ultron": [
-      "Bleed",
-      "Heal Block",
-      "Power Lock",
-      "Power Burn",
-      "Stun",
-      "Degeneration"
-    ],
-    "Valkyrie": [
-      "Bleed",
-      "Power Lock"
-    ],
-    "Venom": [
-      "Bleed",
-      "Nullify",
-      "Armor Break"
-    ],
-    "Venom the Duck": [
-      "Bleed",
-      "Degeneration"
-    ],
-    "Venompool": [
-      "Bleed",
-      "Stun",
-      "Degeneration"
-    ],
-    "Wolverine": [
-      "Bleed"
-    ],
-    "Wolverine (Weapon X)": [
-      "Bleed"
-    ],
-    "Wolverine (X-23)": [
-      "Bleed"
-    ],
-    "X-23 (Orochi)": [
-      "Bleed",
-      "Poison",
-      "Degeneration"
-    ],
-    "\u00c6gon": [
-      "Bleed",
-      "Stun"
-    ],
-    "Abomination": [
-      "Poison"
-    ],
     "Abomination (Immortal)": [
-      "Poison",
-      "Armor Break"
-    ],
-    "Ant-Man": [
-      "Poison",
-      "Stagger"
-    ],
-    "Anti-Venomoid": [
-      "Poison",
-      "Incinerate",
-      "Shock",
-      "Coldsnap",
       "Armor Break",
-      "Stun"
-    ],
-    "Cassie Lang": [
+      "Enervate",
+      "Petrify",
       "Poison",
-      "Stun"
-    ],
-    "Diablo": [
-      "Poison",
-      "Nullify",
-      "Stun"
-    ],
-    "Doctor Voodoo": [
-      "Poison",
-      "Nullify",
-      "Power Drain",
-      "Power Burn"
-    ],
-    "Enchantress": [
-      "Poison",
-      "Incinerate",
-      "Shock",
-      "Coldsnap",
-      "Frostbite",
-      "Nullify",
-      "Power Drain",
-      "Power Lock",
-      "Stun"
-    ],
-    "Green Goblin": [
-      "Poison",
-      "Incinerate",
-      "Power Drain"
-    ],
-    "Jack O'Lantern": [
-      "Poison",
-      "Incinerate"
-    ],
-    "King Groot": [
-      "Poison",
-      "Armor Break"
-    ],
-    "Man-Thing": [
-      "Poison",
-      "Nullify",
-      "Armor Break"
-    ],
-    "Mysterio": [
-      "Poison",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Nico Minoru": [
-      "Poison",
-      "Incinerate"
-    ],
-    "Scarlet Witch": [
-      "Poison",
-      "Incinerate",
-      "Coldsnap",
-      "Nullify",
-      "Armor Break",
-      "Heal Block",
-      "Degeneration"
-    ],
-    "Scarlet Witch (Classic)": [
-      "Poison",
-      "Nullify",
-      "Heal Block",
-      "Power Drain",
-      "Power Lock",
-      "Stun"
-    ],
-    "Scorpion": [
-      "Poison",
-      "Shock",
-      "Stun"
-    ],
-    "Spider-Man 2099": [
-      "Poison",
-      "Stun"
-    ],
-    "Symbioid": [
-      "Poison",
-      "Nullify",
-      "Heal Block",
-      "Stun"
-    ],
-    "Toad": [
-      "Poison",
-      "Stun"
-    ],
-    "Ultron (Classic)": [
-      "Poison",
-      "Heal Block",
-      "Stun"
+      "Weakness"
     ],
     "Absorbing Man": [
-      "Incinerate",
-      "Armor Break"
-    ],
-    "Bishop": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Cable": [
-      "Incinerate",
-      "Degeneration"
-    ],
-    "Cosmic Ghost Rider": [
-      "Incinerate",
       "Armor Break",
-      "Power Drain",
-      "Power Lock"
-    ],
-    "Count Nefaria": [
       "Incinerate"
-    ],
-    "Crossbones": [
-      "Incinerate"
-    ],
-    "Dazzler": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Doctor Doom": [
-      "Incinerate",
-      "Shock",
-      "Nullify",
-      "Stagger",
-      "Armor Break",
-      "Power Lock",
-      "Stun"
-    ],
-    "Dragon Man": [
-      "Incinerate",
-      "Degeneration"
-    ],
-    "Elsa Bloodstone": [
-      "Incinerate",
-      "Coldsnap",
-      "Frostbite",
-      "Heal Block",
-      "Power Lock",
-      "Degeneration"
-    ],
-    "Franken-Castle": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Galan": [
-      "Incinerate",
-      "Power Lock",
-      "Stun"
-    ],
-    "Gladiator": [
-      "Incinerate",
-      "Coldsnap",
-      "Stun"
-    ],
-    "Human Torch": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Hyperion": [
-      "Incinerate",
-      "Armor Break",
-      "Stun"
-    ],
-    "Ikaris": [
-      "Incinerate"
-    ],
-    "Invisible Woman": [
-      "Incinerate",
-      "Heal Block"
-    ],
-    "Iron Man": [
-      "Incinerate",
-      "Armor Break",
-      "Power Drain",
-      "Power Lock"
-    ],
-    "Iron Man (Infamous)": [
-      "Incinerate",
-      "Shock",
-      "Power Burn",
-      "Stun"
-    ],
-    "Iron Man (Infinity War)": [
-      "Incinerate",
-      "Shock",
-      "Armor Break",
-      "Heal Block",
-      "Power Drain",
-      "Power Lock",
-      "Stun"
-    ],
-    "Ironheart": [
-      "Incinerate",
-      "Power Drain"
-    ],
-    "Jessica Jones": [
-      "Incinerate",
-      "Stagger",
-      "Stun"
-    ],
-    "Karolina Dean": [
-      "Incinerate",
-      "Stun"
-    ],
-    "King Groot (Deathless)": [
-      "Incinerate",
-      "Armor Break"
-    ],
-    "Kitty Pryde": [
-      "Incinerate"
-    ],
-    "Kushala": [
-      "Incinerate",
-      "Nullify",
-      "Degeneration"
-    ],
-    "Mephisto": [
-      "Incinerate",
-      "Power Drain"
-    ],
-    "Mister Fantastic": [
-      "Incinerate",
-      "Shock",
-      "Stagger",
-      "Heal Block"
-    ],
-    "Mojo": [
-      "Incinerate",
-      "Nullify",
-      "Degeneration"
-    ],
-    "Moondragon": [
-      "Incinerate"
-    ],
-    "Negasonic Teenage Warhead": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Nimrod": [
-      "Incinerate",
-      "Shock",
-      "Power Drain"
-    ],
-    "Omega Sentinel": [
-      "Incinerate",
-      "Shock",
-      "Armor Break",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Peni Parker": [
-      "Incinerate",
-      "Shock",
-      "Heal Block",
-      "Power Lock",
-      "Power Burn"
-    ],
-    "Phoenix": [
-      "Incinerate",
-      "Armor Break",
-      "Power Lock",
-      "Stun"
-    ],
-    "Prowler": [
-      "Incinerate",
-      "Power Drain",
-      "Power Lock",
-      "Power Burn"
-    ],
-    "Purgatory": [
-      "Incinerate",
-      "Nullify",
-      "Armor Break",
-      "Degeneration"
-    ],
-    "Red Goblin": [
-      "Incinerate",
-      "Armor Break",
-      "Power Drain"
-    ],
-    "Red Hulk": [
-      "Incinerate",
-      "Armor Break"
-    ],
-    "Sentinel": [
-      "Incinerate",
-      "Shock",
-      "Armor Break",
-      "Heal Block"
-    ],
-    "Sersi": [
-      "Incinerate",
-      "Stun"
-    ],
-    "Silver Centurion": [
-      "Incinerate",
-      "Shock",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Sunspot": [
-      "Incinerate"
-    ],
-    "Super-Skrull": [
-      "Incinerate",
-      "Armor Break",
-      "Stun"
-    ],
-    "Thing": [
-      "Incinerate",
-      "Nullify",
-      "Stagger",
-      "Heal Block",
-      "Stun"
-    ],
-    "Viv Vision": [
-      "Incinerate",
-      "Heal Block",
-      "Power Drain",
-      "Power Lock"
-    ],
-    "Vulture": [
-      "Incinerate",
-      "Armor Break",
-      "Power Drain"
-    ],
-    "Beta Ray Bill": [
-      "Shock",
-      "Stun"
-    ],
-    "Black Widow (Deadly Origin)": [
-      "Shock",
-      "Stun"
-    ],
-    "Darkhawk": [
-      "Shock",
-      "Heal Block",
-      "Power Lock",
-      "Stun"
-    ],
-    "Electro": [
-      "Shock",
-      "Stun"
-    ],
-    "Guardian": [
-      "Shock",
-      "Power Drain"
-    ],
-    "Hulkbuster": [
-      "Shock",
-      "Armor Break",
-      "Power Drain",
-      "Power Lock",
-      "Power Burn",
-      "Stun"
-    ],
-    "Nebula": [
-      "Shock",
-      "Power Drain",
-      "Power Lock"
-    ],
-    "Psycho-Man": [
-      "Shock",
-      "Heal Block",
-      "Power Drain",
-      "Power Lock",
-      "Stun"
-    ],
-    "Red Skull": [
-      "Shock",
-      "Armor Break",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Shocker": [
-      "Shock",
-      "Stun"
-    ],
-    "Shuri": [
-      "Shock"
-    ],
-    "Silver Sable": [
-      "Shock"
-    ],
-    "Spider-Man (Classic)": [
-      "Shock",
-      "Armor Break",
-      "Stun"
-    ],
-    "Spider-Man (Miles Morales)": [
-      "Shock",
-      "Stun"
-    ],
-    "Spider-Man (Stark Enhanced)": [
-      "Shock",
-      "Power Drain",
-      "Stun"
-    ],
-    "Spider-Slayer (J. Jonah Jameson)": [
-      "Shock",
-      "Power Burn",
-      "Degeneration"
-    ],
-    "Spider-Woman (Jessica Drew)": [
-      "Shock",
-      "Stun"
-    ],
-    "Star-Lord": [
-      "Shock",
-      "Armor Break",
-      "Heal Block",
-      "Power Drain"
-    ],
-    "Storm (Pyramid X)": [
-      "Shock",
-      "Coldsnap",
-      "Stun"
-    ],
-    "Stryfe": [
-      "Shock",
-      "Stun"
-    ],
-    "Thor": [
-      "Shock",
-      "Armor Break",
-      "Stun"
-    ],
-    "Thor (Jane Foster)": [
-      "Shock",
-      "Nullify",
-      "Stagger",
-      "Stun",
-      "Degeneration"
-    ],
-    "Thor (Ragnarok)": [
-      "Shock",
-      "Armor Break",
-      "Stun"
-    ],
-    "Iceman": [
-      "Coldsnap",
-      "Frostbite"
-    ],
-    "Kate Bishop": [
-      "Coldsnap",
-      "Frostbite",
-      "Stun"
-    ],
-    "Misty Knight": [
-      "Coldsnap",
-      "Frostbite",
-      "Armor Break",
-      "Stun"
-    ],
-    "Solvarch": [
-      "Coldsnap",
-      "Heal Block",
-      "Power Drain",
-      "Stun"
-    ],
-    "The Serpent": [
-      "Coldsnap"
-    ],
-    "Vision (Aarkus)": [
-      "Coldsnap",
-      "Armor Break"
-    ],
-    "Emma Frost": [
-      "Frostbite"
-    ],
-    "Dormammu": [
-      "Nullify",
-      "Power Drain",
-      "Power Lock",
-      "Power Burn",
-      "Degeneration"
-    ],
-    "Ebony Maw": [
-      "Nullify",
-      "Power Lock",
-      "Degeneration"
-    ],
-    "Guillotine (Deathless)": [
-      "Nullify",
-      "Degeneration"
-    ],
-    "Iron Fist": [
-      "Nullify",
-      "Stagger",
-      "Armor Break",
-      "Fate Seal",
-      "Stun"
-    ],
-    "Iron Fist (Immortal)": [
-      "Nullify",
-      "Stagger",
-      "Armor Break",
-      "Fate Seal"
-    ],
-    "Isophyne": [
-      "Nullify",
-      "Degeneration"
-    ],
-    "Juggernaut": [
-      "Nullify",
-      "Stagger",
-      "Stun"
-    ],
-    "Loki": [
-      "Nullify",
-      "Stun"
-    ],
-    "Madelyne Pryor": [
-      "Nullify",
-      "Degeneration"
-    ],
-    "Magik": [
-      "Nullify",
-      "Power Lock"
-    ],
-    "Mangog": [
-      "Nullify",
-      "Stagger",
-      "Armor Break",
-      "Stun"
-    ],
-    "Mordo": [
-      "Nullify",
-      "Stun",
-      "Degeneration"
-    ],
-    "Ms. Marvel (Kamala Khan)": [
-      "Nullify",
-      "Armor Break"
-    ],
-    "Rogue": [
-      "Nullify",
-      "Degeneration"
-    ],
-    "Shathra": [
-      "Nullify",
-      "Stun"
-    ],
-    "Sorcerer Supreme": [
-      "Nullify",
-      "Armor Break"
-    ],
-    "Spider-Gwen": [
-      "Nullify",
-      "Stun"
-    ],
-    "Spider-Man (Pavitr Prabhakar)": [
-      "Nullify"
-    ],
-    "Spider-Man (Supreme)": [
-      "Nullify"
-    ],
-    "Tigra": [
-      "Nullify"
-    ],
-    "Anti-Venom": [
-      "Stagger"
-    ],
-    "Sasquatch": [
-      "Stagger",
-      "Power Drain",
-      "Stun"
-    ],
-    "Titania": [
-      "Stagger",
-      "Power Lock"
     ],
     "Air-Walker": [
       "Armor Break",
@@ -1821,54 +1102,276 @@
       "Armor Break"
     ],
     "Annihilus": [
-      "Armor Break"
+      "Armor Break",
+      "Taunt"
+    ],
+    "Anti-Venomoid": [
+      "Armor Break",
+      "Coldsnap",
+      "Incinerate",
+      "Neutralize",
+      "Poison",
+      "Rupture",
+      "Shock",
+      "Stun"
     ],
     "Arnim Zola": [
-      "Armor Break"
+      "Armor Break",
+      "Sleep"
     ],
     "Black Bolt": [
       "Armor Break",
       "Stun"
     ],
+    "Captain America (Infinity War)": [
+      "Armor Break",
+      "Bleed",
+      "Disorient",
+      "Nullify",
+      "Petrify",
+      "Stagger",
+      "Stun",
+      "Weakness"
+    ],
     "Captain Marvel": [
       "Armor Break",
       "Stun"
     ],
+    "Carnage": [
+      "Armor Break",
+      "Bleed"
+    ],
     "Corvus Glaive": [
       "Armor Break",
       "Power Drain"
+    ],
+    "Cosmic Ghost Rider": [
+      "Armor Break",
+      "Damnation",
+      "Incinerate",
+      "Power Drain",
+      "Power Lock"
     ],
     "Cull Obsidian": [
       "Armor Break",
       "Stun"
     ],
     "Cyclops (New Xavier School)": [
-      "Armor Break"
+      "Armor Break",
+      "Disorient"
+    ],
+    "Deadpool": [
+      "Armor Break",
+      "Bleed",
+      "Stun"
+    ],
+    "Deadpool (X-Force)": [
+      "Armor Break",
+      "Bleed",
+      "Stun",
+      "Taunt"
+    ],
+    "Doctor Doom": [
+      "Armor Break",
+      "Incinerate",
+      "Nullify",
+      "Power Lock",
+      "Shock",
+      "Stagger",
+      "Stun"
+    ],
+    "Domino": [
+      "Armor Break",
+      "Bleed",
+      "Incinerate",
+      "Stun",
+      "Taunt"
+    ],
+    "Elektra": [
+      "Armor Break",
+      "Bleed"
+    ],
+    "Gamora": [
+      "Armor Break",
+      "Bleed",
+      "Degeneration",
+      "Shock"
+    ],
+    "Gwenpool": [
+      "Armor Break",
+      "Bleed",
+      "Enervate",
+      "Incinerate",
+      "Stun"
     ],
     "Hela": [
       "Armor Break"
     ],
+    "Henchpool": [
+      "Armor Break",
+      "Bleed",
+      "Degeneration",
+      "Nullify",
+      "Poison",
+      "Power Burn"
+    ],
     "Hercules": [
       "Armor Break",
       "Stun"
+    ],
+    "Hit-Monkey": [
+      "Armor Break",
+      "Bleed",
+      "Disorient"
     ],
     "Howard the Duck": [
       "Armor Break",
       "Heal Block",
       "Stun"
     ],
+    "Hulkbuster": [
+      "Armor Break",
+      "Power Burn",
+      "Power Drain",
+      "Power Lock",
+      "Shock",
+      "Stun"
+    ],
     "Hulkling": [
       "Armor Break"
+    ],
+    "Hyperion": [
+      "Armor Break",
+      "Incinerate",
+      "Stun"
+    ],
+    "Iron Fist": [
+      "Armor Break",
+      "Fate Seal",
+      "Nullify",
+      "Stagger",
+      "Stun"
+    ],
+    "Iron Fist (Immortal)": [
+      "Armor Break",
+      "Fate Seal",
+      "Nullify",
+      "Stagger"
+    ],
+    "Iron Man": [
+      "Armor Break",
+      "Incinerate",
+      "Plasma",
+      "Power Drain",
+      "Power Lock"
+    ],
+    "Iron Man (Infinity War)": [
+      "Armor Break",
+      "Heal Block",
+      "Incinerate",
+      "Plasma",
+      "Power Drain",
+      "Power Lock",
+      "Shock",
+      "Stun"
     ],
     "Iron Patriot": [
       "Armor Break",
       "Stun"
     ],
+    "King Groot": [
+      "Armor Break",
+      "Poison"
+    ],
+    "King Groot (Deathless)": [
+      "Armor Break",
+      "Incinerate"
+    ],
+    "Knull": [
+      "Armor Break",
+      "Bleed",
+      "Degeneration"
+    ],
+    "Korg": [
+      "Armor Break",
+      "Bleed"
+    ],
+    "M.O.D.O.K.": [
+      "Armor Break",
+      "Bleed",
+      "Concussion",
+      "Exhaustion",
+      "Fatigue",
+      "Heal Block",
+      "Incinerate",
+      "Petrify",
+      "Poison",
+      "Power Lock",
+      "Weakness"
+    ],
+    "Magneto": [
+      "Armor Break",
+      "Bleed",
+      "Heal Block",
+      "Weakness"
+    ],
+    "Magneto (House of X)": [
+      "Armor Break",
+      "Bleed",
+      "Degeneration"
+    ],
+    "Man-Thing": [
+      "Armor Break",
+      "Nullify",
+      "Poison"
+    ],
+    "Mangog": [
+      "Armor Break",
+      "Nullify",
+      "Stagger",
+      "Stun"
+    ],
+    "Medusa": [
+      "Armor Break",
+      "Armor Shattered",
+      "Bleed",
+      "Stun"
+    ],
+    "Misty Knight": [
+      "Armor Break",
+      "Coldsnap",
+      "Disorient",
+      "Frostbite",
+      "Stun"
+    ],
+    "Ms. Marvel (Kamala Khan)": [
+      "Armor Break",
+      "Nullify"
+    ],
     "Northstar": [
-      "Armor Break"
+      "Armor Break",
+      "Slow"
     ],
     "Nova": [
       "Armor Break"
+    ],
+    "Old Man Logan": [
+      "Armor Break",
+      "Bleed"
+    ],
+    "Omega Sentinel": [
+      "Armor Break",
+      "Heal Block",
+      "Incinerate",
+      "Plasma",
+      "Power Drain",
+      "Shock"
+    ],
+    "Phoenix": [
+      "Armor Break",
+      "Incinerate",
+      "Power Lock",
+      "Stun"
     ],
     "Proxima Midnight": [
       "Armor Break",
@@ -1882,18 +1385,130 @@
       "Power Lock",
       "Stun"
     ],
+    "Purgatory": [
+      "Armor Break",
+      "Degeneration",
+      "Incinerate",
+      "Nullify",
+      "Slow"
+    ],
+    "Red Goblin": [
+      "Armor Break",
+      "Incinerate",
+      "Power Drain"
+    ],
+    "Red Hulk": [
+      "Armor Break",
+      "Incinerate"
+    ],
+    "Red Skull": [
+      "Armor Break",
+      "Heal Block",
+      "Power Drain",
+      "Shock"
+    ],
+    "Rocket Raccoon": [
+      "Armor Break",
+      "Bleed",
+      "Heal Block",
+      "Power Drain",
+      "Rupture"
+    ],
     "Ronan": [
       "Armor Break",
-      "Stun"
+      "Stun",
+      "Weakness"
+    ],
+    "Sabretooth": [
+      "Armor Break",
+      "Bleed"
+    ],
+    "Scarlet Witch": [
+      "Armor Break",
+      "Coldsnap",
+      "Degeneration",
+      "Heal Block",
+      "Incinerate",
+      "Nullify",
+      "Petrify",
+      "Poison",
+      "Power Sting"
+    ],
+    "Scream": [
+      "Armor Break",
+      "Bleed"
+    ],
+    "Sentinel": [
+      "Armor Break",
+      "Heal Block",
+      "Incinerate",
+      "Shock"
+    ],
+    "Sentinelbot": [
+      "Armor Break",
+      "Bleed",
+      "Degeneration",
+      "Incinerate",
+      "Nullify",
+      "Power Burn",
+      "Rupture"
     ],
     "Silver Surfer": [
       "Armor Break"
     ],
+    "Sorcerer Supreme": [
+      "Armor Break",
+      "Nullify",
+      "Slow"
+    ],
+    "Spider-Man (Classic)": [
+      "Armor Break",
+      "Shock",
+      "Stun",
+      "Taunt",
+      "Weakness"
+    ],
     "Spider-Man (Symbiote)": [
-      "Armor Break"
+      "Armor Break",
+      "Weakness"
+    ],
+    "Star-Lord": [
+      "Armor Break",
+      "Disorient",
+      "Heal Block",
+      "Power Drain",
+      "Shock"
+    ],
+    "Summoned Symbiote": [
+      "Armor Break",
+      "Bleed",
+      "Nullify",
+      "Poison",
+      "Stun",
+      "Weakness"
+    ],
+    "Super-Skrull": [
+      "Armor Break",
+      "Falter",
+      "Incinerate",
+      "Nova Flame",
+      "Stun"
     ],
     "Superior Iron Man": [
       "Armor Break"
+    ],
+    "Symbiote Supreme": [
+      "Armor Break",
+      "Bleed",
+      "Nullify",
+      "Stagger",
+      "Weakness"
+    ],
+    "Taskmaster": [
+      "Armor Break",
+      "Bleed",
+      "Concussion",
+      "Sabotage"
     ],
     "Terrax": [
       "Armor Break",
@@ -1903,20 +1518,782 @@
     ],
     "Thanos (Deathless)": [
       "Armor Break",
+      "Armor Shattered",
       "Stun"
     ],
     "The Champion": [
       "Armor Break"
     ],
+    "Thor": [
+      "Armor Break",
+      "Shock",
+      "Stun"
+    ],
+    "Thor (Ragnarok)": [
+      "Armor Break",
+      "Shock",
+      "Stun"
+    ],
+    "Venom": [
+      "Armor Break",
+      "Bleed",
+      "Nullify"
+    ],
+    "Vision (Aarkus)": [
+      "Armor Break",
+      "Armor Shattered",
+      "Coldsnap"
+    ],
+    "Vulture": [
+      "Armor Break",
+      "Incinerate",
+      "Power Drain"
+    ],
     "War Machine": [
       "Armor Break",
+      "Rupture",
       "Stun"
     ],
     "Warlock": [
       "Armor Break",
+      "Degeneration",
+      "Heal Block",
+      "Power Burn"
+    ],
+    "Agent Venom": [
+      "Bleed",
+      "Incinerate"
+    ],
+    "Apocalypse": [
+      "Bleed",
+      "Concussion",
+      "Degeneration",
+      "Poison",
+      "Stun",
+      "Weakness"
+    ],
+    "Arcade": [
+      "Bleed",
+      "Incinerate",
+      "Poison",
+      "Rupture",
+      "Shock",
+      "Stun"
+    ],
+    "Archangel": [
+      "Bleed",
+      "Heal Block",
+      "Poison",
+      "Stun"
+    ],
+    "Attuma": [
+      "Bleed",
+      "Concussion"
+    ],
+    "Baron Zemo": [
+      "Bleed",
+      "Disorient",
+      "Incinerate"
+    ],
+    "Beast": [
+      "Bleed",
+      "Concussion",
+      "Stun"
+    ],
+    "Black Cat": [
+      "Bleed",
+      "Sabotage"
+    ],
+    "Black Panther": [
+      "Bleed"
+    ],
+    "Black Panther (Civil War)": [
+      "Bleed",
+      "Stun"
+    ],
+    "Black Widow (Claire Voyant)": [
+      "Bleed",
+      "Incinerate",
+      "Nullify",
+      "Poison",
+      "Slow",
+      "Stun"
+    ],
+    "Blade": [
+      "Bleed",
+      "Stun"
+    ],
+    "Bullseye": [
+      "Bleed",
+      "Disorient",
+      "Stun"
+    ],
+    "Captain America (WWII)": [
+      "Bleed",
+      "Nullify",
+      "Stagger",
+      "Stun"
+    ],
+    "Chee'ilth": [
+      "Bleed"
+    ],
+    "Daredevil (Hell's Kitchen)": [
+      "Bleed",
+      "Disorient",
+      "Stun"
+    ],
+    "Doctor Strange": [
+      "Bleed",
+      "Coldsnap",
+      "Fate Seal",
+      "Heal Block",
+      "Incinerate",
+      "Neutralize",
+      "Nullify",
+      "Poison",
+      "Stun"
+    ],
+    "Doombot": [
+      "Bleed",
+      "Degeneration",
+      "Fatigue",
+      "Heal Block",
+      "Nullify",
+      "Petrify",
+      "Power Drain",
+      "Shock",
+      "Slow",
+      "Stun",
+      "Weakness"
+    ],
+    "Dracula": [
+      "Bleed",
+      "Degeneration",
+      "Nullify",
+      "Slow"
+    ],
+    "Drax": [
+      "Bleed"
+    ],
+    "Falcon": [
+      "Bleed",
+      "Incinerate"
+    ],
+    "Falcon (Joaqu\u00edn Torres)": [
+      "Bleed",
+      "Heal Block",
+      "Slow"
+    ],
+    "Ghost Rider": [
+      "Bleed",
+      "Damnation",
+      "Fate Seal",
+      "Power Drain"
+    ],
+    "Goldpool": [
+      "Bleed",
+      "Stun",
+      "Taunt"
+    ],
+    "Gorr": [
+      "Bleed",
+      "Degeneration",
+      "Poison",
+      "Shock"
+    ],
+    "Groot": [
+      "Bleed"
+    ],
+    "Guillotine": [
+      "Bleed",
+      "Degeneration",
+      "Rupture"
+    ],
+    "Hawkeye": [
+      "Bleed",
+      "Poison",
+      "Power Drain",
+      "Rupture",
+      "Slow"
+    ],
+    "Jabari Panther": [
+      "Bleed",
+      "Stun"
+    ],
+    "Joe Fixit": [
+      "Bleed",
+      "Disorient",
+      "Petrify",
+      "Stun",
+      "Weakness"
+    ],
+    "Jubilee": [
+      "Bleed",
+      "Concussion",
+      "Incinerate",
+      "Shock",
+      "Slow",
+      "Taunt"
+    ],
+    "Karnak": [
+      "Bleed",
+      "Disorient"
+    ],
+    "Killmonger": [
+      "Bleed"
+    ],
+    "Kraven": [
+      "Bleed",
+      "Concussion",
+      "Disorient",
+      "Poison",
+      "Power Lock"
+    ],
+    "Longshot": [
+      "Bleed",
+      "Degeneration",
+      "Fate Seal",
+      "Incinerate",
+      "Nullify",
+      "Stun"
+    ],
+    "M'Baku": [
+      "Bleed"
+    ],
+    "Maestro": [
+      "Bleed",
+      "Degeneration",
+      "Power Burn",
+      "Power Lock",
+      "Stun"
+    ],
+    "Masacre": [
+      "Bleed",
+      "Disorient",
+      "Incinerate"
+    ],
+    "Mister Sinister": [
+      "Bleed",
+      "Concussion",
+      "Degeneration",
+      "Heal Block",
+      "Power Lock",
+      "Stun"
+    ],
+    "Mole Man": [
+      "Bleed",
+      "Shock"
+    ],
+    "Moon Knight": [
+      "Bleed",
+      "Stun"
+    ],
+    "Morbius": [
+      "Bleed",
+      "Petrify",
+      "Rupture",
+      "Weakness"
+    ],
+    "Morningstar": [
+      "Bleed",
+      "Nullify"
+    ],
+    "Namor": [
+      "Bleed",
+      "Power Drain",
+      "Power Lock",
+      "Stun"
+    ],
+    "Nick Fury": [
+      "Bleed",
+      "Disorient",
+      "Stun"
+    ],
+    "Night Thrasher": [
+      "Bleed",
+      "Disorient",
+      "Incinerate",
+      "Shock",
+      "Taunt"
+    ],
+    "Nightcrawler": [
+      "Bleed",
+      "Incinerate"
+    ],
+    "Okoye": [
+      "Bleed",
+      "Shock",
+      "Weakness"
+    ],
+    "Platinumpool": [
+      "Bleed",
+      "Stun"
+    ],
+    "Punisher": [
+      "Bleed",
+      "Incinerate"
+    ],
+    "Ronin": [
+      "Bleed",
+      "Disorient",
+      "Stun"
+    ],
+    "Sauron": [
+      "Bleed",
+      "Degeneration",
+      "Heal Block",
+      "Incinerate"
+    ],
+    "Squirrel Girl": [
+      "Bleed",
+      "Shock"
+    ],
+    "Storm": [
+      "Bleed",
+      "Power Lock",
+      "Shock",
+      "Stun"
+    ],
+    "The Hood": [
+      "Bleed",
+      "Fate Seal",
+      "Power Lock",
+      "Shock",
+      "Stagger",
+      "Stun"
+    ],
+    "Ultron": [
+      "Bleed",
+      "Degeneration",
       "Heal Block",
       "Power Burn",
+      "Power Lock",
+      "Stun"
+    ],
+    "Valkyrie": [
+      "Bleed",
+      "Power Lock"
+    ],
+    "Venom the Duck": [
+      "Bleed",
       "Degeneration"
+    ],
+    "Venompool": [
+      "Bleed",
+      "Degeneration",
+      "Stun"
+    ],
+    "Wolverine": [
+      "Bleed"
+    ],
+    "Wolverine (Weapon X)": [
+      "Bleed"
+    ],
+    "Wolverine (X-23)": [
+      "Bleed"
+    ],
+    "X-23 (Orochi)": [
+      "Bleed",
+      "Degeneration",
+      "Poison"
+    ],
+    "\u00c6gon": [
+      "Bleed",
+      "Stun"
+    ],
+    "Elsa Bloodstone": [
+      "Coldsnap",
+      "Degeneration",
+      "Disorient",
+      "Frostbite",
+      "Heal Block",
+      "Incinerate",
+      "Power Lock",
+      "Slow"
+    ],
+    "Enchantress": [
+      "Coldsnap",
+      "Frostbite",
+      "Incinerate",
+      "Neutralize",
+      "Nullify",
+      "Petrify",
+      "Poison",
+      "Power Drain",
+      "Power Lock",
+      "Shock",
+      "Stun"
+    ],
+    "Gladiator": [
+      "Coldsnap",
+      "Incinerate",
+      "Stun"
+    ],
+    "Iceman": [
+      "Coldsnap",
+      "Frostbite"
+    ],
+    "Kate Bishop": [
+      "Coldsnap",
+      "Frostbite",
+      "Stun"
+    ],
+    "Solvarch": [
+      "Coldsnap",
+      "Heal Block",
+      "Power Drain",
+      "Stun"
+    ],
+    "Storm (Pyramid X)": [
+      "Coldsnap",
+      "Shock",
+      "Slow",
+      "Stun"
+    ],
+    "The Serpent": [
+      "Coldsnap"
+    ],
+    "Cable": [
+      "Concussion",
+      "Degeneration",
+      "Incinerate"
+    ],
+    "Dragon Man": [
+      "Concussion",
+      "Degeneration",
+      "Incinerate",
+      "Slow"
+    ],
+    "Emma Frost": [
+      "Concussion",
+      "Frostbite",
+      "Power Sting",
+      "Taunt"
+    ],
+    "Gambit": [
+      "Concussion",
+      "Stun"
+    ],
+    "Luke Cage": [
+      "Concussion",
+      "Exhaustion",
+      "Stun"
+    ],
+    "Psycho-Man": [
+      "Concussion",
+      "Heal Block",
+      "Power Drain",
+      "Power Lock",
+      "Shock",
+      "Stun",
+      "Weakness"
+    ],
+    "Quake": [
+      "Concussion",
+      "Stun"
+    ],
+    "Sasquatch": [
+      "Concussion",
+      "Power Drain",
+      "Rupture",
+      "Stagger",
+      "Stun"
+    ],
+    "Spider-Ham": [
+      "Concussion",
+      "Taunt"
+    ],
+    "Spider-Woman (Jessica Drew)": [
+      "Concussion",
+      "Power Sting",
+      "Shock",
+      "Stun"
+    ],
+    "Stryfe": [
+      "Concussion",
+      "Falter",
+      "Shock",
+      "Stun"
+    ],
+    "Captain Britain": [
+      "Degeneration",
+      "Exhaustion",
+      "Slow"
+    ],
+    "Dormammu": [
+      "Degeneration",
+      "Nullify",
+      "Power Burn",
+      "Power Drain",
+      "Power Lock"
+    ],
+    "Ebony Maw": [
+      "Degeneration",
+      "Falter",
+      "Nullify",
+      "Power Lock"
+    ],
+    "Guillotine (Deathless)": [
+      "Degeneration",
+      "Neutralize",
+      "Nullify"
+    ],
+    "Guillotine 2099": [
+      "Degeneration",
+      "Power Burn",
+      "Power Drain"
+    ],
+    "Isophyne": [
+      "Degeneration",
+      "Nullify"
+    ],
+    "Kindred": [
+      "Degeneration",
+      "Weakness"
+    ],
+    "Kingpin": [
+      "Degeneration",
+      "Power Lock",
+      "Stun"
+    ],
+    "Kushala": [
+      "Degeneration",
+      "Incinerate",
+      "Nullify"
+    ],
+    "Madelyne Pryor": [
+      "Degeneration",
+      "Nullify"
+    ],
+    "Mister Negative": [
+      "Degeneration",
+      "Enervate",
+      "Exhaustion",
+      "Fatigue",
+      "Petrify",
+      "Slow"
+    ],
+    "Mojo": [
+      "Degeneration",
+      "Falter",
+      "Incinerate",
+      "Nullify"
+    ],
+    "Mordo": [
+      "Degeneration",
+      "Nullify",
+      "Stun"
+    ],
+    "Omega Red": [
+      "Degeneration"
+    ],
+    "Onslaught": [
+      "Degeneration",
+      "Stun"
+    ],
+    "Psylocke": [
+      "Degeneration",
+      "Enervate",
+      "Petrify",
+      "Power Burn",
+      "Power Drain",
+      "Power Lock",
+      "Stun"
+    ],
+    "Rogue": [
+      "Degeneration",
+      "Nullify"
+    ],
+    "Spider-Slayer (J. Jonah Jameson)": [
+      "Degeneration",
+      "Falter",
+      "Power Burn",
+      "Shock",
+      "Slow"
+    ],
+    "The Destroyer": [
+      "Degeneration",
+      "Power Lock",
+      "Rupture"
+    ],
+    "The Leader": [
+      "Degeneration"
+    ],
+    "Thor (Jane Foster)": [
+      "Degeneration",
+      "Nullify",
+      "Shock",
+      "Stagger",
+      "Stun"
+    ],
+    "Vision (Deathless)": [
+      "Degeneration",
+      "Heal Block",
+      "Power Burn",
+      "Power Lock"
+    ],
+    "Void": [
+      "Degeneration",
+      "Fatigue",
+      "Petrify",
+      "Weakness"
+    ],
+    "Vox": [
+      "Degeneration",
+      "Neutralize"
+    ],
+    "Anti-Venom": [
+      "Disorient",
+      "Petrify",
+      "Rupture",
+      "Stagger"
+    ],
+    "Cyclops (Blue Team)": [
+      "Disorient"
+    ],
+    "Silver Sable": [
+      "Disorient",
+      "Shock"
+    ],
+    "The Overseer": [
+      "Disorient",
+      "Stun",
+      "Taunt"
+    ],
+    "Titania": [
+      "Disorient",
+      "Exhaustion",
+      "Falter",
+      "Fatigue",
+      "Petrify",
+      "Power Lock",
+      "Stagger",
+      "Weakness"
+    ],
+    "Toad": [
+      "Disorient",
+      "Poison",
+      "Slow",
+      "Stun"
+    ],
+    "Abomination": [
+      "Enervate",
+      "Poison"
+    ],
+    "Hulk (Ragnarok)": [
+      "Enervate",
+      "Heal Block",
+      "Stun",
+      "Weakness"
+    ],
+    "Spider-Gwen": [
+      "Enervate",
+      "Nullify",
+      "Slow",
+      "Stun"
+    ],
+    "Spider-Man (Stealth Suit)": [
+      "Enervate",
+      "Slow"
+    ],
+    "High Evolutionary": [
+      "Exhaustion",
+      "Slow"
+    ],
+    "Invisible Woman": [
+      "Exhaustion",
+      "Heal Block",
+      "Incinerate"
+    ],
+    "Jean Grey": [
+      "Exhaustion",
+      "Power Lock",
+      "Stun"
+    ],
+    "Jessica Jones": [
+      "Exhaustion",
+      "Incinerate",
+      "Rupture",
+      "Stagger",
+      "Stun",
+      "Weakness"
+    ],
+    "Sentry": [
+      "Exhaustion",
+      "Stun"
+    ],
+    "She-Hulk": [
+      "Exhaustion",
+      "Petrify",
+      "Slow",
+      "Stun",
+      "Weakness"
+    ],
+    "Spider-Man 2099": [
+      "Exhaustion",
+      "Poison",
+      "Rupture",
+      "Slow",
+      "Stun"
+    ],
+    "Dani Moonstar": [
+      "Falter",
+      "Heal Block",
+      "Slow"
+    ],
+    "Dazzler": [
+      "Falter",
+      "Incinerate",
+      "Stun"
+    ],
+    "Mysterio": [
+      "Falter",
+      "Heal Block",
+      "Poison",
+      "Power Drain"
+    ],
+    "Professor X": [
+      "Falter",
+      "Power Lock"
+    ],
+    "Prowler": [
+      "Falter",
+      "Incinerate",
+      "Power Burn",
+      "Power Drain",
+      "Power Lock",
+      "Rupture",
+      "Taunt"
+    ],
+    "Shang-Chi": [
+      "Falter",
+      "Slow",
+      "Stun"
+    ],
+    "Ant-Man": [
+      "Fatigue",
+      "Petrify",
+      "Poison",
+      "Power Sting",
+      "Stagger"
+    ],
+    "Captain America": [
+      "Fatigue",
+      "Stun"
+    ],
+    "Colossus": [
+      "Fatigue",
+      "Stun"
+    ],
+    "Scarlet Witch (Classic)": [
+      "Fatigue",
+      "Heal Block",
+      "Nullify",
+      "Poison",
+      "Power Drain",
+      "Power Lock",
+      "Stun",
+      "Weakness"
     ],
     "Adaptoid (Super Adaptoid Hydra)": [
       "Heal Block",
@@ -1924,25 +2301,26 @@
     ],
     "Captain America (Sam Wilson)": [
       "Heal Block",
-      "Power Drain"
+      "Power Drain",
+      "Rupture"
     ],
     "Civil Warrior": [
       "Heal Block",
+      "Power Burn",
       "Power Drain",
       "Power Lock",
-      "Power Burn"
+      "Weakness"
     ],
-    "Dani Moonstar": [
-      "Heal Block"
+    "Darkhawk": [
+      "Heal Block",
+      "Power Lock",
+      "Shock",
+      "Stun"
     ],
     "Doctor Octopus": [
       "Heal Block",
       "Power Drain",
       "Power Lock"
-    ],
-    "Hulk (Ragnarok)": [
-      "Heal Block",
-      "Stun"
     ],
     "Kang the Conqueror": [
       "Heal Block",
@@ -1950,13 +2328,58 @@
       "Stun"
     ],
     "Lady Deathstrike": [
-      "Heal Block"
+      "Heal Block",
+      "Rupture"
+    ],
+    "Mister Fantastic": [
+      "Heal Block",
+      "Incinerate",
+      "Petrify",
+      "Shock",
+      "Stagger",
+      "Taunt",
+      "Weakness"
+    ],
+    "Peni Parker": [
+      "Heal Block",
+      "Incinerate",
+      "Power Burn",
+      "Power Lock",
+      "Shock"
+    ],
+    "Silver Centurion": [
+      "Heal Block",
+      "Incinerate",
+      "Plasma",
+      "Power Drain",
+      "Shock",
+      "Slow"
+    ],
+    "Symbioid": [
+      "Heal Block",
+      "Nullify",
+      "Poison",
+      "Stun"
     ],
     "Thanos": [
       "Heal Block"
     ],
     "The Maker": [
       "Heal Block",
+      "Plasma",
+      "Stun"
+    ],
+    "Thing": [
+      "Heal Block",
+      "Incinerate",
+      "Nullify",
+      "Stagger",
+      "Stun",
+      "Weakness"
+    ],
+    "Ultron (Classic)": [
+      "Heal Block",
+      "Poison",
       "Stun"
     ],
     "Vision": [
@@ -1967,61 +2390,300 @@
       "Heal Block",
       "Power Burn"
     ],
-    "Vision (Deathless)": [
+    "Viv Vision": [
       "Heal Block",
+      "Incinerate",
+      "Plasma",
+      "Power Drain",
+      "Power Lock"
+    ],
+    "Bishop": [
+      "Incinerate",
+      "Petrify",
+      "Stun"
+    ],
+    "Count Nefaria": [
+      "Incinerate",
+      "Plasma"
+    ],
+    "Crossbones": [
+      "Incinerate"
+    ],
+    "Franken-Castle": [
+      "Incinerate",
+      "Stun"
+    ],
+    "Galan": [
+      "Incinerate",
       "Power Lock",
+      "Stun"
+    ],
+    "Green Goblin": [
+      "Incinerate",
+      "Poison",
+      "Power Drain",
+      "Weakness"
+    ],
+    "Human Torch": [
+      "Incinerate",
+      "Nova Flame",
+      "Power Sting",
+      "Slow",
+      "Stun",
+      "Weakness"
+    ],
+    "Ikaris": [
+      "Incinerate"
+    ],
+    "Iron Man (Infamous)": [
+      "Incinerate",
       "Power Burn",
-      "Degeneration"
+      "Shock",
+      "Stun"
+    ],
+    "Ironheart": [
+      "Incinerate",
+      "Power Drain",
+      "Rupture"
+    ],
+    "Jack O'Lantern": [
+      "Incinerate",
+      "Plasma",
+      "Poison"
+    ],
+    "Karolina Dean": [
+      "Incinerate",
+      "Plasma",
+      "Stun"
+    ],
+    "Kitty Pryde": [
+      "Incinerate"
+    ],
+    "Mephisto": [
+      "Incinerate",
+      "Power Drain",
+      "Slow"
+    ],
+    "Moondragon": [
+      "Incinerate"
+    ],
+    "Negasonic Teenage Warhead": [
+      "Incinerate",
+      "Rupture",
+      "Stun"
+    ],
+    "Nico Minoru": [
+      "Incinerate",
+      "Poison"
+    ],
+    "Nimrod": [
+      "Incinerate",
+      "Power Drain",
+      "Shock"
+    ],
+    "Sersi": [
+      "Incinerate",
+      "Stun"
+    ],
+    "Sunspot": [
+      "Incinerate",
+      "Slow"
+    ],
+    "Rintrah": [
+      "Neutralize",
+      "Rupture",
+      "Taunt"
+    ],
+    "Spider-Man (Pavitr Prabhakar)": [
+      "Neutralize",
+      "Nullify"
+    ],
+    "Tigra": [
+      "Neutralize",
+      "Nullify",
+      "Rupture"
+    ],
+    "Dark Phoenix": [
+      "Nova Flame"
+    ],
+    "Diablo": [
+      "Nullify",
+      "Poison",
+      "Stun"
+    ],
+    "Doctor Voodoo": [
+      "Nullify",
+      "Poison",
+      "Power Burn",
+      "Power Drain"
+    ],
+    "Juggernaut": [
+      "Nullify",
+      "Stagger",
+      "Stun",
+      "Weakness"
+    ],
+    "Loki": [
+      "Nullify",
+      "Stun"
+    ],
+    "Magik": [
+      "Nullify",
+      "Power Lock"
+    ],
+    "Shathra": [
+      "Nullify",
+      "Stun"
+    ],
+    "Spider-Man (Supreme)": [
+      "Nullify"
+    ],
+    "Hulk (Immortal)": [
+      "Petrify",
+      "Stun",
+      "Weakness"
+    ],
+    "Photon": [
+      "Petrify",
+      "Taunt"
+    ],
+    "Sandman": [
+      "Petrify"
+    ],
+    "Scorpion": [
+      "Petrify",
+      "Poison",
+      "Rupture",
+      "Shock",
+      "Slow",
+      "Stun",
+      "Taunt"
+    ],
+    "Cassie Lang": [
+      "Poison",
+      "Power Sting",
+      "Stun",
+      "Taunt"
     ],
     "Ant-Man (Future)": [
       "Power Drain",
       "Stun"
     ],
-    "Guillotine 2099": [
+    "Guardian": [
       "Power Drain",
-      "Power Burn",
-      "Degeneration"
+      "Shock",
+      "Taunt"
     ],
     "Imperiosa": [
       "Power Drain",
       "Power Lock"
     ],
-    "Psylocke": [
+    "Nebula": [
       "Power Drain",
       "Power Lock",
-      "Power Burn",
+      "Shock"
+    ],
+    "Spider-Man (Stark Enhanced)": [
+      "Power Drain",
+      "Rupture",
+      "Shock",
       "Stun",
-      "Degeneration"
+      "Taunt"
     ],
     "Captain Marvel (Classic)": [
       "Power Lock"
     ],
-    "Jean Grey": [
-      "Power Lock",
-      "Stun"
-    ],
-    "Kingpin": [
-      "Power Lock",
-      "Stun",
-      "Degeneration"
-    ],
-    "Professor X": [
-      "Power Lock"
-    ],
     "Spider-Punk": [
       "Power Lock",
-      "Stun"
+      "Rupture",
+      "Stun",
+      "Taunt"
     ],
     "The Collector": [
       "Power Lock",
       "Stun"
     ],
-    "The Destroyer": [
-      "Power Lock",
-      "Degeneration"
+    "Spider-Man (Miles Morales)": [
+      "Power Sting",
+      "Rupture",
+      "Shock",
+      "Stun",
+      "Taunt",
+      "Weakness"
+    ],
+    "Gentle": [
+      "Rupture"
+    ],
+    "Lizard": [
+      "Rupture"
+    ],
+    "Patriot": [
+      "Rupture",
+      "Weakness"
+    ],
+    "Silk": [
+      "Rupture",
+      "Slow",
+      "Stun"
+    ],
+    "Spiral": [
+      "Rupture",
+      "Stun"
+    ],
+    "Spot": [
+      "Rupture",
+      "Taunt"
+    ],
+    "Werewolf By Night": [
+      "Rupture",
+      "Stun"
+    ],
+    "Black Widow (Deadly Origin)": [
+      "Sabotage",
+      "Shock",
+      "Stun"
+    ],
+    "Beta Ray Bill": [
+      "Shock",
+      "Stun"
+    ],
+    "Electro": [
+      "Shock",
+      "Stun"
+    ],
+    "Shocker": [
+      "Shock",
+      "Stun"
+    ],
+    "Shuri": [
+      "Shock"
+    ],
+    "Mantis": [
+      "Sleep"
+    ],
+    "Mr. Knight": [
+      "Sleep"
+    ],
+    "Pixie": [
+      "Sleep",
+      "Stun"
+    ],
+    "Quicksilver": [
+      "Slow",
+      "Stun"
+    ],
+    "Red Guardian": [
+      "Slow",
+      "Stun"
+    ],
+    "Rhino": [
+      "Slow",
+      "Stun",
+      "Taunt"
     ],
     "Adam Warlock": [
-      "Stun"
+      "Stun",
+      "Taunt"
     ],
     "America Chavez": [
       "Stun"
@@ -2029,13 +2691,7 @@
     "Black Widow": [
       "Stun"
     ],
-    "Captain America": [
-      "Stun"
-    ],
     "Cassandra Nova": [
-      "Stun"
-    ],
-    "Colossus": [
       "Stun"
     ],
     "Daredevil (Classic)": [
@@ -2044,19 +2700,10 @@
     "Dust": [
       "Stun"
     ],
-    "Gambit": [
-      "Stun"
-    ],
     "Havok": [
       "Stun"
     ],
     "Hulk": [
-      "Stun"
-    ],
-    "Hulk (Immortal)": [
-      "Stun"
-    ],
-    "Luke Cage": [
       "Stun"
     ],
     "Lumatrix": [
@@ -2065,66 +2712,11 @@
     "Maestro (Cosmic)": [
       "Stun"
     ],
-    "Onslaught": [
-      "Stun",
-      "Degeneration"
+    "Blue Marvel": [
+      "Weakness"
     ],
-    "Pixie": [
-      "Stun"
-    ],
-    "Quake": [
-      "Stun"
-    ],
-    "Quicksilver": [
-      "Stun"
-    ],
-    "Red Guardian": [
-      "Stun"
-    ],
-    "Rhino": [
-      "Stun"
-    ],
-    "Sentry": [
-      "Stun"
-    ],
-    "Shang-Chi": [
-      "Stun"
-    ],
-    "She-Hulk": [
-      "Stun"
-    ],
-    "Silk": [
-      "Stun"
-    ],
-    "Spiral": [
-      "Stun"
-    ],
-    "The Overseer": [
-      "Stun"
-    ],
-    "Werewolf By Night": [
-      "Stun"
-    ],
-    "Captain Britain": [
-      "Degeneration"
-    ],
-    "Kindred": [
-      "Degeneration"
-    ],
-    "Mister Negative": [
-      "Degeneration"
-    ],
-    "Omega Red": [
-      "Degeneration"
-    ],
-    "The Leader": [
-      "Degeneration"
-    ],
-    "Void": [
-      "Degeneration"
-    ],
-    "Vox": [
-      "Degeneration"
+    "She-Hulk (Deathless)": [
+      "Weakness"
     ]
   }
 }

@@ -7,13 +7,18 @@ let immMode = 'immune'; // 'immune' or 'inflicts'
 let prestigeKey = '';
 
 const immColors = {
-  // Immunities
-  Bleed: '#ef4444', Poison: '#22c55e', Coldsnap: '#38bdf8', Shock: '#facc15',
-  Incinerate: '#f97316', Nullify: '#a855f7', 'Armor Break': '#94a3b8',
-  Stagger: '#a855f7', Frostbite: '#7dd3fc', 'Fate Seal': '#c084fc',
-  // Extra debuff types
-  'Heal Block': '#fb923c', 'Power Drain': '#60a5fa', 'Power Lock': '#818cf8',
-  'Power Burn': '#c084fc', Stun: '#fbbf24', Degeneration: '#f472b6',
+  'Armor Break': '#94a3b8', 'Armor Shattered': '#64748b',
+  Bleed: '#ef4444', Coldsnap: '#38bdf8', Concussion: '#a78bfa',
+  Damnation: '#991b1b', Degeneration: '#f472b6', Disorient: '#c084fc',
+  Enervate: '#fb923c', Exhaustion: '#d97706', Falter: '#6ee7b7',
+  'Fate Seal': '#c084fc', Fatigue: '#a3a3a3', Frostbite: '#7dd3fc',
+  'Heal Block': '#fb923c', Incinerate: '#f97316', Neutralize: '#2dd4bf',
+  'Nova Flame': '#dc2626', Nullify: '#a855f7', Petrify: '#78716c',
+  Plasma: '#e879f9', Poison: '#22c55e', 'Power Burn': '#c084fc',
+  'Power Drain': '#60a5fa', 'Power Lock': '#818cf8', 'Power Sting': '#e11d48',
+  Rupture: '#b91c1c', Sabotage: '#65a30d', Shock: '#facc15',
+  Sleep: '#6366f1', Slow: '#14b8a6', Stagger: '#a855f7',
+  Stun: '#fbbf24', Taunt: '#f43f5e', Weakness: '#9ca3af',
 };
 
 function buildImmToggles() {
