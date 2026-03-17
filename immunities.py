@@ -74,6 +74,7 @@ SYNERGY_ONLY = {
     "Venompool": ["Incinerate", "Shock", "Armor Break"],
     "Vulture": ["Poison", "Shock", "Nullify"],
     "Absorbing Man": ["Poison"],  # synergy with Abomination (Immortal)
+    "Emma Frost": ["Inverted Controls"],  # she inflicts it, not immune to it
 }
 
 # Champions whose immunity to a given type requires a condition (mode, buff, pre-fight, etc.)
