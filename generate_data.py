@@ -20,7 +20,11 @@ from immunities import (
     IMMUNITY_TYPES, CHAMPION_IMMUNITIES_FALLBACK,
 )
 from debuffs import fetch_and_cache_debuffs, load_cached_debuffs
-from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
+from prestige_scraper import (
+    fetch_and_cache_prestige, load_cached_prestige,
+    SIG_LEVELS, PRESTIGE_OPTIONS,
+)
+from prestige_data import PRESTIGE as PRESTIGE_FALLBACK
 
 
 def main():
@@ -53,6 +57,13 @@ def main():
         raw_immunities = CHAMPION_IMMUNITIES_FALLBACK
     imm_annotated = _apply_conditional(raw_immunities)
 
+    # Fetch prestige data (mcochub -> cache -> fallback)
+    prestige = fetch_and_cache_prestige()
+    if not prestige or not any(prestige.values()):
+        prestige = load_cached_prestige()
+    if not prestige:
+        prestige = PRESTIGE_FALLBACK
+
     # Build response
     champions = compute_tier_list(data)
     for c in champions:
@@ -75,7 +86,7 @@ def main():
         "debuff_types": list(debuff_map.keys()),
         "awakening_data": aw or {},
         "sig_stones_data": sig or {},
-        "prestige": PRESTIGE,
+        "prestige": prestige,
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
         "prestige_portraits": portraits,

@@ -11,7 +11,7 @@ Data sources refreshed daily:
   - Immunities: Fandom wiki category pages (10 immunity types)
   - Debuff Inflictions: Fandom wiki category pages (35 debuff types)
   - Portraits: JSON files in lib/ (Fandom wiki, mcochub, local)
-  - Prestige: Hardcoded (sourced from mcochub.insaneskull.com)
+  - Prestige: mcochub.insaneskull.com HTML tables (7★ R3/R4/R5)
 """
 import base64
 import json
@@ -34,7 +34,10 @@ from immunities import (
     IMMUNITY_TYPES, CHAMPION_IMMUNITIES_FALLBACK,
 )
 from debuffs import fetch_debuff_data
-from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
+from prestige_scraper import (
+    fetch_prestige_data, SIG_LEVELS, PRESTIGE_OPTIONS,
+)
+from prestige_data import PRESTIGE as PRESTIGE_FALLBACK
 
 import requests
 
@@ -66,6 +69,11 @@ def _build_tierlist_json():
         raw_immunities = CHAMPION_IMMUNITIES_FALLBACK
     imm_annotated = _apply_conditional(raw_immunities)
 
+    # Fetch prestige from mcochub (fall back to hardcoded)
+    prestige = fetch_prestige_data()
+    if not prestige or not any(prestige.values()):
+        prestige = PRESTIGE_FALLBACK
+
     champions = compute_tier_list(combined)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
@@ -87,7 +95,7 @@ def _build_tierlist_json():
         "debuff_types": list(debuff_map.keys()),
         "awakening_data": aw_data or {},
         "sig_stones_data": sig_data or {},
-        "prestige": PRESTIGE,
+        "prestige": prestige,
         "prestige_sig_levels": SIG_LEVELS,
         "prestige_options": PRESTIGE_OPTIONS,
         "prestige_portraits": portraits,
