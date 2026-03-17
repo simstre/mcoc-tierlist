@@ -380,13 +380,15 @@ a.ptab { text-decoration: none; }
 .imm-champ-row {
   display: flex;
   align-items: center;
-  padding: 0.3rem 0;
+  padding: 0.35rem 0;
   gap: 0.5rem;
+  min-height: 34px;
 }
 .imm-champ-row img {
   width: 28px;
   height: 28px;
   border-radius: 5px;
+  flex-shrink: 0;
 }
 .imm-champ-row .fb {
   width: 28px;
@@ -399,6 +401,7 @@ a.ptab { text-decoration: none; }
   font-size: 0.6rem;
   color: #3a3a3a;
   font-weight: 600;
+  flex-shrink: 0;
 }
 .imm-champ-name {
   font-size: 0.82rem;
@@ -406,8 +409,8 @@ a.ptab { text-decoration: none; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-shrink: 1;
-  min-width: 80px;
+  flex: 1;
+  min-width: 0;
 }
 .imm-champ-tags {
   display: flex;
@@ -415,18 +418,12 @@ a.ptab { text-decoration: none; }
   flex-wrap: wrap;
   flex-shrink: 0;
   justify-content: flex-end;
-  max-width: 55%;
+  max-width: 50%;
+  align-content: center;
 }
 .imm-champ-tags .imm-tag.matched {
   background: #ffffff15;
   color: #ccc;
-}
-.imm-champ-score {
-  width: 22px;
-  font-size: 0.7rem;
-  color: #555;
-  text-align: right;
-  flex-shrink: 0;
 }
 
 /* Shared page hints */

@@ -89,7 +89,9 @@ async function init() {
   const mainLegend =
     legendItem('<span class="aw"></span>', 'Awakening') +
     legendItem('<span class="no7">7</span>', 'No 7-Star') +
-    Object.keys(TAG_BADGES).filter(k => k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('');
+    Object.keys(TAG_BADGES).filter(k => k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('') +
+    legendItem('<span class="imm-tag">IMMUNE</span>', 'Always') +
+    legendItem('<span class="imm-tag cond">CONDITIONAL</span>', 'Requires mode/ability');
   document.getElementById('legend').innerHTML = mainLegend;
 
   const awLegendKeys = ['high_sig_needed', 'in_titan_crystal', 'defense'];
@@ -338,7 +340,6 @@ function renderImmunities() {
       <span class="imm-champ-name">${c.name}</span>
       <span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>
       <span class="imm-champ-tags">${tags}</span>
-      <span class="imm-champ-score">${c.score}</span>
     </div>`;
   }).join('');
 
