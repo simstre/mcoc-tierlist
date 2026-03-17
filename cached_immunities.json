@@ -164,7 +164,6 @@
     "Shock",
     "Coldsnap",
     "Frostbite",
-    "Nullify",
     "Armor Break"
   ],
   "Morningstar": [
@@ -405,8 +404,7 @@
     "Poison"
   ],
   "She-Hulk (Deathless)": [
-    "Poison",
-    "Rupture"
+    "Poison"
   ],
   "Spider-Woman (Jessica Drew)": [
     "Poison",
@@ -553,6 +551,12 @@
   "Storm": [
     "Shock"
   ],
+  "Venompool": [
+    "Shock",
+    "Armor Break",
+    "Power Drain",
+    "Power Burn"
+  ],
   "Karolina Dean": [
     "Coldsnap",
     "Frostbite",
@@ -568,8 +572,6 @@
   ],
   "The Serpent": [
     "Coldsnap",
-    "Nullify",
-    "Stagger",
     "Fate Seal",
     "Heal Block",
     "Power Lock"
@@ -582,10 +584,6 @@
     "Armor Break"
   ],
   "Civil Warrior": [
-    "Nullify",
-    "Stagger"
-  ],
-  "Crossbones": [
     "Nullify",
     "Stagger"
   ],
@@ -619,6 +617,7 @@
   ],
   "Lady Deathstrike": [
     "Armor Break",
+    "Heal Block",
     "Rupture"
   ],
   "Heimdall": [
@@ -643,10 +642,6 @@
     "Power Burn"
   ],
   "Venom": [
-    "Power Drain",
-    "Power Burn"
-  ],
-  "Venompool": [
     "Power Drain",
     "Power Burn"
   ],
@@ -693,5 +688,11 @@
   ],
   "Wolverine (Weapon X)": [
     "Regen Rate Mod"
+  ],
+  "Warlock": [
+    "Bleed",
+    "Poison",
+    "Coldsnap",
+    "Frostbite"
   ]
 }

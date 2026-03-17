@@ -68,6 +68,7 @@ SYNERGY_ONLY = {
     "Absorbing Man": ["Poison"],
     "Anti-Venom": ["Buff Immunity"],  # inflicts Stagger, not self buff immune
     "Black Widow (Claire Voyant)": ["Buff Immunity"],  # inflicts on opponent
+    "Crossbones": ["Nullify", "Stagger"],  # Hydra Recruiters synergy
     "Dazzler": ["Incinerate"],  # synergy with Kitty Pryde
     "Doctor Strange": ["Coldsnap"],
     "Dormammu": ["Incinerate"],
@@ -80,18 +81,20 @@ SYNERGY_ONLY = {
     "Joe Fixit": ["Inverted Controls"],  # Overseer synergy
     "Kitty Pryde": ["Inverted Controls"],  # synergy with Emma Frost
     "Kraven": ["Bleed"],  # synergy with Arcade
-    "Lady Deathstrike": ["Heal Block"],  # not found in abilities on wiki
+    "Mangog": ["Nullify"],  # Fueled With Rage synergy with Odin
     "Mordo": ["Nullify", "Fate Seal"],
     "Mysterio": ["Inverted Controls"],  # synergy with Emma Frost
     "Prowler": ["Inverted Controls"],  # synergy with Spider-Punk
+    "She-Hulk (Deathless)": ["Rupture"],  # Iron Heel synergy with Thanos (Deathless)
     "Spider-Punk": ["Inverted Controls"],  # synergy with Prowler
     "Spiral": ["Inverted Controls"],  # synergy with Rogue/Gambit
     "Spot": ["Buff Immunity"],  # applies to teammate, not self
     "Storm": ["Incinerate", "Coldsnap"],  # synergy with Storm (Pyramid X)
     "Thanos (Deathless)": ["Power Drain", "Power Burn"],  # synergy with Vision (Deathless)
     "The Overseer": ["Inverted Controls"],  # same Hulk synergy
+    "The Serpent": ["Nullify", "Stagger"],  # buff-level protection, not champion-wide
     "Titania": ["Bleed"],
-    "Venompool": ["Incinerate", "Shock", "Armor Break"],
+    "Venompool": ["Incinerate"],  # synergy only for Incinerate
     "Vision (Deathless)": ["Inverted Controls"],  # synergy with Thanos (Deathless)
     "Vulture": ["Poison", "Shock", "Nullify"],
 }
@@ -100,10 +103,14 @@ SYNERGY_ONLY = {
 CONDITIONAL = {
     "Absorbing Man": ["Bleed", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
     "Adam Warlock": ["Incinerate", "Shock", "Coldsnap", "Frostbite", "Nullify", "Stagger", "Fate Seal"],
+    "Annihilus": ["Incinerate", "Coldsnap", "Frostbite", "Power Drain", "Power Lock", "Power Burn", "Power Steal"],  # Cosmic Control Rod
     "Apocalypse": ["Bleed", "Incinerate"],
     "Arcade": ["Poison", "Incinerate", "Shock"],
+    "Attuma": ["Incinerate"],  # requires 10 Hydration stacks
     "Black Widow (Claire Voyant)": ["Bleed", "Poison", "Incinerate"],
     "Cassie Lang": ["Power Steal"],  # requires Signature Ability
+    "Colossus": ["Armor Break", "Armor Shattered"],  # not vs Tech champions
+    "Diablo": ["Armor Break"],  # requires Grain of Uru ingredient
     "Doombot": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite",
                  "Nullify", "Stagger", "Fate Seal", "Power Drain", "Power Burn"],  # class-variant dependent
     "Emma Frost": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
@@ -111,16 +118,25 @@ CONDITIONAL = {
     "Iron Man (Infamous)": ["Incinerate", "Shock"],
     "Iron Man (Infinity War)": ["Bleed", "Coldsnap"],
     "Ironheart": ["Incinerate", "Coldsnap", "Frostbite", "Inverted Controls"],  # Armor Up required
+    "Lady Deathstrike": ["Heal Block", "Armor Break", "Rupture"],  # while Nanobots Regenerator active / Sig
     "Lizard": ["Heal Block", "Buff Immunity"],  # during specials / unstoppable only
     "Madelyne Pryor": ["Bleed", "Rupture"],  # while Force Field has integrity
     "Mangog": ["Incinerate", "Shock", "Coldsnap", "Frostbite"],
     "Nico Minoru": ["Rupture", "Buff Immunity"],  # requires Ward pre-fight spell
-    "Scorpion": ["Poison", "Shock"],
+    "Scorpion": ["Poison", "Shock", "Rupture"],  # pre-fight dependent
+    "Silver Centurion": ["Bleed", "Shock"],  # requires Armor Up buff
+    "Storm (Pyramid X)": ["Coldsnap", "Frostbite"],  # Ice Tempest mode (default but switchable)
     "Terrax": ["Power Drain", "Power Lock", "Power Burn", "Power Steal"],  # vs #Metal only
-    "The Champion": ["Fate Seal"],  # from Signature Ability, not synergy
+    "The Champion": ["Fate Seal", "Heal Block"],  # from Signature Ability
+    "The Collector": ["Bleed", "Poison", "Power Lock"],  # below 40% health only
     "Venom": ["Power Drain", "Power Burn"],  # vs Tech only
-    "Venompool": ["Power Drain", "Power Burn"],  # vs Tech only
+    "Venompool": ["Power Drain", "Power Burn", "Shock", "Armor Break"],  # vs Tech only
     "Viv Vision": ["Nullify", "Fate Seal", "Inverted Controls"],  # SP3 buff required
+}
+
+# Champions whose wiki pages are missing immunity category tags but have confirmed immunities
+WIKI_MISSING_OVERRIDES = {
+    "Warlock": ["Bleed", "Poison", "Coldsnap", "Frostbite"],
 }
 
 # Hardcoded fallback data (used if wiki fetch fails and no cache exists)
@@ -259,7 +275,7 @@ CHAMPION_IMMUNITIES_FALLBACK = {
     "Void": ["Incinerate"],
     "Vox": ["Poison"],
     "Vulture": ["Incinerate"],
-    "Warlock": ["Coldsnap", "Frostbite"],
+    "Warlock": ["Bleed", "Poison", "Coldsnap", "Frostbite"],
     "X-23 (Orochi)": ["Bleed"],
 }
 
@@ -319,6 +335,14 @@ def fetch_immunity_data():
             time.sleep(0.3)
         except Exception as e:
             logger.warning(f"Failed to fetch {display_name} Immunity: {e}")
+
+    # Add manual overrides for champions missing wiki category tags
+    for champ, immunities in WIKI_MISSING_OVERRIDES.items():
+        if champ not in champion_immunities:
+            champion_immunities[champ] = []
+        for imm in immunities:
+            if imm not in champion_immunities[champ]:
+                champion_immunities[champ].append(imm)
 
     # Sort each champion's immunities in IMMUNITY_TYPES order
     type_order = {t: i for i, t in enumerate(IMMUNITY_TYPES)}
