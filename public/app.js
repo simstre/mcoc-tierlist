@@ -261,7 +261,7 @@ function champHtml(c, rank) {
     <span class="champ-rank">${rank}</span>
     ${portraitHtml(c)}
     <div class="champ-info">
-      <span class="champ-name">${c.name}${badges}</span>
+      <span class="champ-name" style="color:${color}">${c.name}${badges}</span>
       ${immLine}
     </div>
     ${classTag}
@@ -405,7 +405,7 @@ function renderPriorityTab(sheetData, classView, contentId, infoId) {
           : '';
         return `<div class="aw-champ-row">
           ${portrait}
-          <span class="aw-champ-name">${c.name}${tagBadges(c.tags)}</span>
+          <span class="aw-champ-name" style="color:${color}">${c.name}${tagBadges(c.tags)}</span>
           ${classTag}
         </div>`;
       }).join('')}
@@ -462,10 +462,11 @@ function renderPrestige() {
       `<td class="pv${v === maxVal ? ' pv-hi' : ''}">${v.toLocaleString()}</td>`
     ).join('');
 
+    const color = champ ? (data.class_colors[champ.class] || '#fff') : '#fff';
     return `<tr>
       <td>${i + 1}</td>
       <td>${img}</td>
-      <td>${e.name}</td>
+      <td style="color:${color}">${e.name}</td>
       ${cells}
     </tr>`;
   }).join('');
