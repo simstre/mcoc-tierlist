@@ -246,9 +246,6 @@ function champHtml(c, rank) {
   if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
   badges += tagBadges(tags);
 
-  const classTag = currentView === 'all'
-    ? `<span class="champ-class" style="background:${color}15;color:${color}">${c.class}</span>`
-    : '';
   const immLine = c.immunities && c.immunities.length
     ? `<div class="champ-imm-line">${c.immunities.map(i => {
         const label = typeof i === 'string' ? i : i.type;
@@ -264,7 +261,6 @@ function champHtml(c, rank) {
       <span class="champ-name" style="color:${color}">${c.name}${badges}</span>
       ${immLine}
     </div>
-    ${classTag}
     <span class="champ-score" style="color:${scoreColor}">${c.score}</span>
   </div>`;
 }
