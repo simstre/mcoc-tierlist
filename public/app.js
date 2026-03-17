@@ -3,7 +3,48 @@ let currentView = 'all';
 let awClassView = 'all';
 let sigClassView = 'all';
 let selectedImms = new Set();
+let immMode = 'immune'; // 'immune' or 'inflicts'
 let prestigeKey = '';
+
+const immColors = {
+  // Immunities
+  Bleed: '#ef4444', Poison: '#22c55e', Coldsnap: '#38bdf8', Shock: '#facc15',
+  Incinerate: '#f97316', Nullify: '#a855f7', 'Armor Break': '#94a3b8',
+  Stagger: '#a855f7', Frostbite: '#7dd3fc', 'Fate Seal': '#c084fc',
+  // Extra debuff types
+  'Heal Block': '#fb923c', 'Power Drain': '#60a5fa', 'Power Lock': '#818cf8',
+  'Power Burn': '#c084fc', Stun: '#fbbf24', Degeneration: '#f472b6',
+};
+
+function buildImmToggles() {
+  const container = document.getElementById('imm-toggles');
+  const hint = document.getElementById('imm-hint');
+  const types = immMode === 'immune' ? (data.immunity_types || []) : (data.debuff_types || []);
+
+  hint.textContent = immMode === 'immune'
+    ? 'Select immunities to find matching champions. Multiple = must have all.'
+    : 'Select debuffs to find champions who inflict them. Multiple = must inflict all.';
+
+  container.innerHTML = types.map(t => {
+    const color = immColors[t] || '#888';
+    const on = selectedImms.has(t) ? ' on' : '';
+    return `<button class="imm-toggle${on}" style="--imm-color:${color}" data-imm="${t}">${t}</button>`;
+  }).join('');
+
+  container.querySelectorAll('.imm-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const imm = btn.dataset.imm;
+      if (selectedImms.has(imm)) {
+        selectedImms.delete(imm);
+        btn.classList.remove('on');
+      } else {
+        selectedImms.add(imm);
+        btn.classList.add('on');
+      }
+      renderImmunities();
+    });
+  });
+}
 
 async function init() {
   const res = await fetch('/data/tierlist.json');
@@ -66,30 +107,20 @@ async function init() {
     });
   });
 
-  // Immunity toggle buttons
-  const immColors = {
-    Bleed: '#ef4444', Poison: '#22c55e', Incinerate: '#f97316',
-    Shock: '#eab308', Coldsnap: '#38bdf8', Frostbite: '#a5f3fc',
-    Nullify: '#a855f7', Stagger: '#c084fc', 'Armor Break': '#9ca3af',
-    'Fate Seal': '#f472b6',
-  };
-  const toggles = document.getElementById('imm-toggles');
-  toggles.innerHTML = data.immunity_types.map(t =>
-    `<button class="imm-toggle" data-imm="${t}" style="--imm-color:${immColors[t] || '#888'}">${t}</button>`
-  ).join('');
-  toggles.querySelectorAll('.imm-toggle').forEach(btn => {
+  // Immunity/Debuff mode tabs
+  document.querySelectorAll('.imm-mode').forEach(btn => {
     btn.addEventListener('click', () => {
-      const imm = btn.dataset.imm;
-      if (selectedImms.has(imm)) {
-        selectedImms.delete(imm);
-        btn.classList.remove('on');
-      } else {
-        selectedImms.add(imm);
-        btn.classList.add('on');
-      }
+      immMode = btn.dataset.mode;
+      document.querySelectorAll('.imm-mode').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedImms.clear();
+      buildImmToggles();
       renderImmunities();
     });
   });
+
+  // Immunity/Debuff toggle buttons
+  buildImmToggles();
 
   // Awakening gem class tabs
   const awClasses = ['all', 'Cosmic', 'Mutant', 'Tech', 'Skill', 'Science', 'Mystic'];
@@ -248,22 +279,23 @@ function render() {
 
 function renderImmunities() {
   const info = document.getElementById('imm-results-info');
+  const field = immMode === 'immune' ? 'immunities' : 'inflicts';
+  const verb = immMode === 'immune' ? 'immune to' : 'inflicting';
 
-  // Get champions with immunities
-  let champs = data.champions.filter(c => c.immunities && c.immunities.length > 0);
+  let champs = data.champions.filter(c => c[field] && c[field].length > 0);
 
   if (selectedImms.size > 0) {
-    // Filter: champion must have ALL selected immunities
     champs = champs.filter(c =>
-      [...selectedImms].every(imm => c.immunities.includes(imm))
+      [...selectedImms].every(imm => c[field].includes(imm))
     );
     const labels = [...selectedImms].join(' + ');
-    info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''} immune to ${labels}`;
+    info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''} ${verb} ${labels}`;
   } else {
-    info.textContent = `${champs.length} champions with at least one immunity`;
+    info.textContent = immMode === 'immune'
+      ? `${champs.length} champions with at least one immunity`
+      : `${champs.length} champions that inflict at least one debuff`;
   }
 
-  // Sort by score descending
   champs.sort((a, b) => b.score - a.score);
 
   let html = champs.map(c => {
@@ -271,7 +303,7 @@ function renderImmunities() {
       ? `<img src="${c.portrait}" alt="" loading="lazy" onerror="this.outerHTML='<span class=fb>${c.name[0]}</span>'">`
       : `<span class="fb">${c.name[0]}</span>`;
     const color = data.class_colors[c.class];
-    const tags = c.immunities.map(i => {
+    const tags = c[field].map(i => {
       const matched = selectedImms.has(i) ? ' matched' : '';
       return `<span class="imm-tag${matched}">${i}</span>`;
     }).join('');

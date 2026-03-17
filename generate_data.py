@@ -15,6 +15,7 @@ from champions_data import (
 )
 from fetch_tierlist import fetch_and_cache, load_cached
 from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
+from debuffs import fetch_and_cache_debuffs, load_cached_debuffs
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
 
@@ -35,11 +36,17 @@ def main():
         if fpath.exists():
             portraits.update(json.loads(fpath.read_text()))
 
+    # Fetch debuff data
+    debuff_map, champion_debuffs = fetch_and_cache_debuffs()
+    if not debuff_map:
+        debuff_map, champion_debuffs = load_cached_debuffs()
+
     # Build response
     champions = compute_tier_list(data)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
+        c["inflicts"] = champion_debuffs.get(c["name"], [])
 
     by_class = get_champions_by_class(champions)
 
@@ -52,6 +59,8 @@ def main():
         "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(),
         "immunity_types": IMMUNITY_TYPES,
+        "debuff_map": debuff_map,
+        "debuff_types": list(debuff_map.keys()),
         "awakening_data": aw or {},
         "sig_stones_data": sig or {},
         "prestige": PRESTIGE,

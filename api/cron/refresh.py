@@ -21,6 +21,7 @@ from champions_data import (
 )
 from fetch_tierlist import fetch_and_combine, fetch_priority_sheets
 from immunities import CHAMPION_IMMUNITIES, get_immunity_map, IMMUNITY_TYPES
+from debuffs import fetch_debuff_data
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
 import requests
@@ -45,11 +46,13 @@ def _build_tierlist_json():
 
     aw_data, sig_data = fetch_priority_sheets()
     portraits = _load_portraits()
+    debuff_map, champion_debuffs = fetch_debuff_data()
 
     champions = compute_tier_list(combined)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
         c["immunities"] = CHAMPION_IMMUNITIES.get(c["name"], [])
+        c["inflicts"] = champion_debuffs.get(c["name"], [])
 
     by_class = get_champions_by_class(champions)
 
@@ -62,6 +65,8 @@ def _build_tierlist_json():
         "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(),
         "immunity_types": IMMUNITY_TYPES,
+        "debuff_map": debuff_map,
+        "debuff_types": list(debuff_map.keys()),
         "awakening_data": aw_data or {},
         "sig_stones_data": sig_data or {},
         "prestige": PRESTIGE,

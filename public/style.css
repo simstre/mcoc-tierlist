@@ -300,6 +300,27 @@ a.ptab { text-decoration: none; }
 }
 
 /* Immunity page */
+.imm-mode-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid #1c1c1c;
+}
+.imm-mode {
+  padding: 0.45rem 0.9rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: #555;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.imm-mode:hover { color: #aaa; }
+.imm-mode.active { color: #ccc; border-bottom-color: #888; }
+
 .imm-hint {
   font-size: 0.7rem;
   color: #444;
