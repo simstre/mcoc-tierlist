@@ -301,10 +301,8 @@
   "Black Bolt": [
     "Poison"
   ],
-  "Captain Marvel": [
-    "Poison"
-  ],
   "Captain Marvel (Classic)": [
+    "Poison",
     "Poison"
   ],
   "Cassie Lang": [
@@ -354,7 +352,7 @@
     "Heal Block",
     "Buff Immunity"
   ],
-  "Maestro (Cosmic)": [
+  "Maestro": [
     "Poison",
     "Incinerate",
     "Shock"

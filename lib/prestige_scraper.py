@@ -23,6 +23,28 @@ PRESTIGE_OPTIONS = [
     {"label": "7\u2605 Rank 3", "key": "7-3"},
 ]
 
+# mcochub name -> canonical tier list name
+NAME_MAP = {
+    "QuickSilver": "Quicksilver",
+    "Howard The Duck": "Howard the Duck",
+    "Venom The Duck": "Venom the Duck",
+    "Shang Chi": "Shang-Chi",
+    "Spider Man 2099": "Spider-Man 2099",
+    "Spider man (Miles Morales)": "Spider-Man (Miles Morales)",
+    "Spider Man (Stark Enhanced)": "Spider-Man (Stark Enhanced)",
+    "Wolverine (X 23)": "Wolverine (X-23)",
+    "Platinum Pool": "Platinumpool",
+    "Falcon (Joaquin Torres)": "Falcon (Joaqu\u00edn Torres)",
+    "Star-Lord (Stellar Forged)": "Star-Lord (Stellar-Forged)",
+    "Spider-Man (Stealth-Suit)": "Spider-Man (Stealth Suit)",
+    "Spider-Woman": "Spider-Woman (Jessica Drew)",
+    "Kang the Conqueror": "Kang",
+    "Spider-Man (Classic)": "Spider-Man",
+    "Daredevil (Classic)": "Daredevil",
+    "Jack O\u2019Lantern": "Jack O'Lantern",
+    "M\u2019Baku": "M'Baku",
+}
+
 # tier, rank pairs to fetch
 RANKS_TO_FETCH = [
     (7, 5),
@@ -76,6 +98,7 @@ def _parse_prestige_table(html):
             continue
 
         if len(values) == 11:
+            name = NAME_MAP.get(name, name)
             result[name] = values
 
     return result

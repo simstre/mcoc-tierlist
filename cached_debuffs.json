@@ -10,7 +10,7 @@
       "Arnim Zola",
       "Black Bolt",
       "Captain America (Infinity War)",
-      "Captain Marvel",
+      "Captain Marvel (Classic)",
       "Carnage",
       "Corvus Glaive",
       "Cosmic Ghost Rider",
@@ -68,7 +68,7 @@
       "Sentinelbot",
       "Silver Surfer",
       "Sorcerer Supreme",
-      "Spider-Man (Classic)",
+      "Spider-Man",
       "Spider-Man (Symbiote)",
       "Star-Lord",
       "Summoned Symbiote",
@@ -93,6 +93,7 @@
       "Vision (Aarkus)"
     ],
     "Bleed": [
+      "Aegon",
       "Agent Venom",
       "Apocalypse",
       "Arcade",
@@ -180,8 +181,7 @@
       "Wolverine",
       "Wolverine (Weapon X)",
       "Wolverine (X-23)",
-      "X-23 (Orochi)",
-      "\u00c6gon"
+      "X-23 (Orochi)"
     ],
     "Coldsnap": [
       "Anti-Venomoid",
@@ -378,7 +378,7 @@
       "Hulk (Ragnarok)",
       "Invisible Woman",
       "Iron Man (Infinity War)",
-      "Kang the Conqueror",
+      "Kang",
       "Lady Deathstrike",
       "M.O.D.O.K.",
       "Magneto",
@@ -657,7 +657,7 @@
       "Iron Man",
       "Iron Man (Infinity War)",
       "Ironheart",
-      "Kang the Conqueror",
+      "Kang",
       "Mephisto",
       "Mysterio",
       "Namor",
@@ -806,7 +806,7 @@
       "Shuri",
       "Silver Centurion",
       "Silver Sable",
-      "Spider-Man (Classic)",
+      "Spider-Man",
       "Spider-Man (Miles Morales)",
       "Spider-Man (Stark Enhanced)",
       "Spider-Slayer (J. Jonah Jameson)",
@@ -882,6 +882,7 @@
     ],
     "Stun": [
       "Adam Warlock",
+      "Aegon",
       "Air-Walker",
       "America Chavez",
       "Ant-Man (Future)",
@@ -902,12 +903,12 @@
       "Captain America",
       "Captain America (Infinity War)",
       "Captain America (WWII)",
-      "Captain Marvel",
+      "Captain Marvel (Classic)",
       "Cassandra Nova",
       "Cassie Lang",
       "Colossus",
       "Cull Obsidian",
-      "Daredevil (Classic)",
+      "Daredevil",
       "Daredevil (Hell's Kitchen)",
       "Darkhawk",
       "Dazzler",
@@ -945,7 +946,7 @@
       "Jessica Jones",
       "Joe Fixit",
       "Juggernaut",
-      "Kang the Conqueror",
+      "Kang",
       "Karolina Dean",
       "Kate Bishop",
       "Kingpin",
@@ -954,7 +955,7 @@
       "Luke Cage",
       "Lumatrix",
       "Maestro",
-      "Maestro (Cosmic)",
+      "Maestro",
       "Mangog",
       "Medusa",
       "Mister Sinister",
@@ -990,7 +991,7 @@
       "Silk",
       "Solvarch",
       "Spider-Gwen",
-      "Spider-Man (Classic)",
+      "Spider-Man",
       "Spider-Man (Miles Morales)",
       "Spider-Man (Stark Enhanced)",
       "Spider-Man 2099",
@@ -1018,8 +1019,7 @@
       "Ultron (Classic)",
       "Venompool",
       "War Machine",
-      "Werewolf By Night",
-      "\u00c6gon"
+      "Werewolf By Night"
     ],
     "Taunt": [
       "Adam Warlock",
@@ -1039,7 +1039,7 @@
       "Rintrah",
       "Scorpion",
       "Spider-Ham",
-      "Spider-Man (Classic)",
+      "Spider-Man",
       "Spider-Man (Miles Morales)",
       "Spider-Man (Stark Enhanced)",
       "Spider-Punk",
@@ -1072,7 +1072,7 @@
       "Scarlet Witch (Classic)",
       "She-Hulk",
       "She-Hulk (Deathless)",
-      "Spider-Man (Classic)",
+      "Spider-Man",
       "Spider-Man (Miles Morales)",
       "Spider-Man (Symbiote)",
       "Summoned Symbiote",
@@ -1133,8 +1133,9 @@
       "Stun",
       "Weakness"
     ],
-    "Captain Marvel": [
+    "Captain Marvel (Classic)": [
       "Armor Break",
+      "Power Lock",
       "Stun"
     ],
     "Carnage": [
@@ -1461,7 +1462,7 @@
       "Nullify",
       "Slow"
     ],
-    "Spider-Man (Classic)": [
+    "Spider-Man": [
       "Armor Break",
       "Shock",
       "Stun",
@@ -1765,6 +1766,7 @@
       "Degeneration",
       "Power Burn",
       "Power Lock",
+      "Stun",
       "Stun"
     ],
     "Masacre": [
@@ -1897,7 +1899,7 @@
       "Degeneration",
       "Poison"
     ],
-    "\u00c6gon": [
+    "Aegon": [
       "Bleed",
       "Stun"
     ],
@@ -2322,7 +2324,7 @@
       "Power Drain",
       "Power Lock"
     ],
-    "Kang the Conqueror": [
+    "Kang": [
       "Heal Block",
       "Power Drain",
       "Stun"
@@ -2590,9 +2592,6 @@
       "Stun",
       "Taunt"
     ],
-    "Captain Marvel (Classic)": [
-      "Power Lock"
-    ],
     "Spider-Punk": [
       "Power Lock",
       "Rupture",
@@ -2694,7 +2693,7 @@
     "Cassandra Nova": [
       "Stun"
     ],
-    "Daredevil (Classic)": [
+    "Daredevil": [
       "Stun"
     ],
     "Dust": [
@@ -2707,9 +2706,6 @@
       "Stun"
     ],
     "Lumatrix": [
-      "Stun"
-    ],
-    "Maestro (Cosmic)": [
       "Stun"
     ],
     "Blue Marvel": [

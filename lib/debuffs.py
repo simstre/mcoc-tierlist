@@ -14,6 +14,16 @@ logger = logging.getLogger("mcoc-debuffs")
 WIKI_API = "https://marvel-contestofchampions.fandom.com/api.php"
 CACHE_PATH = Path(__file__).parent / "cached_debuffs.json"
 
+# Wiki name -> canonical tier list name
+WIKI_NAME_MAP = {
+    "Captain Marvel": "Captain Marvel (Classic)",
+    "Daredevil (Classic)": "Daredevil",
+    "Kang the Conqueror": "Kang",
+    "Maestro (Cosmic)": "Maestro",
+    "Spider-Man (Classic)": "Spider-Man",
+    "\u00c6gon": "Aegon",
+}
+
 # Category name on wiki -> display name
 DEBUFF_CATEGORIES = {
     "Armor_Break": "Armor Break",
@@ -105,7 +115,8 @@ def fetch_debuff_data():
 
     for category, display_name in DEBUFF_CATEGORIES.items():
         try:
-            members = _fetch_category_members(category)
+            raw_members = _fetch_category_members(category)
+            members = [WIKI_NAME_MAP.get(m, m) for m in raw_members]
             debuff_map[display_name] = sorted(members)
             logger.info(f"Fetched {display_name}: {len(members)} champions")
 

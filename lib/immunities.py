@@ -16,6 +16,16 @@ logger = logging.getLogger("mcoc-immunities")
 WIKI_API = "https://marvel-contestofchampions.fandom.com/api.php"
 CACHE_PATH = Path(__file__).parent / "cached_immunities.json"
 
+# Wiki name -> canonical tier list name
+WIKI_NAME_MAP = {
+    "Captain Marvel": "Captain Marvel (Classic)",
+    "Daredevil (Classic)": "Daredevil",
+    "Kang the Conqueror": "Kang",
+    "Maestro (Cosmic)": "Maestro",
+    "Spider-Man (Classic)": "Spider-Man",
+    "\u00c6gon": "Aegon",
+}
+
 IMMUNITY_TYPES = [
     "Bleed",
     "Poison",
@@ -325,6 +335,7 @@ def fetch_immunity_data():
             logger.info(f"Fetched {display_name} Immunity: {len(members)} champions")
 
             for champ in members:
+                champ = WIKI_NAME_MAP.get(champ, champ)
                 # Skip synergy-only immunities
                 if champ in SYNERGY_ONLY and display_name in SYNERGY_ONLY[champ]:
                     continue
