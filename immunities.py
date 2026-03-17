@@ -1,8 +1,20 @@
 """
-Champion immunity data aggregated from Fandom wiki category pages.
-Each champion maps to {always: [...], conditional: [...]}.
-Synergy-only immunities are excluded entirely.
+Champion immunity data fetched from Fandom wiki category pages.
+Each champion maps to list of {type, conditional} dicts.
+Conditional annotations are manually curated.
+Synergy-only immunities are excluded via SYNERGY_ONLY blocklist.
 """
+import json
+import logging
+import time
+import urllib.parse
+import urllib.request
+from pathlib import Path
+
+logger = logging.getLogger("mcoc-immunities")
+
+WIKI_API = "https://marvel-contestofchampions.fandom.com/api.php"
+CACHE_PATH = Path(__file__).parent / "cached_immunities.json"
 
 IMMUNITY_TYPES = [
     "Bleed",
@@ -17,24 +29,66 @@ IMMUNITY_TYPES = [
     "Fate Seal",
 ]
 
-# Champions mapped to their immunities
-# Format: {"always": [...], "conditional": [...]}
-# Shorthand: plain list = all always-active
-CHAMPION_IMMUNITIES = {
+# Wiki category name -> display name
+IMMUNITY_CATEGORIES = {
+    "Bleed_Immunity": "Bleed",
+    "Poison_Immunity": "Poison",
+    "Incinerate_Immunity": "Incinerate",
+    "Shock_Immunity": "Shock",
+    "Coldsnap_Immunity": "Coldsnap",
+    "Frostbite_Immunity": "Frostbite",
+    "Nullify_Immunity": "Nullify",
+    "Stagger_Immunity": "Stagger",
+    "Armor_Break_Immunity": "Armor Break",
+    "Fate_Seal_Immunity": "Fate Seal",
+}
+
+# Champions whose immunity to a given type is synergy-only (exclude from results)
+SYNERGY_ONLY = {
+    "Doctor Strange": ["Coldsnap"],
+    "Dormammu": ["Incinerate"],
+    "Hulk": ["Nullify", "Stagger", "Fate Seal"],
+    "Mordo": ["Nullify", "Fate Seal"],
+    "The Champion": ["Fate Seal"],
+    "Titania": ["Bleed"],
+    "Venompool": ["Incinerate", "Shock", "Armor Break"],
+    "Vulture": ["Poison", "Shock", "Nullify"],
+    "Absorbing Man": ["Poison"],  # synergy with Abomination (Immortal)
+}
+
+# Champions whose immunity to a given type requires a condition (mode, buff, pre-fight, etc.)
+CONDITIONAL = {
+    "Absorbing Man": ["Bleed", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
+    "Adam Warlock": ["Incinerate", "Shock", "Coldsnap", "Frostbite", "Nullify", "Stagger", "Fate Seal"],
+    "Apocalypse": ["Bleed", "Incinerate"],
+    "Arcade": ["Poison", "Incinerate", "Shock"],
+    "Black Widow (Claire Voyant)": ["Bleed", "Poison", "Incinerate"],
+    "Emma Frost": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
+    "Iron Man": ["Incinerate", "Coldsnap", "Frostbite", "Nullify", "Stagger"],
+    "Iron Man (Infamous)": ["Incinerate", "Shock"],
+    "Iron Man (Infinity War)": ["Bleed", "Coldsnap"],
+    "Ironheart": ["Incinerate", "Coldsnap", "Frostbite"],
+    "Mangog": ["Incinerate", "Shock", "Coldsnap", "Frostbite"],
+    "Scorpion": ["Poison", "Shock"],
+    "Viv Vision": ["Nullify", "Fate Seal"],
+}
+
+# Hardcoded fallback data (used if wiki fetch fails and no cache exists)
+CHAMPION_IMMUNITIES_FALLBACK = {
     "Abomination": ["Poison"],
     "Abomination (Immortal)": ["Poison"],
-    "Absorbing Man": {"always": ["Armor Break"], "conditional": ["Bleed", "Incinerate", "Shock", "Coldsnap", "Frostbite"]},
-    "Adam Warlock": {"always": [], "conditional": ["Incinerate", "Shock", "Coldsnap", "Frostbite", "Nullify", "Stagger", "Fate Seal"]},
+    "Absorbing Man": ["Bleed", "Incinerate", "Shock", "Coldsnap", "Frostbite", "Armor Break"],
+    "Adam Warlock": ["Incinerate", "Shock", "Coldsnap", "Frostbite", "Nullify", "Stagger", "Fate Seal"],
     "Annihilus": ["Incinerate", "Coldsnap", "Frostbite"],
     "Ant-Man": ["Poison", "Shock"],
     "Anti-Venom": ["Poison", "Incinerate"],
-    "Apocalypse": {"always": [], "conditional": ["Bleed", "Incinerate"]},
-    "Arcade": {"always": [], "conditional": ["Poison", "Incinerate", "Shock"]},
+    "Apocalypse": ["Bleed", "Incinerate"],
+    "Arcade": ["Poison", "Incinerate", "Shock"],
     "Arnim Zola": ["Bleed", "Poison"],
     "Attuma": ["Incinerate"],
     "Beta Ray Bill": ["Shock"],
     "Black Bolt": ["Poison"],
-    "Black Widow (Claire Voyant)": {"always": [], "conditional": ["Bleed", "Poison", "Incinerate"]},
+    "Black Widow (Claire Voyant)": ["Bleed", "Poison", "Incinerate"],
     "Blue Marvel": ["Bleed"],
     "Captain Marvel (Classic)": ["Poison"],
     "Captain Marvel (Movie)": ["Poison"],
@@ -53,7 +107,7 @@ CHAMPION_IMMUNITIES = {
     "Dragon Man": ["Bleed", "Poison"],
     "Dust": ["Bleed", "Poison", "Shock"],
     "Electro": ["Shock"],
-    "Emma Frost": {"always": [], "conditional": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"]},
+    "Emma Frost": ["Bleed", "Poison", "Incinerate", "Shock", "Coldsnap", "Frostbite"],
     "Franken-Castle": ["Poison"],
     "Galan": ["Nullify", "Fate Seal"],
     "Gentle": ["Bleed"],
@@ -73,10 +127,10 @@ CHAMPION_IMMUNITIES = {
     "Iceman": ["Bleed", "Poison", "Incinerate", "Coldsnap", "Frostbite"],
     "Ikaris": ["Incinerate", "Shock"],
     "Imperiosa": ["Bleed"],
-    "Iron Man": {"always": [], "conditional": ["Incinerate", "Coldsnap", "Frostbite", "Nullify", "Stagger"]},
-    "Iron Man (Infamous)": {"always": [], "conditional": ["Incinerate", "Shock"]},
-    "Iron Man (Infinity War)": {"always": [], "conditional": ["Bleed", "Coldsnap"]},
-    "Ironheart": {"always": [], "conditional": ["Incinerate", "Coldsnap", "Frostbite"]},
+    "Iron Man": ["Incinerate", "Coldsnap", "Frostbite", "Nullify", "Stagger"],
+    "Iron Man (Infamous)": ["Incinerate", "Shock"],
+    "Iron Man (Infinity War)": ["Bleed", "Coldsnap"],
+    "Ironheart": ["Incinerate", "Coldsnap", "Frostbite"],
     "Isophyne": ["Bleed", "Coldsnap", "Frostbite"],
     "Jack O'Lantern": ["Incinerate"],
     "Joe Fixit": ["Poison"],
@@ -93,7 +147,7 @@ CHAMPION_IMMUNITIES = {
     "M'Baku": ["Frostbite"],
     "Magneto (House of X)": ["Bleed"],
     "Man-Thing": ["Bleed", "Armor Break"],
-    "Mangog": {"always": ["Bleed", "Armor Break"], "conditional": ["Incinerate", "Shock", "Coldsnap", "Frostbite"]},
+    "Mangog": ["Bleed", "Incinerate", "Shock", "Coldsnap", "Frostbite", "Nullify", "Armor Break"],
     "Medusa": ["Poison"],
     "Mephisto": ["Poison", "Coldsnap", "Frostbite"],
     "Mister Negative": ["Nullify", "Stagger", "Fate Seal"],
@@ -121,7 +175,7 @@ CHAMPION_IMMUNITIES = {
     "Sandman": ["Bleed", "Poison", "Shock"],
     "Sasquatch": ["Frostbite", "Armor Break"],
     "Sauron": ["Poison"],
-    "Scorpion": {"always": [], "conditional": ["Poison", "Shock"]},
+    "Scorpion": ["Poison", "Shock"],
     "Sentinel": ["Bleed", "Poison", "Coldsnap", "Frostbite", "Armor Break"],
     "Sentry": ["Incinerate", "Nullify", "Fate Seal"],
     "She-Hulk": ["Poison"],
@@ -148,11 +202,10 @@ CHAMPION_IMMUNITIES = {
     "Ultron": ["Bleed", "Poison"],
     "Ultron (Classic)": ["Bleed", "Poison"],
     "Unstoppable Colossus": ["Bleed"],
-    "Venompool": {"always": [], "conditional": ["Incinerate", "Shock", "Armor Break"]},
     "Vision": ["Bleed", "Poison"],
     "Vision (Age of Ultron)": ["Bleed", "Poison"],
     "Vision (Deathless)": ["Bleed", "Poison", "Coldsnap", "Frostbite"],
-    "Viv Vision": {"always": ["Bleed", "Poison"], "conditional": ["Nullify", "Fate Seal"]},
+    "Viv Vision": ["Bleed", "Poison", "Nullify", "Fate Seal"],
     "Void": ["Incinerate"],
     "Vox": ["Poison"],
     "Vulture": ["Incinerate"],
@@ -161,39 +214,139 @@ CHAMPION_IMMUNITIES = {
 }
 
 
-def _normalize(entry):
-    """Normalize entry to {always: [], conditional: []} format."""
-    if isinstance(entry, list):
-        return {"always": entry, "conditional": []}
-    return entry
+def _fetch_category_members(category):
+    """Fetch all champion page titles from a wiki category."""
+    members = []
+    cmcontinue = None
+    while True:
+        params = {
+            "action": "query",
+            "list": "categorymembers",
+            "cmtitle": f"Category:{category}",
+            "cmlimit": "500",
+            "cmtype": "page",
+            "format": "json",
+        }
+        if cmcontinue:
+            params["cmcontinue"] = cmcontinue
+        url = f"{WIKI_API}?{urllib.parse.urlencode(params)}"
+        req = urllib.request.Request(url, headers={"User-Agent": "MCOCTierList/1.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            data = json.loads(resp.read())
+        for member in data.get("query", {}).get("categorymembers", []):
+            title = member.get("title", "")
+            if ":" in title or not title:
+                continue
+            members.append(title)
+        cont = data.get("continue", {})
+        cmcontinue = cont.get("cmcontinue")
+        if not cmcontinue:
+            break
+    return members
 
 
-def get_immunities_for_champion(name: str) -> list[dict]:
-    """Returns list of {type, conditional} dicts for a champion."""
-    entry = CHAMPION_IMMUNITIES.get(name)
-    if not entry:
-        return []
-    norm = _normalize(entry)
-    result = []
-    for imm in norm["always"]:
-        result.append({"type": imm, "conditional": False})
-    for imm in norm["conditional"]:
-        result.append({"type": imm, "conditional": True})
-    return result
+def fetch_immunity_data():
+    """Fetch immunity data from Fandom wiki categories.
+
+    Returns dict: {champion_name: [immunity_types]}
+    Applies SYNERGY_ONLY filtering.
+    """
+    champion_immunities = {}
+
+    for category, display_name in IMMUNITY_CATEGORIES.items():
+        try:
+            members = _fetch_category_members(category)
+            logger.info(f"Fetched {display_name} Immunity: {len(members)} champions")
+
+            for champ in members:
+                # Skip synergy-only immunities
+                if champ in SYNERGY_ONLY and display_name in SYNERGY_ONLY[champ]:
+                    continue
+                if champ not in champion_immunities:
+                    champion_immunities[champ] = []
+                champion_immunities[champ].append(display_name)
+
+            time.sleep(0.3)
+        except Exception as e:
+            logger.warning(f"Failed to fetch {display_name} Immunity: {e}")
+
+    # Sort each champion's immunities in IMMUNITY_TYPES order
+    type_order = {t: i for i, t in enumerate(IMMUNITY_TYPES)}
+    for name in champion_immunities:
+        champion_immunities[name].sort(key=lambda x: type_order.get(x, 99))
+
+    return champion_immunities
 
 
-def get_champions_by_immunity(immunity_type: str) -> list[str]:
-    result = []
-    for name, entry in CHAMPION_IMMUNITIES.items():
-        norm = _normalize(entry)
-        if immunity_type in norm["always"] or immunity_type in norm["conditional"]:
-            result.append(name)
-    return sorted(result)
+def fetch_and_cache_immunities():
+    """Fetch immunity data and cache to disk."""
+    champion_immunities = fetch_immunity_data()
+    CACHE_PATH.write_text(json.dumps(champion_immunities, indent=2))
+    logger.info(f"Cached immunity data: {len(champion_immunities)} champions")
+    return champion_immunities
 
 
-def get_immunity_map() -> dict[str, list[str]]:
-    """Returns {immunity_type: [champion_names]}"""
+def load_cached_immunities():
+    """Load cached immunity data."""
+    if CACHE_PATH.exists():
+        try:
+            return json.loads(CACHE_PATH.read_text())
+        except Exception as e:
+            logger.error(f"Failed to load immunity cache: {e}")
+    return None
+
+
+def _apply_conditional(champion_immunities):
+    """Apply conditional annotations to raw immunity data.
+
+    Takes {champion: [types]} and returns {champion: [{type, conditional}]}.
+    """
     result = {}
-    for imm_type in IMMUNITY_TYPES:
-        result[imm_type] = get_champions_by_immunity(imm_type)
+    for name, imm_types in champion_immunities.items():
+        cond_list = CONDITIONAL.get(name, [])
+        result[name] = [
+            {"type": t, "conditional": t in cond_list}
+            for t in imm_types
+        ]
     return result
+
+
+def get_immunities_for_champion(name, champion_immunities=None):
+    """Returns list of {type, conditional} dicts for a champion."""
+    if champion_immunities is None:
+        champion_immunities = CHAMPION_IMMUNITIES_FALLBACK
+    imm_types = champion_immunities.get(name, [])
+    if not imm_types:
+        return []
+    # Handle both raw list format and already-annotated format
+    if imm_types and isinstance(imm_types[0], dict):
+        return imm_types
+    cond_list = CONDITIONAL.get(name, [])
+    return [{"type": t, "conditional": t in cond_list} for t in imm_types]
+
+
+def get_immunity_map(champion_immunities=None):
+    """Returns {immunity_type: [champion_names]}"""
+    if champion_immunities is None:
+        champion_immunities = CHAMPION_IMMUNITIES_FALLBACK
+    result = {t: [] for t in IMMUNITY_TYPES}
+    for name, imm_list in champion_immunities.items():
+        for entry in imm_list:
+            t = entry["type"] if isinstance(entry, dict) else entry
+            if t in result:
+                result[t].append(name)
+    for t in result:
+        result[t].sort()
+    return result
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    raw = fetch_and_cache_immunities()
+    annotated = _apply_conditional(raw)
+    print(f"\n{len(annotated)} champions with immunities")
+    cond_count = sum(1 for imms in annotated.values() if any(i["conditional"] for i in imms))
+    print(f"{cond_count} with conditional immunities")
+    for imm_type in IMMUNITY_TYPES:
+        count = sum(1 for imms in annotated.values() if any(i["type"] == imm_type for i in imms))
+        print(f"  {imm_type}: {count}")

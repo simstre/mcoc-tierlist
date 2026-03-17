@@ -163,6 +163,8 @@ a.ptab { text-decoration: none; }
   gap: 3px;
   flex-wrap: wrap;
   margin-top: 1px;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .aw {

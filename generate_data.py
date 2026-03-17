@@ -14,7 +14,11 @@ from champions_data import (
     SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
 )
 from fetch_tierlist import fetch_and_cache, load_cached
-from immunities import get_immunities_for_champion, get_immunity_map, IMMUNITY_TYPES
+from immunities import (
+    fetch_and_cache_immunities, load_cached_immunities,
+    _apply_conditional, get_immunities_for_champion, get_immunity_map,
+    IMMUNITY_TYPES, CHAMPION_IMMUNITIES_FALLBACK,
+)
 from debuffs import fetch_and_cache_debuffs, load_cached_debuffs
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
@@ -41,11 +45,19 @@ def main():
     if not debuff_map:
         debuff_map, champion_debuffs = load_cached_debuffs()
 
+    # Fetch immunity data (wiki -> cache -> fallback)
+    raw_immunities = fetch_and_cache_immunities()
+    if not raw_immunities:
+        raw_immunities = load_cached_immunities()
+    if not raw_immunities:
+        raw_immunities = CHAMPION_IMMUNITIES_FALLBACK
+    imm_annotated = _apply_conditional(raw_immunities)
+
     # Build response
     champions = compute_tier_list(data)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
-        c["immunities"] = get_immunities_for_champion(c["name"])
+        c["immunities"] = imm_annotated.get(c["name"], [])
         c["inflicts"] = champion_debuffs.get(c["name"], [])
 
     by_class = get_champions_by_class(champions)
@@ -57,7 +69,7 @@ def main():
         "class_colors": CLASS_COLORS,
         "tier_colors": TIER_COLORS,
         "tag_labels": TAG_LABELS,
-        "immunity_map": get_immunity_map(),
+        "immunity_map": get_immunity_map(imm_annotated),
         "immunity_types": IMMUNITY_TYPES,
         "debuff_map": debuff_map,
         "debuff_types": list(debuff_map.keys()),

@@ -1,8 +1,17 @@
 """Vercel Cron Function: fetch fresh tier list data and commit to repo.
 
 Triggered daily at 06:00 UTC via vercel.json cron config.
-Fetches Google Sheets, builds the full tierlist.json response,
+Fetches all data sources, builds the full tierlist.json response,
 and commits it to the repo via GitHub API (triggering a redeploy).
+
+Data sources refreshed daily:
+  - Ranking Up scores: Google Sheets (Vega, Lagacy, Omega)
+  - Awakening Gems: Google Sheet (priority tiers)
+  - Sig Stones: Google Sheet (priority tiers)
+  - Immunities: Fandom wiki category pages (10 immunity types)
+  - Debuff Inflictions: Fandom wiki category pages (35 debuff types)
+  - Portraits: JSON files in lib/ (Fandom wiki, mcochub, local)
+  - Prestige: Hardcoded (sourced from mcochub.insaneskull.com)
 """
 import base64
 import json
@@ -20,7 +29,10 @@ from champions_data import (
     SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
 )
 from fetch_tierlist import fetch_and_combine, fetch_priority_sheets
-from immunities import get_immunities_for_champion, get_immunity_map, IMMUNITY_TYPES
+from immunities import (
+    fetch_immunity_data, _apply_conditional, get_immunity_map,
+    IMMUNITY_TYPES, CHAMPION_IMMUNITIES_FALLBACK,
+)
 from debuffs import fetch_debuff_data
 from prestige_data import PRESTIGE, SIG_LEVELS, PRESTIGE_OPTIONS
 
@@ -48,10 +60,16 @@ def _build_tierlist_json():
     portraits = _load_portraits()
     debuff_map, champion_debuffs = fetch_debuff_data()
 
+    # Fetch immunities from wiki (fall back to hardcoded)
+    raw_immunities = fetch_immunity_data()
+    if not raw_immunities:
+        raw_immunities = CHAMPION_IMMUNITIES_FALLBACK
+    imm_annotated = _apply_conditional(raw_immunities)
+
     champions = compute_tier_list(combined)
     for c in champions:
         c["portrait"] = portraits.get(c["name"])
-        c["immunities"] = get_immunities_for_champion(c["name"])
+        c["immunities"] = imm_annotated.get(c["name"], [])
         c["inflicts"] = champion_debuffs.get(c["name"], [])
 
     by_class = get_champions_by_class(champions)
@@ -63,7 +81,7 @@ def _build_tierlist_json():
         "class_colors": CLASS_COLORS,
         "tier_colors": TIER_COLORS,
         "tag_labels": TAG_LABELS,
-        "immunity_map": get_immunity_map(),
+        "immunity_map": get_immunity_map(imm_annotated),
         "immunity_types": IMMUNITY_TYPES,
         "debuff_map": debuff_map,
         "debuff_types": list(debuff_map.keys()),

@@ -1,0 +1,570 @@
+{
+  "Absorbing Man": [
+    "Bleed",
+    "Incinerate",
+    "Shock",
+    "Coldsnap",
+    "Frostbite",
+    "Armor Break"
+  ],
+  "Adaptoid (Super Adaptoid Hydra)": [
+    "Bleed",
+    "Poison"
+  ],
+  "Apocalypse": [
+    "Bleed",
+    "Incinerate"
+  ],
+  "Arnim Zola": [
+    "Bleed",
+    "Poison"
+  ],
+  "Black Widow (Claire Voyant)": [
+    "Bleed",
+    "Poison",
+    "Incinerate"
+  ],
+  "Blue Marvel": [
+    "Bleed"
+  ],
+  "Colossus": [
+    "Bleed",
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite",
+    "Armor Break"
+  ],
+  "Cosmic Ghost Rider": [
+    "Bleed",
+    "Incinerate"
+  ],
+  "Count Nefaria": [
+    "Bleed"
+  ],
+  "Darkhawk": [
+    "Bleed",
+    "Poison"
+  ],
+  "Doombot": [
+    "Bleed",
+    "Poison",
+    "Incinerate",
+    "Shock",
+    "Coldsnap",
+    "Frostbite",
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Dormammu": [
+    "Bleed",
+    "Poison"
+  ],
+  "Dragon Man": [
+    "Bleed",
+    "Poison"
+  ],
+  "Dust": [
+    "Bleed",
+    "Poison",
+    "Shock"
+  ],
+  "Emma Frost": [
+    "Bleed",
+    "Poison",
+    "Incinerate",
+    "Shock",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Gentle": [
+    "Bleed"
+  ],
+  "Ghost Rider": [
+    "Bleed",
+    "Incinerate"
+  ],
+  "Groot": [
+    "Bleed"
+  ],
+  "Guillotine 2099": [
+    "Bleed",
+    "Poison"
+  ],
+  "Howard the Duck": [
+    "Bleed"
+  ],
+  "Iceman": [
+    "Bleed",
+    "Poison",
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Imperiosa": [
+    "Bleed"
+  ],
+  "Iron Man (Infinity War)": [
+    "Bleed",
+    "Coldsnap"
+  ],
+  "Isophyne": [
+    "Bleed",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "King Groot": [
+    "Bleed"
+  ],
+  "King Groot (Deathless)": [
+    "Bleed"
+  ],
+  "Korg": [
+    "Bleed",
+    "Shock"
+  ],
+  "Kraven": [
+    "Bleed"
+  ],
+  "Kushala": [
+    "Bleed",
+    "Incinerate"
+  ],
+  "Luke Cage": [
+    "Bleed"
+  ],
+  "Lumatrix": [
+    "Bleed"
+  ],
+  "Madelyne Pryor": [
+    "Bleed"
+  ],
+  "Magneto (House of X)": [
+    "Bleed"
+  ],
+  "Man-Thing": [
+    "Bleed",
+    "Armor Break"
+  ],
+  "Mangog": [
+    "Bleed",
+    "Incinerate",
+    "Shock",
+    "Coldsnap",
+    "Frostbite",
+    "Nullify",
+    "Armor Break"
+  ],
+  "Morningstar": [
+    "Bleed"
+  ],
+  "Nebula": [
+    "Bleed",
+    "Poison",
+    "Shock"
+  ],
+  "Nimrod": [
+    "Bleed",
+    "Poison"
+  ],
+  "Photon": [
+    "Bleed"
+  ],
+  "Prowler": [
+    "Bleed",
+    "Incinerate"
+  ],
+  "Sandman": [
+    "Bleed",
+    "Poison",
+    "Shock"
+  ],
+  "Sentinel": [
+    "Bleed",
+    "Poison",
+    "Coldsnap",
+    "Frostbite",
+    "Armor Break"
+  ],
+  "Sentinelbot": [
+    "Bleed",
+    "Poison"
+  ],
+  "Silver Centurion": [
+    "Bleed",
+    "Shock"
+  ],
+  "Solvarch": [
+    "Bleed",
+    "Poison"
+  ],
+  "Spider-Slayer (J. Jonah Jameson)": [
+    "Bleed",
+    "Poison"
+  ],
+  "Terrax": [
+    "Bleed",
+    "Shock"
+  ],
+  "The Collector": [
+    "Bleed",
+    "Poison"
+  ],
+  "The Destroyer": [
+    "Bleed",
+    "Poison",
+    "Armor Break"
+  ],
+  "Thing": [
+    "Bleed",
+    "Shock",
+    "Nullify",
+    "Stagger",
+    "Armor Break",
+    "Fate Seal"
+  ],
+  "Ultron": [
+    "Bleed",
+    "Poison"
+  ],
+  "Ultron (Classic)": [
+    "Bleed",
+    "Poison"
+  ],
+  "Unstoppable Colossus": [
+    "Bleed"
+  ],
+  "Vision": [
+    "Bleed",
+    "Poison"
+  ],
+  "Vision (Age of Ultron)": [
+    "Bleed",
+    "Poison"
+  ],
+  "Vision (Deathless)": [
+    "Bleed",
+    "Poison",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Viv Vision": [
+    "Bleed",
+    "Poison",
+    "Nullify",
+    "Fate Seal"
+  ],
+  "X-23 (Orochi)": [
+    "Bleed"
+  ],
+  "Abomination": [
+    "Poison"
+  ],
+  "Ant-Man": [
+    "Poison",
+    "Shock"
+  ],
+  "Anti-Venom": [
+    "Poison",
+    "Incinerate"
+  ],
+  "Anti-Venomoid": [
+    "Poison",
+    "Incinerate"
+  ],
+  "Arcade": [
+    "Poison",
+    "Incinerate",
+    "Shock"
+  ],
+  "Black Bolt": [
+    "Poison"
+  ],
+  "Captain Marvel": [
+    "Poison"
+  ],
+  "Captain Marvel (Classic)": [
+    "Poison"
+  ],
+  "Cassie Lang": [
+    "Poison",
+    "Shock"
+  ],
+  "Franken-Castle": [
+    "Poison"
+  ],
+  "Hawkeye": [
+    "Poison"
+  ],
+  "Henchpool": [
+    "Poison",
+    "Armor Break"
+  ],
+  "Hulk": [
+    "Poison"
+  ],
+  "Hulk (Immortal)": [
+    "Poison"
+  ],
+  "Hulk (Ragnarok)": [
+    "Poison"
+  ],
+  "Hulkling": [
+    "Poison",
+    "Shock"
+  ],
+  "Hyperion": [
+    "Poison"
+  ],
+  "Joe Fixit": [
+    "Poison"
+  ],
+  "Kindred": [
+    "Poison",
+    "Incinerate"
+  ],
+  "Lizard": [
+    "Poison"
+  ],
+  "Maestro (Cosmic)": [
+    "Poison",
+    "Incinerate",
+    "Shock"
+  ],
+  "Medusa": [
+    "Poison"
+  ],
+  "Mephisto": [
+    "Poison",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Ms. Marvel": [
+    "Poison"
+  ],
+  "Ms. Marvel (Kamala Khan)": [
+    "Poison"
+  ],
+  "Mysterio": [
+    "Poison"
+  ],
+  "Nico Minoru": [
+    "Poison"
+  ],
+  "Omega Red": [
+    "Poison"
+  ],
+  "Peni Parker": [
+    "Poison",
+    "Incinerate"
+  ],
+  "Ronan": [
+    "Poison"
+  ],
+  "Sauron": [
+    "Poison"
+  ],
+  "Scorpion": [
+    "Poison",
+    "Shock"
+  ],
+  "She-Hulk": [
+    "Poison"
+  ],
+  "She-Hulk (Deathless)": [
+    "Poison"
+  ],
+  "Spider-Woman (Jessica Drew)": [
+    "Poison"
+  ],
+  "Thanos (Deathless)": [
+    "Poison",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "The Leader": [
+    "Poison"
+  ],
+  "The Overseer": [
+    "Poison",
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Toad": [
+    "Poison"
+  ],
+  "Vox": [
+    "Poison"
+  ],
+  "Adam Warlock": [
+    "Incinerate",
+    "Shock",
+    "Coldsnap",
+    "Frostbite",
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Annihilus": [
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Attuma": [
+    "Incinerate"
+  ],
+  "Dark Phoenix": [
+    "Incinerate"
+  ],
+  "Dazzler": [
+    "Incinerate",
+    "Nullify"
+  ],
+  "Havok": [
+    "Incinerate"
+  ],
+  "Human Torch": [
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Ikaris": [
+    "Incinerate",
+    "Shock"
+  ],
+  "Iron Man": [
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite",
+    "Nullify",
+    "Stagger"
+  ],
+  "Iron Man (Infamous)": [
+    "Incinerate",
+    "Shock"
+  ],
+  "Ironheart": [
+    "Incinerate",
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Jack O'Lantern": [
+    "Incinerate"
+  ],
+  "Kitty Pryde": [
+    "Incinerate"
+  ],
+  "Night Thrasher": [
+    "Incinerate"
+  ],
+  "Phoenix": [
+    "Incinerate"
+  ],
+  "Purgatory": [
+    "Incinerate"
+  ],
+  "Red Goblin": [
+    "Incinerate"
+  ],
+  "Sentry": [
+    "Incinerate",
+    "Nullify",
+    "Fate Seal"
+  ],
+  "Storm": [
+    "Incinerate",
+    "Shock",
+    "Coldsnap"
+  ],
+  "Sunspot": [
+    "Incinerate"
+  ],
+  "Super-Skrull": [
+    "Incinerate",
+    "Shock"
+  ],
+  "Void": [
+    "Incinerate"
+  ],
+  "Vulture": [
+    "Incinerate"
+  ],
+  "Beta Ray Bill": [
+    "Shock"
+  ],
+  "Doctor Doom": [
+    "Shock",
+    "Armor Break"
+  ],
+  "Mole Man": [
+    "Shock"
+  ],
+  "Shocker": [
+    "Shock"
+  ],
+  "Shuri": [
+    "Shock"
+  ],
+  "Karolina Dean": [
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Sabretooth": [
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "Storm (Pyramid X)": [
+    "Coldsnap",
+    "Frostbite"
+  ],
+  "The Serpent": [
+    "Coldsnap",
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "M'Baku": [
+    "Frostbite"
+  ],
+  "Sasquatch": [
+    "Frostbite",
+    "Armor Break"
+  ],
+  "Civil Warrior": [
+    "Nullify",
+    "Stagger"
+  ],
+  "Crossbones": [
+    "Nullify",
+    "Stagger"
+  ],
+  "Galan": [
+    "Nullify",
+    "Fate Seal"
+  ],
+  "Mister Negative": [
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Omega Sentinel": [
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Red Skull": [
+    "Nullify",
+    "Stagger",
+    "Fate Seal"
+  ],
+  "Diablo": [
+    "Armor Break"
+  ],
+  "Lady Deathstrike": [
+    "Armor Break"
+  ],
+  "Heimdall": [
+    "Fate Seal"
+  ]
+}
