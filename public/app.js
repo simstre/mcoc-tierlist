@@ -91,7 +91,7 @@ async function init() {
   const mainLegend =
     legendItem('<span class="aw"></span>', 'Awakening') +
     legendItem('<span class="no7">7</span>', 'No 7-Star') +
-    Object.keys(TAG_BADGES).filter(k => k !== 'in_titan_crystal' && k !== 'meteor_tactic').map(badgeLegend).join('') +
+    Object.keys(TAG_BADGES).filter(k => k !== 'in_titan_crystal').map(badgeLegend).join('') +
     legendItem('<span class="imm-tag">IMMUNE</span>', 'Always') +
     legendItem('<span class="imm-tag cond">CONDITIONAL</span>', 'Requires mode/ability');
   document.getElementById('legend').innerHTML = mainLegend;
