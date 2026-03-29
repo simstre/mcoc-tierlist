@@ -25,8 +25,8 @@ SOURCES_CONFIG = [
     {
         "name": "Lagacy",
         "type": "YouTube",
-        "sheet_id": "1Vm6CrMpL7dExQlRZguNuC38x3VV6YVpo4qgZ-wu2iAQ",
-        "gid": "1318739461",
+        "sheet_id": "1mHxaV3gZiyooQUksEKi-dx2tDCvGc4lqBUqti1pgL6E",
+        "gid": "0",
         "parser": "lagacy",
     },
     {
@@ -369,21 +369,22 @@ def _parse_vega(rows):
 def _parse_lagacy(rows):
     champions = {}
     current_class = None
-    tier_col_map = {0: 100, 1: 80, 2: 60, 3: 40, 4: 20, 5: 0}
+    tier_col_map = {0: 100, 1: 83, 2: 67, 3: 50, 4: 33, 5: 17, 6: 0}
     class_markers = {
         'Science Class': 'Science', 'Cosmic Class': 'Cosmic', 'Mystic Class': 'Mystic',
         'Mutant Class': 'Mutant', 'Tech Class': 'Tech', 'Skill Class': 'Skill',
     }
     skip = [
-        'One Above All Tier', 'Beyonder Tier', 'God Tier', 'Amazing Tier',
-        'Solid Tier', 'MID Tier', 'Temporary', 'Emoji', 'Reworked',
+        'One Above All Tier', 'Living Tribunal', 'Beyonder Tier', 'God Tier',
+        'Emperor Tier', 'Mid Tier', 'Need Buff',
+        'Temporary', 'Emoji', 'Reworked', 'Ascendable',
         'WANTS Awakened', 'High Defensive', 'Want High Sig', 'Skillz To Play',
         'Powerful Relic', 'Ouchies Friendly', 'Rarity Locked', 'Recoil Friendly',
-        'Powerful Synergy', 'January', 'Lagacy', 'Promoted', 'Demoted',
+        'Powerful Synergy', 'Lagacy', 'Promoted', 'Demoted',
         'New entry', '5* or 6*',
     ]
     for row in rows:
-        if len(row) < 6:
+        if len(row) < 7:
             continue
         first = row[0].strip()
         for marker, cls in class_markers.items():
