@@ -203,10 +203,6 @@ a.ptab { text-decoration: none; }
   text-decoration: line-through;
 }
 
-.tb, .aw, .no7 {
-  position: relative;
-  cursor: pointer;
-}
 .tb {
   display: inline-block;
   font-size: 0.55rem;
@@ -220,30 +216,6 @@ a.ptab { text-decoration: none; }
   vertical-align: middle;
 }
 
-/* Custom tooltips */
-.tb[data-tip]::after, .aw[data-tip]::after, .no7[data-tip]::after {
-  content: attr(data-tip);
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #ddd;
-  font-size: 0.6rem;
-  font-weight: 400;
-  padding: 3px 7px;
-  border-radius: 4px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s;
-  z-index: 100;
-  border: 1px solid #333;
-}
-.tb[data-tip]:hover::after, .aw[data-tip]:hover::after, .no7[data-tip]:hover::after,
-.tb[data-tip].tip-visible::after, .aw[data-tip].tip-visible::after, .no7[data-tip].tip-visible::after {
-  opacity: 1;
-}
 
 /* Legend grid */
 .legend {
