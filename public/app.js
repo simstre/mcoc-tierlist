@@ -180,6 +180,19 @@ async function init() {
   document.getElementById('prestige-search').addEventListener('input', renderPrestige);
 
   document.getElementById('search').addEventListener('input', render);
+
+  // Mobile tap-to-show tooltips on badges
+  document.addEventListener('click', e => {
+    const badge = e.target.closest('[data-tip]');
+    document.querySelectorAll('.tip-visible').forEach(el => {
+      if (el !== badge) el.classList.remove('tip-visible');
+    });
+    if (badge) {
+      badge.classList.toggle('tip-visible');
+      e.stopPropagation();
+    }
+  });
+
   render();
   renderImmunities();
   renderAwakening();
@@ -225,7 +238,7 @@ function tagBadges(tags) {
   return tags.map(t => {
     const b = TAG_BADGES[t];
     if (!b) return '';
-    return `<span class="tb" style="color:${b.color};background:${b.color}20" title="${b.title}">${b.label}</span>`;
+    return `<span class="tb" style="color:${b.color};background:${b.color}20" data-tip="${b.title}">${b.label}</span>`;
   }).join('');
 }
 
@@ -241,9 +254,9 @@ function champHtml(c, rank) {
   const hasHighSig = c.high_sig || (c.tags && c.tags.includes('high_sig_needed'));
 
   let badges = '';
-  if (c.awakened) badges += '<span class="aw" title="Benefits from Awakening"></span>';
+  if (c.awakened) badges += '<span class="aw" data-tip="Benefits from Awakening"></span>';
   if (hasHighSig) badges += tagBadges(['high_sig_needed']);
-  if (c.no7star) badges += '<span class="no7" title="Not available as 7-star">7</span>';
+  if (c.no7star) badges += '<span class="no7" data-tip="Not available as 7-star">7</span>';
   badges += tagBadges(tags);
 
   const immLine = c.immunities && c.immunities.length
