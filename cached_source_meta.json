@@ -1,20 +1,20 @@
 [
   {
     "name": "Vega",
-    "edition": "62nd Edition - February, 2026",
-    "champion_count": 311,
+    "edition": "63rd Edition - March, 2026",
+    "champion_count": 313,
     "status": "ok"
   },
   {
     "name": "Lagacy",
-    "edition": "January 2026",
-    "champion_count": 305,
+    "edition": "March 2026",
+    "champion_count": 309,
     "status": "ok"
   },
   {
     "name": "Omega",
     "edition": null,
-    "champion_count": 314,
+    "champion_count": 319,
     "status": "ok"
   }
 ]

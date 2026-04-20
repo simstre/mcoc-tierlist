@@ -368,7 +368,8 @@
   ],
   "Sauron": [
     "Poison",
-    "Power Steal"
+    "Power Steal",
+    "Regen Rate Mod"
   ],
   "Scorpion": [
     "Poison",
@@ -409,6 +410,9 @@
     "Power Lock",
     "Power Burn"
   ],
+  "Yelena Belova": [
+    "Poison"
+  ],
   "Adam Warlock": [
     "Incinerate",
     "Shock",
@@ -428,7 +432,8 @@
     "Power Steal"
   ],
   "Attuma": [
-    "Incinerate"
+    "Incinerate",
+    "Regen Rate Mod"
   ],
   "Dark Phoenix": [
     "Incinerate",
@@ -587,6 +592,9 @@
     "Stagger",
     "Fate Seal"
   ],
+  "White Tiger": [
+    "Nullify"
+  ],
   "Diablo": [
     "Armor Break"
   ],
@@ -594,6 +602,10 @@
     "Armor Break",
     "Heal Block",
     "Rupture"
+  ],
+  "Wiccan": [
+    "Armor Break",
+    "Inverted Controls"
   ],
   "Heimdall": [
     "Fate Seal"
@@ -611,6 +623,12 @@
   ],
   "Werewolf By Night": [
     "Heal Block"
+  ],
+  "Ares": [
+    "Power Drain",
+    "Power Lock",
+    "Power Burn",
+    "Power Steal"
   ],
   "Gladiator": [
     "Power Drain",
@@ -658,10 +676,19 @@
   "The Maker": [
     "Inverted Controls"
   ],
+  "Daredevil (Hell's Kitchen)": [
+    "Regen Rate Mod"
+  ],
   "Kingpin": [
     "Regen Rate Mod"
   ],
+  "Patriot": [
+    "Regen Rate Mod"
+  ],
   "Wolverine (Weapon X)": [
+    "Regen Rate Mod"
+  ],
+  "Wolverine (X-23)": [
     "Regen Rate Mod"
   ]
 }

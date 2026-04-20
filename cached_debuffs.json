@@ -82,7 +82,8 @@
       "Vision (Aarkus)",
       "Vulture",
       "War Machine",
-      "Warlock"
+      "Warlock",
+      "Yondu"
     ],
     "Armor Shattered": [
       "Medusa",
@@ -173,10 +174,13 @@
       "Venom the Duck",
       "Venompool",
       "Warlock",
+      "White Tiger",
+      "Winter Soldier",
       "Wolverine",
       "Wolverine (Weapon X)",
       "Wolverine (X-23)",
-      "X-23 (Orochi)"
+      "X-23 (Orochi)",
+      "Yelena Belova"
     ],
     "Coldsnap": [
       "Doctor Strange",
@@ -211,7 +215,8 @@
       "Spider-Ham",
       "Spider-Woman (Jessica Drew)",
       "Stryfe",
-      "Taskmaster"
+      "Taskmaster",
+      "Wasp"
     ],
     "Damnation": [
       "Cosmic Ghost Rider",
@@ -219,6 +224,7 @@
     ],
     "Degeneration": [
       "Apocalypse",
+      "Ares",
       "Cable",
       "Captain Britain",
       "Dormammu",
@@ -262,6 +268,7 @@
       "Void",
       "Vox",
       "Warlock",
+      "Wiccan",
       "X-23 (Orochi)"
     ],
     "Disorient": [
@@ -332,7 +339,8 @@
       "Iron Fist",
       "Iron Fist (Immortal)",
       "Longshot",
-      "The Hood"
+      "The Hood",
+      "Wong"
     ],
     "Fatigue": [
       "Ant-Man",
@@ -396,7 +404,9 @@
       "Vision (Age of Ultron)",
       "Vision (Deathless)",
       "Viv Vision",
-      "Warlock"
+      "Warlock",
+      "White Tiger",
+      "Yondu"
     ],
     "Incinerate": [
       "Absorbing Man",
@@ -466,7 +476,10 @@
       "Super-Skrull",
       "Thing",
       "Viv Vision",
-      "Vulture"
+      "Vulture",
+      "Wiccan",
+      "Winter Soldier",
+      "Wong"
     ],
     "Neutralize": [
       "Doctor Strange",
@@ -475,7 +488,8 @@
       "Rintrah",
       "Spider-Man (Pavitr Prabhakar)",
       "Tigra",
-      "Vox"
+      "Vox",
+      "Wiccan"
     ],
     "Nova Flame": [
       "Dark Phoenix",
@@ -524,7 +538,11 @@
       "Thing",
       "Thor (Jane Foster)",
       "Tigra",
-      "Venom"
+      "Venom",
+      "Werewolf By Night",
+      "White Tiger",
+      "Wiccan",
+      "Wong"
     ],
     "Petrify": [
       "Abomination (Immortal)",
@@ -546,7 +564,9 @@
       "Scorpion",
       "She-Hulk",
       "Titania",
-      "Void"
+      "Void",
+      "Wasp",
+      "Yellowjacket"
     ],
     "Plasma": [
       "Count Nefaria",
@@ -557,7 +577,8 @@
       "Omega Sentinel",
       "Silver Centurion",
       "The Maker",
-      "Viv Vision"
+      "Viv Vision",
+      "Wiccan"
     ],
     "Poison": [
       "Abomination",
@@ -610,6 +631,7 @@
       "Warlock"
     ],
     "Power Drain": [
+      "Air-Walker",
       "Ant-Man (Future)",
       "Captain America (Sam Wilson)",
       "Civil Warrior",
@@ -650,9 +672,11 @@
       "Spider-Man (Stark Enhanced)",
       "Star-Lord",
       "Terrax",
+      "Treasure Deadpooloid",
       "Viv Vision",
       "Vulture",
-      "Warlock"
+      "Warlock",
+      "Winter Soldier"
     ],
     "Power Lock": [
       "Captain Marvel (Classic)",
@@ -697,7 +721,8 @@
       "Ultron",
       "Valkyrie",
       "Vision (Deathless)",
-      "Viv Vision"
+      "Viv Vision",
+      "Yondu"
     ],
     "Power Sting": [
       "Ant-Man",
@@ -706,7 +731,9 @@
       "Human Torch",
       "Scarlet Witch",
       "Spider-Man (Miles Morales)",
-      "Spider-Woman (Jessica Drew)"
+      "Spider-Woman (Jessica Drew)",
+      "Wasp",
+      "Yellowjacket"
     ],
     "Rupture": [
       "Anti-Venom",
@@ -737,12 +764,15 @@
       "The Destroyer",
       "Tigra",
       "War Machine",
-      "Werewolf By Night"
+      "Werewolf By Night",
+      "Wolverine (X-23)",
+      "Yondu"
     ],
     "Sabotage": [
       "Black Cat",
       "Black Widow (Deadly Origin)",
-      "Taskmaster"
+      "Taskmaster",
+      "Yelena Belova"
     ],
     "Shock": [
       "Arcade",
@@ -789,7 +819,9 @@
       "Thor",
       "Thor (Jane Foster)",
       "Thor (Ragnarok)",
-      "Warlock"
+      "Warlock",
+      "Wasp",
+      "Wiccan"
     ],
     "Sleep": [
       "Arnim Zola",
@@ -828,7 +860,9 @@
       "Spider-Slayer (J. Jonah Jameson)",
       "Storm (Pyramid X)",
       "Sunspot",
-      "Toad"
+      "Toad",
+      "Wiccan",
+      "Yellowjacket"
     ],
     "Stagger": [
       "Ant-Man",
@@ -985,7 +1019,10 @@
       "Ultron (Classic)",
       "Venompool",
       "War Machine",
-      "Werewolf By Night"
+      "Wasp",
+      "Werewolf By Night",
+      "Wolverine (X-23)",
+      "Yellowjacket"
     ],
     "Taunt": [
       "Adam Warlock",
@@ -1044,7 +1081,10 @@
       "Symbiote Supreme",
       "Thing",
       "Titania",
-      "Void"
+      "Void",
+      "Wasp",
+      "Werewolf By Night",
+      "Yondu"
     ]
   },
   "champion_debuffs": {
@@ -1061,6 +1101,7 @@
     ],
     "Air-Walker": [
       "Armor Break",
+      "Power Drain",
       "Stun"
     ],
     "Angela": [
@@ -1502,6 +1543,13 @@
       "Power Drain",
       "Shock"
     ],
+    "Yondu": [
+      "Armor Break",
+      "Heal Block",
+      "Power Lock",
+      "Rupture",
+      "Weakness"
+    ],
     "Agent Venom": [
       "Bleed",
       "Incinerate"
@@ -1813,6 +1861,16 @@
       "Degeneration",
       "Stun"
     ],
+    "White Tiger": [
+      "Bleed",
+      "Heal Block",
+      "Nullify"
+    ],
+    "Winter Soldier": [
+      "Bleed",
+      "Incinerate",
+      "Power Drain"
+    ],
     "Wolverine": [
       "Bleed"
     ],
@@ -1820,12 +1878,18 @@
       "Bleed"
     ],
     "Wolverine (X-23)": [
-      "Bleed"
+      "Bleed",
+      "Rupture",
+      "Stun"
     ],
     "X-23 (Orochi)": [
       "Bleed",
       "Degeneration",
       "Poison"
+    ],
+    "Yelena Belova": [
+      "Bleed",
+      "Sabotage"
     ],
     "Aegon": [
       "Bleed",
@@ -1944,6 +2008,17 @@
       "Falter",
       "Shock",
       "Stun"
+    ],
+    "Wasp": [
+      "Concussion",
+      "Petrify",
+      "Power Sting",
+      "Shock",
+      "Stun",
+      "Weakness"
+    ],
+    "Ares": [
+      "Degeneration"
     ],
     "Captain Britain": [
       "Degeneration",
@@ -2072,6 +2147,15 @@
       "Degeneration",
       "Neutralize"
     ],
+    "Wiccan": [
+      "Degeneration",
+      "Incinerate",
+      "Neutralize",
+      "Nullify",
+      "Plasma",
+      "Shock",
+      "Slow"
+    ],
     "Anti-Venom": [
       "Disorient",
       "Petrify",
@@ -2199,6 +2283,11 @@
       "Falter",
       "Slow",
       "Stun"
+    ],
+    "Wong": [
+      "Fate Seal",
+      "Incinerate",
+      "Nullify"
     ],
     "Ant-Man": [
       "Fatigue",
@@ -2458,6 +2547,12 @@
     "Spider-Man (Supreme)": [
       "Nullify"
     ],
+    "Werewolf By Night": [
+      "Nullify",
+      "Rupture",
+      "Stun",
+      "Weakness"
+    ],
     "Hulk (Immortal)": [
       "Petrify",
       "Stun",
@@ -2478,6 +2573,12 @@
       "Slow",
       "Stun",
       "Taunt"
+    ],
+    "Yellowjacket": [
+      "Petrify",
+      "Power Sting",
+      "Slow",
+      "Stun"
     ],
     "Cassie Lang": [
       "Poison",
@@ -2509,6 +2610,9 @@
       "Shock",
       "Stun",
       "Taunt"
+    ],
+    "Treasure Deadpooloid": [
+      "Power Drain"
     ],
     "Spider-Punk": [
       "Power Lock",
@@ -2550,10 +2654,6 @@
     "Spot": [
       "Rupture",
       "Taunt"
-    ],
-    "Werewolf By Night": [
-      "Rupture",
-      "Stun"
     ],
     "Black Widow (Deadly Origin)": [
       "Sabotage",

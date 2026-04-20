@@ -18,7 +18,7 @@ SOURCES_CONFIG = [
     {
         "name": "Vega",
         "type": "YouTube",
-        "sheet_id": "1S1qrtmsVjfd-jkkHwjJcEj_tWvDrII49pv8-huomzgM",
+        "sheet_id": "1tm-2FT_7UNyO3Rl6ZKl1TYPMPubunBIx_hw-UY86RU4",
         "gid": "0",
         "parser": "vega",
     },
