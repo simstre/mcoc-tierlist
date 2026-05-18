@@ -34,6 +34,11 @@ SOURCES_CONFIG = [
         "type": "YouTube",
         "sheet_id": "1c-Y25KPFDRDFrmfvQMcxGNuqQ5eQgxxLQk-Yb4YkSIA",
         "gid": "0",
+        "sheet_name": "Offensive Tier List",
+        # Lightvayne stopped making tier list videos, so we can't auto-discover
+        # a date from YouTube. Use the "Change Log" tab's most recent date entry
+        # as the displayed edition.
+        "edition_sheet": "Change Log",
         "parser": "omega",
     },
 ]
@@ -49,6 +54,68 @@ SIG_STONES_SHEET = {
 }
 
 CACHE_PATH = Path(__file__).parent / "cached_tierlist.json"
+
+
+def _find_repo_file(filename):
+    """Locate filename either next to this module or in its parent directory.
+
+    Both the root and lib/ copies of this module share state through files at
+    the repo root (cached_*.json). The lib/ copy needs to walk one level up.
+    Returns the first path that exists, or the next-to-module path as default
+    (so callers that write can use this for new files too).
+    """
+    here = Path(__file__).parent
+    candidates = [here / filename, here.parent / filename]
+    for p in candidates:
+        if p.exists():
+            return p
+    return candidates[0]
+
+
+SOURCES_CACHE_PATH = _find_repo_file("cached_sources.json")
+
+
+def _load_dynamic_sheet_ids():
+    """Read cached_sources.json (written by fetch_sources.py) for live sheet IDs.
+
+    Returns {source_name: sheet_id}. Missing file or parse failure -> empty dict
+    and the hardcoded SOURCES_CONFIG defaults remain in effect.
+    """
+    path = _find_repo_file("cached_sources.json")
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text())
+    except Exception as e:
+        logger.warning(f"could not parse {path}: {e}")
+        return {}
+    out = {}
+    for name, info in (data or {}).items():
+        if isinstance(info, dict) and info.get("sheet_id"):
+            out[name] = info["sheet_id"]
+    return out
+
+
+def _resolve_sources(sources_override=None):
+    """Build the effective SOURCES_CONFIG with sheet IDs possibly overridden.
+
+    Precedence: explicit sources_override > cached_sources.json > hardcoded.
+    sources_override accepts either {name: sheet_id} or {name: discovery_dict}.
+    """
+    dynamic = _load_dynamic_sheet_ids()
+    override = sources_override or {}
+    resolved = []
+    for src in SOURCES_CONFIG:
+        new_src = dict(src)
+        ov = override.get(src["name"])
+        if isinstance(ov, dict):
+            ov_id = ov.get("sheet_id")
+        else:
+            ov_id = ov
+        sheet_id = ov_id or dynamic.get(src["name"]) or src["sheet_id"]
+        new_src["sheet_id"] = sheet_id
+        resolved.append(new_src)
+    return resolved
 
 
 def _strip_emojis(text):
@@ -275,12 +342,23 @@ def _apply_canonical_renames(data_dict):
     return renamed
 
 
-def _fetch_csv(sheet_id, gid):
-    """Fetch a Google Sheet as CSV. Try two URL patterns."""
-    urls = [
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}",
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid={gid}",
-    ]
+def _fetch_csv(sheet_id, gid=None, sheet_name=None):
+    """Fetch a Google Sheet tab as CSV.
+
+    Pass either gid (stable numeric tab ID) or sheet_name (visible tab name).
+    Tries export?format=csv first (fast, public-only), then gviz/tq as fallback.
+    The export endpoint only accepts gid; sheet_name uses gviz with the `sheet`
+    parameter.
+    """
+    from urllib.parse import quote
+    urls = []
+    # Prefer sheet_name when present so we keep targeting the named tab even
+    # if the source's tab order changes (gid is stable but easy to misread).
+    if sheet_name:
+        urls.append(f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={quote(sheet_name)}")
+    if gid is not None:
+        urls.append(f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}")
+        urls.append(f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&gid={gid}")
     for url in urls:
         try:
             resp = requests.get(url, timeout=30, allow_redirects=True)
@@ -323,6 +401,34 @@ def _extract_edition(rows, source_name):
                 if m:
                     return m.group(1)
     return None
+
+
+def _extract_changelog_edition(rows):
+    """Find the most recent M/D/YY (or M/D/YYYY) date in the first column.
+
+    Omega's Change Log tab lists dated entries with the newest at the top, but
+    rather than assume ordering we scan everything and return the max. Returns
+    a "Month DD, YYYY" string or None.
+    """
+    from datetime import datetime as _dt
+    latest = None
+    for row in rows:
+        if not row:
+            continue
+        cell = row[0].strip() if row[0] else ''
+        m = re.match(r'^(\d{1,2})/(\d{1,2})/(\d{2,4})$', cell)
+        if not m:
+            continue
+        month, day, year = (int(x) for x in m.groups())
+        if year < 100:
+            year += 2000
+        try:
+            dt = _dt(year, month, day)
+        except ValueError:
+            continue
+        if latest is None or dt > latest:
+            latest = dt
+    return latest.strftime('%B %d, %Y') if latest else None
 
 
 def _parse_vega(rows):
@@ -446,24 +552,33 @@ _PARSERS = {
 }
 
 
-def fetch_and_combine():
+def fetch_and_combine(sources_override=None):
     """Fetch all 3 sheets, parse, normalize, and combine into champion list.
 
+    sources_override: optional {name: sheet_id} or {name: discovery_dict} to use
+    instead of cached/hardcoded sheet IDs. Normally left None so the resolver
+    reads cached_sources.json written by fetch_sources.py.
+
     Returns (champions_dict, success_count, source_meta) or (None, 0, []) on total failure.
-    source_meta is a list of dicts: {name, edition, champion_count}
+    source_meta is a list of dicts: {name, edition, champion_count, status, sheet_id}
     """
     source_data = {}
     source_meta = []
 
-    for src in SOURCES_CONFIG:
-        rows = _fetch_csv(src['sheet_id'], src['gid'])
+    for src in _resolve_sources(sources_override):
+        rows = _fetch_csv(src['sheet_id'], gid=src.get('gid'), sheet_name=src.get('sheet_name'))
         if rows is None:
             logger.warning(f"Could not fetch {src['name']} sheet")
-            source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed'})
+            source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
             continue
         parser = _PARSERS[src['parser']]
         raw = parser(rows)
         edition = _extract_edition(rows, src['name'])
+        # Some sources keep date info in a separate tab (e.g. Omega's Change Log).
+        if not edition and src.get('edition_sheet'):
+            log_rows = _fetch_csv(src['sheet_id'], sheet_name=src['edition_sheet'])
+            if log_rows:
+                edition = _extract_changelog_edition(log_rows)
         # Normalize names
         normed = {}
         for name, data in raw.items():
@@ -472,8 +587,8 @@ def fetch_and_combine():
                 continue
             normed[n] = data
         source_data[src['name']] = normed
-        source_meta.append({'name': src['name'], 'edition': edition, 'champion_count': len(normed), 'status': 'ok'})
-        logger.info(f"Parsed {src['name']}: {len(normed)} champions, edition: {edition}")
+        source_meta.append({'name': src['name'], 'edition': edition, 'champion_count': len(normed), 'status': 'ok', 'sheet_id': src['sheet_id']})
+        logger.info(f"Parsed {src['name']}: {len(normed)} champions, edition: {edition} (sheet {src['sheet_id']})")
 
     if not source_data:
         return None, 0, source_meta
@@ -584,25 +699,31 @@ def _parse_priority_sheet(rows):
 def fetch_priority_sheets():
     """Fetch awakening gem and sig stone priority data from their sheets.
 
-    Returns (awakening_data, sig_data) — each is a dict of champion priority info,
-    or None if fetch failed.
+    Sheet IDs are pulled from cached_sources.json (keys "Vega Awakening" and
+    "Vega Sig Stones") when present, falling back to AWAKENING_SHEET /
+    SIG_STONES_SHEET. Returns (awakening_data, sig_data) — each is a dict of
+    champion priority info, or None if fetch failed.
     """
+    dynamic = _load_dynamic_sheet_ids()
+    aw_id = dynamic.get("Vega Awakening") or AWAKENING_SHEET['sheet_id']
+    sig_id = dynamic.get("Vega Sig Stones") or SIG_STONES_SHEET['sheet_id']
+
     aw_data = None
     sig_data = None
 
-    rows = _fetch_csv(AWAKENING_SHEET['sheet_id'], AWAKENING_SHEET['gid'])
+    rows = _fetch_csv(aw_id, AWAKENING_SHEET['gid'])
     if rows:
         aw_data = _apply_canonical_renames(_parse_priority_sheet(rows))
-        logger.info(f"Parsed awakening gems: {len(aw_data)} champions")
+        logger.info(f"Parsed awakening gems: {len(aw_data)} champions (sheet {aw_id})")
     else:
-        logger.warning("Could not fetch awakening gems sheet")
+        logger.warning(f"Could not fetch awakening gems sheet ({aw_id})")
 
-    rows = _fetch_csv(SIG_STONES_SHEET['sheet_id'], SIG_STONES_SHEET['gid'])
+    rows = _fetch_csv(sig_id, SIG_STONES_SHEET['gid'])
     if rows:
         sig_data = _apply_canonical_renames(_parse_priority_sheet(rows))
-        logger.info(f"Parsed sig stones: {len(sig_data)} champions")
+        logger.info(f"Parsed sig stones: {len(sig_data)} champions (sheet {sig_id})")
     else:
-        logger.warning("Could not fetch sig stones sheet")
+        logger.warning(f"Could not fetch sig stones sheet ({sig_id})")
 
     return aw_data, sig_data
 
@@ -612,12 +733,12 @@ CACHE_AW_PATH = Path(__file__).parent / "cached_awakening.json"
 CACHE_SIG_PATH = Path(__file__).parent / "cached_sigstones.json"
 
 
-def fetch_and_cache():
+def fetch_and_cache(sources_override=None):
     """Fetch fresh data, cache to disk.
 
     Returns (champion_dict, source_meta, awakening_data, sig_data).
     """
-    combined, count, source_meta = fetch_and_combine()
+    combined, count, source_meta = fetch_and_combine(sources_override=sources_override)
     aw_data, sig_data = fetch_priority_sheets()
 
     if combined and count > 0:

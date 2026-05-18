@@ -1,0 +1,48 @@
+name: Discover tier list sources
+
+# Runs fetch_sources.py daily to find each creator's latest tier list video on
+# YouTube and update cached_sources.json with the current Google Sheets IDs.
+# The Vercel cron job at 06:00 UTC will then redeploy with the new sheet IDs.
+
+on:
+  schedule:
+    - cron: "0 5 * * *"  # 05:00 UTC, one hour before the Vercel data refresh
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: discover-sources
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install yt-dlp
+
+      - name: Discover latest sheets
+        run: python fetch_sources.py --verbose
+
+      - name: Commit cached_sources.json if changed
+        run: |
+          if git diff --quiet -- cached_sources.json; then
+            echo "No changes to cached_sources.json"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cached_sources.json
+          git commit -m "chore: refresh cached_sources.json (auto)"
+          git push

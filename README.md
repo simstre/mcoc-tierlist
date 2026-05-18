@@ -28,6 +28,24 @@ Rankings aggregated from 3 YouTube creators:
 - **Frontend**: Vanilla HTML/CSS/JS
 - **Data**: Pre-generated JSON, refreshed daily via Vercel Cron
 
+## Source auto-discovery
+
+Some creators (notably Vega) publish a brand-new Google Sheet each month. The
+GitHub Action `.github/workflows/discover-sources.yml` runs `fetch_sources.py`
+once a day, searches YouTube for each creator's most recent tier list video,
+parses the description for a Google Sheets link, and commits the result to
+`cached_sources.json`. The daily Vercel cron then reads that file and uses the
+fresh sheet IDs (falling back to the hardcoded `SOURCES_CONFIG` defaults if the
+cache is missing).
+
+To run discovery manually:
+
+```bash
+pip install yt-dlp
+python fetch_sources.py            # discover + update cached_sources.json
+python fetch_sources.py --dry-run  # show what would change without writing
+```
+
 ## Running Locally
 
 ```bash
