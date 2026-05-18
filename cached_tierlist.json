@@ -94,6 +94,7 @@
     "high_sig": false,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "relic"
     ]
@@ -207,7 +208,7 @@
   },
   "Baron Zemo": {
     "class": "Skill",
-    "score": 69,
+    "score": 74,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -349,6 +350,16 @@
       "recoil"
     ]
   },
+  "Blade Stellar Forge": {
+    "class": "Mystic",
+    "score": 60,
+    "awakened": false,
+    "high_sig": false,
+    "no7star": false,
+    "tags": [
+      "early_ranking"
+    ]
+  },
   "Blue Marvel": {
     "class": "Science",
     "score": 38,
@@ -399,13 +410,12 @@
   },
   "Captain America (Sam Wilson)": {
     "class": "Tech",
-    "score": 44,
+    "score": 50,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
     "tags": [
-      "ascendable",
-      "defense"
+      "ascendable"
     ]
   },
   "Captain America (WWII)": {
@@ -418,13 +428,12 @@
   },
   "Captain Britain": {
     "class": "Mutant",
-    "score": 81,
+    "score": 87,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
     "tags": [
-      "defense",
-      "early_ranking"
+      "defense"
     ]
   },
   "Captain Marvel (Classic)": {
@@ -661,6 +670,17 @@
       "recoil"
     ]
   },
+  "Doctor Bong": {
+    "class": "Skill",
+    "score": 60,
+    "awakened": true,
+    "high_sig": true,
+    "no7star": false,
+    "tags": [
+      "ascendable",
+      "early_ranking"
+    ]
+  },
   "Doctor Doom": {
     "class": "Mystic",
     "score": 81,
@@ -682,7 +702,7 @@
   },
   "Doctor Strange": {
     "class": "Mystic",
-    "score": 81,
+    "score": 87,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -722,6 +742,14 @@
       "defense",
       "recoil"
     ]
+  },
+  "Dr Bong": {
+    "class": "Skill",
+    "score": 83,
+    "awakened": false,
+    "high_sig": false,
+    "no7star": false,
+    "tags": []
   },
   "Dracula": {
     "class": "Mystic",
@@ -1032,12 +1060,13 @@
   },
   "Heimdall": {
     "class": "Cosmic",
-    "score": 52,
-    "awakened": false,
-    "high_sig": false,
+    "score": 81,
+    "awakened": true,
+    "high_sig": true,
     "no7star": false,
     "tags": [
-      "defense"
+      "defense",
+      "ramp_up"
     ]
   },
   "Hela": {
@@ -1133,7 +1162,6 @@
     "no7star": false,
     "tags": [
       "high_skill",
-      "ramp_up",
       "recoil",
       "relic"
     ]
@@ -1152,7 +1180,7 @@
   },
   "Human Torch": {
     "class": "Science",
-    "score": 94,
+    "score": 100,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -1172,7 +1200,7 @@
   },
   "Iceman": {
     "class": "Mutant",
-    "score": 43,
+    "score": 49,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1287,7 +1315,7 @@
   },
   "JJonahJameson": {
     "class": "Tech",
-    "score": 50,
+    "score": 67,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1417,7 +1445,7 @@
   },
   "Kindred": {
     "class": "Mystic",
-    "score": 63,
+    "score": 57,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1576,7 +1604,7 @@
   },
   "Luke Cage": {
     "class": "Science",
-    "score": 76,
+    "score": 82,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1627,11 +1655,12 @@
   },
   "Madelyne Pryor": {
     "class": "Mystic",
-    "score": 88,
+    "score": 93,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
+      "ascendable",
       "early_ranking",
       "high_skill",
       "relic"
@@ -1650,13 +1679,14 @@
   },
   "Magik": {
     "class": "Mystic",
-    "score": 80,
-    "awakened": false,
+    "score": 70,
+    "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
       "early_ranking",
-      "high_skill"
+      "high_skill",
+      "relic"
     ]
   },
   "Magneto (House of X)": {
@@ -1722,7 +1752,7 @@
   },
   "Medusa": {
     "class": "Cosmic",
-    "score": 76,
+    "score": 81,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1924,14 +1954,6 @@
       "defense"
     ]
   },
-  "New Magik (TBD)": {
-    "class": "Mystic",
-    "score": 67,
-    "awakened": false,
-    "high_sig": false,
-    "no7star": false,
-    "tags": []
-  },
   "Nick Fury": {
     "class": "Skill",
     "score": 100,
@@ -2035,7 +2057,7 @@
   },
   "Omega Red": {
     "class": "Mutant",
-    "score": 63,
+    "score": 69,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2082,7 +2104,7 @@
   },
   "Peni Parker": {
     "class": "Tech",
-    "score": 57,
+    "score": 62,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2118,6 +2140,7 @@
     "high_sig": false,
     "no7star": false,
     "tags": [
+      "ascendable",
       "early_ranking",
       "relic"
     ]
@@ -2205,6 +2228,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ramp_up",
       "relic"
     ]
   },
@@ -2323,6 +2347,18 @@
       "recoil"
     ]
   },
+  "Ruby Thursday": {
+    "class": "Tech",
+    "score": 72,
+    "awakened": true,
+    "high_sig": true,
+    "no7star": false,
+    "tags": [
+      "ascendable",
+      "defense",
+      "early_ranking"
+    ]
+  },
   "SF Star Lord": {
     "class": "Skill",
     "score": 33,
@@ -2341,9 +2377,19 @@
       "synergy"
     ]
   },
+  "Sam Captain": {
+    "class": "Tech",
+    "score": 50,
+    "awakened": false,
+    "high_sig": true,
+    "no7star": false,
+    "tags": [
+      "defense"
+    ]
+  },
   "Sandman": {
     "class": "Science",
-    "score": 63,
+    "score": 69,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2430,11 +2476,13 @@
   },
   "Sentry": {
     "class": "Science",
-    "score": 50,
+    "score": 57,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "ramp_up"
+    ]
   },
   "Sersi": {
     "class": "Cosmic",
@@ -2513,7 +2561,7 @@
   },
   "Silk": {
     "class": "Science",
-    "score": 82,
+    "score": 88,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2629,7 +2677,7 @@
   },
   "Spider-Man (Stark Enhanced)": {
     "class": "Tech",
-    "score": 94,
+    "score": 100,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2749,11 +2797,14 @@
   },
   "Star-Lord (Stellar-Forged)": {
     "class": "Skill",
-    "score": 40,
-    "awakened": false,
+    "score": 60,
+    "awakened": true,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "ascendable",
+      "ramp_up"
+    ]
   },
   "Storm": {
     "class": "Mutant",

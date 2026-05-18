@@ -225,6 +225,7 @@
     "Degeneration": [
       "Apocalypse",
       "Ares",
+      "Blade (Stellar-Forged)",
       "Cable",
       "Captain Britain",
       "Dormammu",
@@ -281,6 +282,7 @@
       "Daredevil (Hell's Kitchen)",
       "Elsa Bloodstone",
       "Hit-Monkey",
+      "Hulk (Bahamet)",
       "Joe Fixit",
       "Karnak",
       "Kraven",
@@ -432,6 +434,7 @@
       "Gladiator",
       "Green Goblin",
       "Gwenpool",
+      "Hulk (Bahamet)",
       "Human Torch",
       "Hyperion",
       "Ikaris",
@@ -498,6 +501,7 @@
     ],
     "Nullify": [
       "Black Widow (Claire Voyant)",
+      "Blade (Stellar-Forged)",
       "Captain America (Infinity War)",
       "Captain America (WWII)",
       "Diablo",
@@ -571,6 +575,7 @@
     "Plasma": [
       "Count Nefaria",
       "Iron Man",
+      "Iron Man (Cerastes)",
       "Iron Man (Infinity War)",
       "Jack O'Lantern",
       "Karolina Dean",
@@ -642,6 +647,7 @@
       "Dormammu",
       "Enchantress",
       "Ghost Rider",
+      "Glykhan",
       "Green Goblin",
       "Guardian",
       "Guillotine 2099",
@@ -679,6 +685,9 @@
       "Winter Soldier"
     ],
     "Power Lock": [
+      "Ant-Man (Future)",
+      "Black Widow (Deadly Origin)",
+      "Bullseye",
       "Captain Marvel (Classic)",
       "Civil Warrior",
       "Cosmic Ghost Rider",
@@ -901,6 +910,7 @@
       "Black Widow (Claire Voyant)",
       "Black Widow (Deadly Origin)",
       "Blade",
+      "Blade (Stellar-Forged)",
       "Bullseye",
       "Captain America",
       "Captain America (Infinity War)",
@@ -939,6 +949,7 @@
       "Human Torch",
       "Hyperion",
       "Iron Fist",
+      "Iron Man (Cerastes)",
       "Iron Man (Infamous)",
       "Iron Man (Infinity War)",
       "Iron Patriot",
@@ -1616,6 +1627,7 @@
     "Bullseye": [
       "Bleed",
       "Disorient",
+      "Power Lock",
       "Stun"
     ],
     "Captain America (WWII)": [
@@ -2020,6 +2032,11 @@
     "Ares": [
       "Degeneration"
     ],
+    "Blade (Stellar-Forged)": [
+      "Degeneration",
+      "Nullify",
+      "Stun"
+    ],
     "Captain Britain": [
       "Degeneration",
       "Exhaustion",
@@ -2164,6 +2181,10 @@
     ],
     "Cyclops (Blue Team)": [
       "Disorient"
+    ],
+    "Hulk (Bahamet)": [
+      "Disorient",
+      "Incinerate"
     ],
     "Silver Sable": [
       "Disorient",
@@ -2580,6 +2601,10 @@
       "Slow",
       "Stun"
     ],
+    "Iron Man (Cerastes)": [
+      "Plasma",
+      "Stun"
+    ],
     "Cassie Lang": [
       "Poison",
       "Power Sting",
@@ -2588,7 +2613,11 @@
     ],
     "Ant-Man (Future)": [
       "Power Drain",
+      "Power Lock",
       "Stun"
+    ],
+    "Glykhan": [
+      "Power Drain"
     ],
     "Guardian": [
       "Power Drain",
@@ -2613,6 +2642,12 @@
     ],
     "Treasure Deadpooloid": [
       "Power Drain"
+    ],
+    "Black Widow (Deadly Origin)": [
+      "Power Lock",
+      "Sabotage",
+      "Shock",
+      "Stun"
     ],
     "Spider-Punk": [
       "Power Lock",
@@ -2654,11 +2689,6 @@
     "Spot": [
       "Rupture",
       "Taunt"
-    ],
-    "Black Widow (Deadly Origin)": [
-      "Sabotage",
-      "Shock",
-      "Stun"
     ],
     "Beta Ray Bill": [
       "Shock",

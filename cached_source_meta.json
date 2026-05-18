@@ -1,20 +1,23 @@
 [
   {
     "name": "Vega",
-    "edition": "63rd Edition - March, 2026",
-    "champion_count": 313,
-    "status": "ok"
+    "edition": "64th Edition - April, 2026",
+    "champion_count": 316,
+    "status": "ok",
+    "sheet_id": "1MnzeiB5-X_7Z6CFYGEYnuFjb3-sO7Rk03x6kf-nV4t0"
   },
   {
     "name": "Lagacy",
-    "edition": "March 2026",
-    "champion_count": 309,
-    "status": "ok"
+    "edition": "April 2026",
+    "champion_count": 311,
+    "status": "ok",
+    "sheet_id": "1mHxaV3gZiyooQUksEKi-dx2tDCvGc4lqBUqti1pgL6E"
   },
   {
     "name": "Omega",
-    "edition": null,
+    "edition": "March 17, 2024",
     "champion_count": 319,
-    "status": "ok"
+    "status": "ok",
+    "sheet_id": "1c-Y25KPFDRDFrmfvQMcxGNuqQ5eQgxxLQk-Yb4YkSIA"
   }
 ]
