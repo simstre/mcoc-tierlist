@@ -120,7 +120,6 @@
       "Falcon",
       "Falcon (Joaqu\u00edn Torres)",
       "Gamora",
-      "Ghost Rider",
       "Goldpool",
       "Gorr",
       "Groot",
@@ -234,6 +233,7 @@
       "Ebony Maw",
       "Elsa Bloodstone",
       "Gamora",
+      "Ghost Rider",
       "Gorr",
       "Guillotine",
       "Guillotine (Deathless)",
@@ -337,7 +337,6 @@
     ],
     "Fate Seal": [
       "Doctor Strange",
-      "Ghost Rider",
       "Iron Fist",
       "Iron Fist (Immortal)",
       "Longshot",
@@ -431,6 +430,7 @@
       "Falcon",
       "Franken-Castle",
       "Galan",
+      "Ghost Rider",
       "Gladiator",
       "Green Goblin",
       "Gwenpool",
@@ -619,7 +619,6 @@
     ],
     "Power Burn": [
       "Civil Warrior",
-      "Doctor Voodoo",
       "Dormammu",
       "Guillotine 2099",
       "Hulkbuster",
@@ -643,10 +642,8 @@
       "Corvus Glaive",
       "Cosmic Ghost Rider",
       "Doctor Octopus",
-      "Doctor Voodoo",
       "Dormammu",
       "Enchantress",
-      "Ghost Rider",
       "Glykhan",
       "Green Goblin",
       "Guardian",
@@ -879,6 +876,7 @@
       "Captain America (Infinity War)",
       "Captain America (WWII)",
       "Doctor Doom",
+      "Ghost Rider",
       "Iron Fist",
       "Iron Fist (Immortal)",
       "Jessica Jones",
@@ -906,6 +904,7 @@
       "Bishop",
       "Black Bolt",
       "Black Panther (Civil War)",
+      "Black Tarantula",
       "Black Widow",
       "Black Widow (Claire Voyant)",
       "Black Widow (Deadly Origin)",
@@ -927,6 +926,7 @@
       "Deadpool",
       "Deadpool (X-Force)",
       "Diablo",
+      "Doctor Bong",
       "Doctor Doom",
       "Doctor Strange",
       "Domino",
@@ -1673,12 +1673,6 @@
       "Heal Block",
       "Slow"
     ],
-    "Ghost Rider": [
-      "Bleed",
-      "Damnation",
-      "Fate Seal",
-      "Power Drain"
-    ],
     "Goldpool": [
       "Bleed",
       "Stun",
@@ -2028,6 +2022,12 @@
       "Shock",
       "Stun",
       "Weakness"
+    ],
+    "Ghost Rider": [
+      "Damnation",
+      "Degeneration",
+      "Incinerate",
+      "Stagger"
     ],
     "Ares": [
       "Degeneration"
@@ -2543,9 +2543,7 @@
     ],
     "Doctor Voodoo": [
       "Nullify",
-      "Poison",
-      "Power Burn",
-      "Power Drain"
+      "Poison"
     ],
     "Juggernaut": [
       "Nullify",
@@ -2735,6 +2733,9 @@
     "America Chavez": [
       "Stun"
     ],
+    "Black Tarantula": [
+      "Stun"
+    ],
     "Black Widow": [
       "Stun"
     ],
@@ -2742,6 +2743,9 @@
       "Stun"
     ],
     "Daredevil": [
+      "Stun"
+    ],
+    "Doctor Bong": [
       "Stun"
     ],
     "Dust": [

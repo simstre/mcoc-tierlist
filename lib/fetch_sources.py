@@ -105,6 +105,12 @@ def _ydl_opts(extra=None):
         "skip_download": True,
         "extractor_retries": 3,
         "socket_timeout": 30,
+        # YouTube's default `web` player client now rejects metadata-only
+        # requests with "The page needs to be reloaded", which silently broke
+        # description fetches (and thus all sheet discovery). The mobile/tv
+        # clients still serve the description. yt-dlp tries them in order and
+        # uses the first that succeeds.
+        "extractor_args": {"youtube": {"player_client": ["android", "ios", "tv"]}},
     }
     if extra:
         opts.update(extra)

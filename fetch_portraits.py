@@ -46,6 +46,8 @@ WIKI_NAME_MAP = {
     "Vision": "Vision",
     "Star-Lord (Stellar-Forged)": "Star-Lord (Stellar-Forged)",
     "Spider-Slayer (J. Jonah Jameson)": "Spider-Slayer (J. Jonah Jameson)",
+    "Blade (Stellar Forge)": "Blade (Stellar-Forged)",
+    "Hobgoblin": "Hobgoblin (Phil Urich)",
 }
 
 # Map mcochub alt-text names to our canonical names

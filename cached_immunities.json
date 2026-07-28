@@ -282,6 +282,10 @@
   "Black Bolt": [
     "Poison"
   ],
+  "Black Tarantula": [
+    "Poison",
+    "Nullify"
+  ],
   "Captain Marvel (Classic)": [
     "Poison",
     "Poison"
@@ -572,6 +576,9 @@
     "Stagger"
   ],
   "Dazzler": [
+    "Nullify"
+  ],
+  "Doctor Bong": [
     "Nullify"
   ],
   "Galan": [

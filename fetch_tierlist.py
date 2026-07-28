@@ -1,6 +1,6 @@
 """
 Fetch and parse tier list data from Google Sheets sources.
-Sources: Vega, Lagacy, Omega (Lightvayne)
+Sources: Vega, Lagacy
 """
 import csv
 import io
@@ -28,18 +28,6 @@ SOURCES_CONFIG = [
         "sheet_id": "1mHxaV3gZiyooQUksEKi-dx2tDCvGc4lqBUqti1pgL6E",
         "gid": "0",
         "parser": "lagacy",
-    },
-    {
-        "name": "Omega",
-        "type": "YouTube",
-        "sheet_id": "1c-Y25KPFDRDFrmfvQMcxGNuqQ5eQgxxLQk-Yb4YkSIA",
-        "gid": "0",
-        "sheet_name": "Offensive Tier List",
-        # Lightvayne stopped making tier list videos, so we can't auto-discover
-        # a date from YouTube. Use the "Change Log" tab's most recent date entry
-        # as the displayed edition.
-        "edition_sheet": "Change Log",
-        "parser": "omega",
     },
 ]
 
@@ -272,6 +260,16 @@ _NAME_MAP = {
     'Wolverine OG': 'Wolverine (OG)', 'Kamala Khan': 'Ms. Marvel (Kamala)',
     'Captain&Ms Marvel': 'Captain Marvel (Classic)',
     'Dragon man': 'Dragon Man', 'Star Lord': 'Star-Lord',
+    # 67th Edition Vega / July Lagacy naming variants
+    'Black Tarantula (BLT)': 'Black Tarantula',
+    'Blade Stellar Forge': 'Blade (Stellar Forge)', 'SF Blade': 'Blade (Stellar Forge)',
+    'Corvus Glaive (For War)': 'Corvus Glaive', 'Dr Bong': 'Doctor Bong',
+    'Phylla-Vel': 'Phyla-Vell', 'BPantherCW': 'Black Panther (Civil War)',
+    'Sam Captain': 'Captain America (Sam Wilson)',
+    'AdamWarlock': 'Adam Warlock', 'JJonahJameson': 'Spider-Slayer',
+    'SF Star Lord': 'Star-Lord (Stellar Forge)', "M'BAKU": "M'Baku",
+    'iDoom': 'Iron Man (Infamous)', 'LadyDeathstrike': 'Lady Deathstrike',
+    'Symbiote Spider-Man': 'Spider-Man (Symbiote)',
     # Omega
     'Spider-Man (Pavitr Prabhakar)': 'Spider-Man (Pavitr)',
     '\u00c6gon': 'Aegon', 'Werewolf by Night': 'Werewolf By Night',
@@ -432,43 +430,44 @@ def _extract_changelog_edition(rows):
 
 
 def _parse_vega(rows):
+    """Parse Vega's tier list.
+
+    As of the 67th Edition (Aug 2026) the sheet was redesigned to a
+    tier-rows x class-columns layout (same shape as the priority sheets):
+      - Each tier is a header row spanning cols 0-5, e.g. "Tier Above All",
+        immediately followed by one subtitle row (e.g. "Broken or Meta Setters").
+      - Columns 0-5 map to classes: Mystic, Science, Skill, Mutant, Tech, Cosmic.
+      - Column 6 is an "Information"/socials sidebar (ignored).
+    """
     champions = {}
-    current_class = None
-    tier_col_map = {1: 100, 2: 80, 3: 60, 4: 40, 5: 20, 6: 0}
     classes = ['Mystic', 'Science', 'Skill', 'Mutant', 'Tech', 'Cosmic']
-    skip = [
-        'Edition', 'Tier', 'OP', 'Phenomenal', 'Great', 'Very Good', 'Goodish',
-        'Need a Buff', 'MCoC', 'Vega', 'Cantona', 'Grass', 'Liam', 'Nagase',
-        'TJarvis', 'William', 'Creator', 'Legend', 'Socials', 'YouTube',
-        'Twitter', 'BlueSky', 'Instagram', 'Discord', 'Videos', 'Guides',
-        'Tier List', 'Player', 'Fighter', 'Encyclop', 'NOOB', 'NAGASE',
-        'mcoce', 'mcocnoob', 'nagase', 'Ranking a projection', 'Big Caution',
-        'Benefits Greatly', 'Ascendable', 'Ramp Up', 'Correct relic',
-        'Defense Part', 'Recoil', 'Synergy needed', 'Requires high',
-        'Early Ranking', 'Talked about', 'Use As a Guide', 'Non 7 Star',
-        'Even Hot', 'All Modes', 'Information', 'More Helpful', "Vega's",
-        'New & Progressing', 'How to Fight', "William's War",
-    ]
+    tier_scores = {
+        'Tier Above All': 100, 'Scorching': 83, 'Super Hot': 67,
+        'Hot': 50, 'Mild': 33, 'Bland': 17, 'Not Endgame Relevant': 0,
+    }
+    current_score = None
+    skip_next = False  # the row immediately after a tier header is its subtitle
     for row in rows:
         if len(row) < 7:
             continue
         first = row[0].strip()
-        if first in classes:
-            current_class = first
-        if current_class is None:
+        if first in tier_scores:
+            current_score = tier_scores[first]
+            skip_next = True
             continue
-        for col, score in tier_col_map.items():
-            if col >= len(row):
-                continue
+        if skip_next:
+            skip_next = False
+            continue
+        if current_score is None:
+            continue
+        for col in range(6):
             cell = row[col].strip()
-            if not cell or cell in classes:
-                continue
-            if any(s in cell for s in skip):
+            if not cell or cell in tier_scores or cell in classes:
                 continue
             name = _strip_emojis(cell)
             if not name or len(name) < 2:
                 continue
-            champions[name] = {'class': current_class, 'score': score, 'traits': _extract_traits(cell)}
+            champions[name] = {'class': classes[col], 'score': current_score, 'traits': _extract_traits(cell)}
     return champions
 
 
