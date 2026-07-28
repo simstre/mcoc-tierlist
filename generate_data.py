@@ -51,11 +51,14 @@ def main():
         print("ERROR: No data available")
         sys.exit(1)
 
-    # Load portraits
+    # Load portraits from lib/ — the same source the production Vercel cron
+    # (api/cron/refresh.py) uses. The root copies carry legacy Flask-era
+    # "/static/portraits/..." paths that 404 on Vercel, where portraits are
+    # served from public/portraits/ as "/portraits/...".
     portraits = {}
     base = Path(__file__).parent
     for fname in ["portraits.json", "portraits_local.json", "mcochub_portraits.json"]:
-        fpath = base / fname
+        fpath = base / "lib" / fname
         if fpath.exists():
             portraits.update(json.loads(fpath.read_text()))
 
