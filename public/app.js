@@ -67,10 +67,6 @@ async function init() {
   document.getElementById('meta').innerHTML =
     `Based on ${creators}  \u00b7  Updated ${data.last_updated}`;
 
-  // Keep the document title on the current month (SEO + freshness).
-  const nowMonth = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
-  document.title = `MCOC YouTubers Tier List - ${nowMonth}`;
-
   // Source freshness
   const meta = data.source_meta || [];
   const sourceInfo = meta.map(s => {
@@ -106,15 +102,50 @@ async function init() {
   const sigLegendKeys = ['defense', 'high_sig_needed'];
   document.getElementById('sig-legend').innerHTML = sigLegendKeys.map(badgeLegend).join('');
 
-  // Page tabs
+  // ---- Client-side routing: one real URL per tab (SEO + a page view per tab) ----
+  const MONTH = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  const ROUTES = {
+    tierlist:   { path: '/',           title: `MCOC YouTubers Tier List - ${MONTH}`,
+      desc: 'Marvel Contest of Champions tier list aggregated from top YouTubers Vega and Lagacy. Champion rankings for every class, updated daily.' },
+    awakening:  { path: '/awakening',  title: `MCOC Awakening Gem Tier List - ${MONTH}`,
+      desc: 'Best MCOC champions to use an Awakening Gem on, ranked by priority. Marvel Contest of Champions awakening gem tier list, updated daily.' },
+    sigstones:  { path: '/sig-stones', title: `MCOC Signature Stone Tier List - ${MONTH}`,
+      desc: 'Best MCOC champions to invest Signature Stones into, ranked by priority. Marvel Contest of Champions sig stone tier list, updated daily.' },
+    prestige:   { path: '/prestige',   title: `MCOC Prestige List - ${MONTH}`,
+      desc: 'MCOC champion prestige values for 7-star ranks R3, R4 and R5. Marvel Contest of Champions prestige chart, updated daily.' },
+    immunities: { path: '/immunities', title: `MCOC Champion Immunity List - ${MONTH}`,
+      desc: 'Find MCOC champions by immunity and debuff — who is immune to Bleed, Poison, Shock, Incinerate and more. Updated daily.' },
+  };
+  const PATH_TO_PAGE = Object.fromEntries(Object.entries(ROUTES).map(([page, r]) => [r.path, page]));
+
+  function setMeta(route) {
+    document.title = route.title;
+    const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+    set('meta[name="description"]', 'content', route.desc);
+    set('meta[property="og:title"]', 'content', route.title);
+    set('meta[name="twitter:title"]', 'content', route.title);
+    set('link[rel="canonical"]', 'href', 'https://mcoc.app' + route.path);
+  }
+
+  function showPage(page, push = true) {
+    if (!ROUTES[page]) page = 'tierlist';
+    document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.page === page));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    setMeta(ROUTES[page]);
+    // pushState updates the URL without a reload; Vercel Web Analytics
+    // auto-counts each client-side navigation as a page view.
+    if (push && location.pathname !== ROUTES[page].path) {
+      history.pushState({ page }, '', ROUTES[page].path);
+    }
+  }
+
   document.querySelectorAll('.ptab[data-page]').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + tab.dataset.page).classList.add('active');
-    });
+    tab.addEventListener('click', () => showPage(tab.dataset.page));
   });
+  window.addEventListener('popstate', () => showPage(PATH_TO_PAGE[location.pathname], false));
+  // Activate the tab matching the initial URL (deep-link or refresh).
+  showPage(PATH_TO_PAGE[location.pathname] || 'tierlist', false);
 
   // Class tabs
   document.querySelectorAll('#class-tabs .tab').forEach(tab => {

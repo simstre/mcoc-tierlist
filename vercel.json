@@ -1,6 +1,12 @@
 {
   "buildCommand": null,
   "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/awakening", "destination": "/index.html" },
+    { "source": "/sig-stones", "destination": "/index.html" },
+    { "source": "/prestige", "destination": "/index.html" },
+    { "source": "/immunities", "destination": "/index.html" }
+  ],
   "crons": [
     {
       "path": "/api/cron/refresh",
