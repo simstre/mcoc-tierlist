@@ -1,13 +1,15 @@
 name: Refresh champion portraits
 
-# Once a week, look up portrait URLs for any newly-added champions (from
-# Fandom wiki + mcochub fallback), mirror the images locally under
-# static/portraits/, and commit any changes. Keeps portraits self-sustaining
-# as new champions are released without manual intervention.
+# Every day, self-host a portrait for any newly-added champion in the current
+# Vega + Lagacy tier list. mirror_portraits.py looks up a portrait URL (Fandom
+# wiki, then mcochub), downloads a copy into public/portraits/, and registers
+# it in lib/portraits_local.json — the files the Vercel build actually serves.
+# Runs before the 06:00 UTC data rebuild so new champions get a working
+# portrait the same day. Idempotent: no changes when everything is covered.
 
 on:
   schedule:
-    - cron: "0 7 * * 1"  # 07:00 UTC every Monday
+    - cron: "30 5 * * *"  # 05:30 UTC daily, before the Vercel data refresh (06:00)
   workflow_dispatch:
 
 permissions:
@@ -35,22 +37,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Discover portrait URLs for any new champions
-        run: python fetch_portraits.py
-
-      - name: Mirror new portraits into static/portraits/
-        run: python download_portraits.py
+      - name: Self-host portraits for any new champions
+        run: python mirror_portraits.py
 
       - name: Commit changes if any
         run: |
-          # Only commit the portrait-related artifacts; don't sweep up
-          # anything else the workflow might have touched.
-          git add portraits.json portraits_local.json static/portraits/
+          # Only commit the portrait artifacts the Vercel build serves.
+          git add public/portraits/ lib/portraits_local.json lib/portraits.json
           if git diff --cached --quiet; then
             echo "No portrait changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: refresh champion portraits (auto)"
+          git commit -m "chore: self-host new champion portraits (auto)"
           git push
