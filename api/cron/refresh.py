@@ -138,9 +138,15 @@ def _commit_file(path, content, message):
     return False, f"GitHub API error {resp.status_code}: {resp.text[:200]}"
 
 
-def _seo_title():
-    """SEO <title> using the current month, e.g. "MCOC YouTubers Tier List - July 2026"."""
-    return f"MCOC YouTubers Tier List - {datetime.now(timezone.utc).strftime('%B %Y')}"
+# Per-route static page -> its title stem. Full title is "<stem> - <Month Year>".
+# Keep in sync with PAGE_ROUTES in generate_data.py.
+_PAGE_TITLES = {
+    "index.html": "MCOC YouTubers Tier List",
+    "awakening.html": "MCOC Awakening Gem Tier List",
+    "sig-stones.html": "MCOC Signature Stone Tier List",
+    "prestige.html": "MCOC Prestige List",
+    "immunities.html": "MCOC Champion Immunity List",
+}
 
 
 def _apply_seo_title(html, title):
@@ -153,20 +159,22 @@ def _apply_seo_title(html, title):
     return html
 
 
-def _sync_index_title():
-    """Best-effort: keep public/index.html's SEO title on the current month.
-    Commits only when the title actually changes. Never raises.
+def _sync_page_titles():
+    """Best-effort: keep each static page's SEO title on the current month.
+    Commits only files whose title actually changed. Never raises.
     """
     try:
         repo_root = Path(__file__).resolve().parent.parent.parent
-        index_path = repo_root / "public" / "index.html"
-        if not index_path.exists():
-            return
-        title = _seo_title()
-        html = index_path.read_text()
-        new_html = _apply_seo_title(html, title)
-        if new_html != html:
-            _commit_file("public/index.html", new_html, f"Update SEO title to {title}")
+        month = datetime.now(timezone.utc).strftime("%B %Y")
+        for fname, stem in _PAGE_TITLES.items():
+            path = repo_root / "public" / fname
+            if not path.exists():
+                continue
+            title = f"{stem} - {month}"
+            html = path.read_text()
+            new_html = _apply_seo_title(html, title)
+            if new_html != html:
+                _commit_file(f"public/{fname}", new_html, f"Update SEO title: {title}")
     except Exception:
         pass
 
@@ -196,9 +204,9 @@ class handler(BaseHTTPRequestHandler):
                 f"Update tier list data ({datetime.now(timezone.utc).strftime('%Y-%m-%d')})",
             )
 
-            # Keep the static SEO <title> month current.
+            # Keep each static page's SEO <title> month current.
             # Best-effort and independent of the primary commit's success.
-            _sync_index_title()
+            _sync_page_titles()
 
             self.send_response(200 if ok else 500)
             self.send_header("Content-Type", "application/json")

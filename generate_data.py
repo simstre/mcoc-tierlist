@@ -27,19 +27,98 @@ from prestige_scraper import (
 from prestige_data import PRESTIGE as PRESTIGE_FALLBACK
 
 
-def _seo_title():
-    """SEO <title> using the current month, e.g. "MCOC YouTubers Tier List - July 2026"."""
-    return f"MCOC YouTubers Tier List - {datetime.now(timezone.utc).strftime('%B %Y')}"
+SITE_URL = "https://mcoc.app"
+
+# One static, SEO-optimized page per tab. index.html is the "/" template; the
+# other four are generated from it with their own title/description/canonical/
+# og/twitter/H1/intro and the matching tab pre-activated (so crawlers and
+# no-JS loads get the right content). Keep this in sync with the ROUTES map in
+# public/app.js, which drives client-side navigation.
+PAGE_ROUTES = [
+    {
+        "page": "tierlist", "path": "/", "file": "index.html",
+        "title_base": "MCOC YouTubers Tier List",
+        "desc": "Marvel Contest of Champions tier list aggregated from top YouTubers Vega and Lagacy. Champion rankings for every class, awakening gems, sig stones, prestige and immunities — updated daily.",
+        "h1": "Marvel Contest of Champions YouTubers Tier List",
+        "intro": "A quick reference for casual players and newcomers. Rankings reflect general champion value across all game modes, aggregated from Vega and Lagacy and updated daily.",
+    },
+    {
+        "page": "awakening", "path": "/awakening", "file": "awakening.html",
+        "title_base": "MCOC Awakening Gem Tier List",
+        "desc": "The best MCOC champions to use an Awakening Gem on, ranked by priority. A Marvel Contest of Champions awakening gem tier list from Vega, updated daily.",
+        "h1": "MCOC Awakening Gem Tier List",
+        "intro": "The best Marvel Contest of Champions champions to spend an Awakening Gem on, grouped by priority — so your generic and class gems go where they pay off most.",
+    },
+    {
+        "page": "sigstones", "path": "/sig-stones", "file": "sig-stones.html",
+        "title_base": "MCOC Signature Stone Tier List",
+        "desc": "The best MCOC champions to invest Signature Stones into, ranked by priority. A Marvel Contest of Champions sig stone tier list from Vega, updated daily.",
+        "h1": "MCOC Signature Stone Tier List",
+        "intro": "Which Marvel Contest of Champions champions gain the most from a high signature ability, grouped by priority — so your sig stones go to the champions that truly need them.",
+    },
+    {
+        "page": "prestige", "path": "/prestige", "file": "prestige.html",
+        "title_base": "MCOC Prestige List",
+        "desc": "MCOC champion prestige values for 7-star ranks R3, R4 and R5. A Marvel Contest of Champions prestige chart, updated daily.",
+        "h1": "MCOC Prestige List",
+        "intro": "Champion prestige values for 7-star ranks 3, 4 and 5 in Marvel Contest of Champions — search any champion to compare prestige and build your highest-prestige roster.",
+    },
+    {
+        "page": "immunities", "path": "/immunities", "file": "immunities.html",
+        "title_base": "MCOC Champion Immunity List",
+        "desc": "Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.",
+        "h1": "MCOC Champion Immunity List",
+        "intro": "Search Marvel Contest of Champions champions by immunity and by the debuffs they inflict — find who shrugs off Bleed, Poison, Shock, Incinerate and more.",
+    },
+]
 
 
-def _apply_seo_title(html, title):
-    """Rewrite <title>/og:title/twitter:title in the HTML to `title`."""
+def _current_month():
+    return datetime.now(timezone.utc).strftime("%B %Y")
+
+
+def _render_page(base_html, route, month):
+    """Derive one route's static HTML from the index.html base template."""
     import re
-    repl = lambda m: m.group(1) + title + m.group(2)
-    html = re.sub(r"(<title>).*?(</title>)", repl, html, count=1, flags=re.S)
-    html = re.sub(r'(<meta property="og:title" content=").*?(">)', repl, html, count=1)
-    html = re.sub(r'(<meta name="twitter:title" content=").*?(">)', repl, html, count=1)
+    title = f"{route['title_base']} - {month}"
+    url = SITE_URL + route["path"]
+    page = route["page"]
+
+    def set_meta(html, selector, value):
+        pat = r'(<meta ' + re.escape(selector) + r' content=")[^"]*(">)'
+        return re.sub(pat, lambda m: m.group(1) + value + m.group(2), html, count=1)
+
+    html = base_html
+    html = re.sub(r"(<title>).*?(</title>)", lambda m: m.group(1) + title + m.group(2), html, count=1, flags=re.S)
+    html = set_meta(html, 'name="description"', route["desc"])
+    html = set_meta(html, 'property="og:title"', title)
+    html = set_meta(html, 'property="og:description"', route["desc"])
+    html = set_meta(html, 'name="twitter:title"', title)
+    html = set_meta(html, 'name="twitter:description"', route["desc"])
+    html = re.sub(r'(<meta property="og:url" content=")[^"]*(">)', lambda m: m.group(1) + url + m.group(2), html, count=1)
+    html = re.sub(r'(<link rel="canonical" href=")[^"]*(">)', lambda m: m.group(1) + url + m.group(2), html, count=1)
+    html = re.sub(r"(<h1>).*?(</h1>)", lambda m: m.group(1) + route["h1"] + m.group(2), html, count=1, flags=re.S)
+    html = re.sub(r'(<p class="desc">).*?(</p>)', lambda m: m.group(1) + route["intro"] + m.group(2), html, count=1, flags=re.S)
+    html = re.sub(r'("description":\s*")[^"]*(")', lambda m: m.group(1) + route["desc"] + m.group(2), html, count=1)
+    # Activate this route's tab and page (normalize first, then set).
+    html = html.replace('class="ptab active"', 'class="ptab"')
+    html = re.sub(r'class="ptab" (data-page="%s")' % re.escape(page), r'class="ptab active" \1', html, count=1)
+    html = html.replace('<div id="page-tierlist" class="page active">', '<div id="page-tierlist" class="page">')
+    html = re.sub(r'(<div id="page-%s" class="page)(">)' % re.escape(page), r'\1 active\2', html, count=1)
     return html
+
+
+def _generate_pages(base_dir):
+    """Regenerate every per-route static page from the index.html base template."""
+    index_path = base_dir / "public" / "index.html"
+    if not index_path.exists():
+        return
+    base_html = index_path.read_text()
+    month = _current_month()
+    for route in PAGE_ROUTES:
+        out = base_dir / "public" / route["file"]
+        out.write_text(_render_page(base_html, route, month))
+        print(f"  page: {route['path']}  ->  public/{route['file']}")
 
 
 def main():
@@ -118,15 +197,8 @@ def main():
     out.write_text(json.dumps(response, separators=(",", ":")))
     print(f"Generated {out} ({out.stat().st_size:,} bytes, {len(champions)} champions)")
 
-    # Keep the static SEO <title> month in sync with Lagacy's edition.
-    index_path = base / "public" / "index.html"
-    if index_path.exists():
-        title = _seo_title()
-        html = index_path.read_text()
-        new_html = _apply_seo_title(html, title)
-        if new_html != html:
-            index_path.write_text(new_html)
-            print(f"Updated index.html SEO title: {title!r}")
+    # Regenerate the per-route static SEO pages (index + one per tab).
+    _generate_pages(base)
 
 
 if __name__ == "__main__":

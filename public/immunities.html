@@ -3,139 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MCOC Immunity Map</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0a0a1a;
-      color: #e5e5e5;
-      overflow: hidden;
+  <title>MCOC Champion Immunity List - July 2026</title>
+  <meta name="description" content="Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.">
+  <meta name="keywords" content="MCOC, Marvel Contest of Champions, tier list, champion rankings, Vega, Lagacy, awakening gems, sig stones, prestige, immunities, best champions, god tier, 7 star, 2026">
+  <link rel="canonical" href="https://mcoc.app/immunities">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MCOC Champion Immunity List - July 2026">
+  <meta property="og:description" content="Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.">
+  <meta property="og:image" content="https://mcoc.app/banner.jpg">
+  <meta property="og:url" content="https://mcoc.app/immunities">
+  <meta property="og:site_name" content="MCOC Tier List">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MCOC Champion Immunity List - July 2026">
+  <meta name="twitter:description" content="Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.">
+  <meta name="twitter:image" content="https://mcoc.app/banner.jpg">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f59e0b">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MCOC Tier List",
+    "description": "Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.",
+    "url": "https://mcoc.app/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "about": {
+      "@type": "VideoGame",
+      "name": "Marvel Contest of Champions"
     }
-    .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      padding: 0.75rem 1rem;
-      background: #0a0a1aee;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      backdrop-filter: blur(8px);
-    }
-    .header h1 { font-size: 1.1rem; font-weight: 600; }
-    .header a {
-      color: #666;
-      text-decoration: none;
-      font-size: 0.8rem;
-    }
-    .header a:hover { color: #aaa; }
-    .legend {
-      display: flex;
-      gap: 0.75rem;
-      margin-left: auto;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.65rem;
-      color: #888;
-      cursor: pointer;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      transition: background 0.15s;
-    }
-    .legend-item:hover { background: #ffffff10; }
-    .legend-item.active { background: #ffffff15; color: #ccc; }
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    #canvas-wrap {
-      width: 100vw;
-      height: 100vh;
-      padding-top: 48px;
-      cursor: grab;
-    }
-    #canvas-wrap:active { cursor: grabbing; }
-    svg { width: 100%; height: 100%; }
-    .imm-circle {
-      fill-opacity: 0.08;
-      stroke-width: 2;
-      stroke-opacity: 0.4;
-    }
-    .imm-label {
-      font-size: 14px;
-      font-weight: 700;
-      fill-opacity: 0.6;
-      text-anchor: middle;
-      pointer-events: none;
-    }
-    .champ-group { cursor: pointer; }
-    .champ-group:hover .champ-img { stroke: #fff; stroke-width: 2; }
-    .champ-img {
-      stroke: #333;
-      stroke-width: 1;
-    }
-    .champ-label {
-      font-size: 7px;
-      fill: #ccc;
-      text-anchor: middle;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-    }
-    .champ-group:hover .champ-label { opacity: 1; }
-    .tooltip {
-      position: fixed;
-      background: #1a1a2e;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.75rem;
-      pointer-events: none;
-      z-index: 20;
-      display: none;
-      max-width: 220px;
-    }
-    .tooltip .tt-name { font-weight: 600; margin-bottom: 0.2rem; }
-    .tooltip .tt-imm {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-    }
-    .tooltip .tt-tag {
-      font-size: 0.6rem;
-      padding: 0.1rem 0.3rem;
-      border-radius: 3px;
-      background: #ffffff15;
-    }
-    .no-imm-note {
-      position: fixed;
-      bottom: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.7rem;
-      color: #444;
-    }
-  </style>
+  }
+  </script>
 </head>
 <body>
-  <div class="header">
-    <h1>Immunity Map</h1>
-    <a href="/">Back to Tier List</a>
-    <div class="legend" id="legend"></div>
+  <div class="container">
+    <header>
+      <div class="banner"><img src="/banner.jpg" alt="Marvel Contest of Champions Tier List – Champion Rankings"></div>
+      <h1>MCOC Champion Immunity List</h1>
+      <p class="desc">Search Marvel Contest of Champions champions by immunity and by the debuffs they inflict — find who shrugs off Bleed, Poison, Shock, Incinerate and more.</p>
+      <p class="meta" id="meta"></p>
+    </header>
+
+    <nav class="page-tabs" id="page-tabs">
+      <a class="ptab" data-page="tierlist" href="/">Ranking Up</a>
+      <a class="ptab" data-page="awakening" href="/awakening">Awakening Gems</a>
+      <a class="ptab" data-page="sigstones" href="/sig-stones">Sig Stones</a>
+      <a class="ptab" data-page="prestige" href="/prestige">Prestige</a>
+      <a class="ptab active" data-page="immunities" href="/immunities">Immunities</a>
+    </nav>
+
+    <div id="page-tierlist" class="page">
+      <p class="notes" id="notes"></p>
+      <div class="legend" id="legend"></div>
+      <nav class="tabs" id="class-tabs">
+        <button class="tab active" data-view="all">All</button>
+        <button class="tab" data-view="Cosmic">Cosmic</button>
+        <button class="tab" data-view="Mutant">Mutant</button>
+        <button class="tab" data-view="Tech">Tech</button>
+        <button class="tab" data-view="Skill">Skill</button>
+        <button class="tab" data-view="Science">Science</button>
+        <button class="tab" data-view="Mystic">Mystic</button>
+      </nav>
+      <div class="toolbar">
+        <input type="text" id="search" placeholder="Search champion...">
+      </div>
+      <div id="tierlist-content"></div>
+    </div>
+
+    <div id="page-immunities" class="page active">
+      <div class="imm-mode-tabs">
+        <button class="imm-mode active" data-mode="immune">Immune To</button>
+        <button class="imm-mode" data-mode="inflicts">Inflicts</button>
+      </div>
+      <p class="imm-hint" id="imm-hint">Select immunities to find matching champions. Multiple = must have all.</p>
+      <div class="imm-legend" id="imm-legend"></div>
+      <div class="imm-toggles" id="imm-toggles"></div>
+      <div class="imm-results-info" id="imm-results-info"></div>
+      <div id="imm-content"></div>
+    </div>
+
+    <div id="page-awakening" class="page">
+      <p class="page-hint">Champions that benefit most from being awakened, sorted by overall ranking.</p>
+      <div class="legend" id="aw-legend"></div>
+      <nav class="tabs" id="aw-class-tabs"></nav>
+      <div class="aw-results-info" id="aw-results-info"></div>
+      <div id="aw-content"></div>
+    </div>
+
+    <div id="page-sigstones" class="page">
+      <p class="page-hint">Champions worth investing signature stones into, grouped by priority.</p>
+      <div class="legend" id="sig-legend"></div>
+      <nav class="tabs" id="sig-class-tabs"></nav>
+      <div class="aw-results-info" id="sig-results-info"></div>
+      <div id="sig-content"></div>
+    </div>
+    <div id="page-prestige" class="page">
+      <p class="page-hint">Champion prestige values at different signature levels.</p>
+      <div class="prestige-controls">
+        <select id="prestige-rank" class="prestige-select"></select>
+        <input type="text" id="prestige-search" class="prestige-search" placeholder="Search champion...">
+      </div>
+      <div class="prestige-info" id="prestige-info"></div>
+      <div class="prestige-table-wrap" id="prestige-content"></div>
+    </div>
   </div>
-  <div id="canvas-wrap">
-    <svg id="svg"></svg>
-  </div>
-  <div class="tooltip" id="tooltip"></div>
-  <div class="no-imm-note">Only champions with at least one immunity are shown</div>
-  <script src="/static/immunity-map.js"></script>
+  <script src="/app.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>

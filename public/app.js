@@ -103,28 +103,48 @@ async function init() {
   document.getElementById('sig-legend').innerHTML = sigLegendKeys.map(badgeLegend).join('');
 
   // ---- Client-side routing: one real URL per tab (SEO + a page view per tab) ----
+  // Keep in sync with PAGE_ROUTES in generate_data.py, which pre-renders the
+  // matching static <title>/<meta>/<h1>/intro into each page for crawlers.
   const MONTH = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
   const ROUTES = {
-    tierlist:   { path: '/',           title: `MCOC YouTubers Tier List - ${MONTH}`,
-      desc: 'Marvel Contest of Champions tier list aggregated from top YouTubers Vega and Lagacy. Champion rankings for every class, updated daily.' },
-    awakening:  { path: '/awakening',  title: `MCOC Awakening Gem Tier List - ${MONTH}`,
-      desc: 'Best MCOC champions to use an Awakening Gem on, ranked by priority. Marvel Contest of Champions awakening gem tier list, updated daily.' },
-    sigstones:  { path: '/sig-stones', title: `MCOC Signature Stone Tier List - ${MONTH}`,
-      desc: 'Best MCOC champions to invest Signature Stones into, ranked by priority. Marvel Contest of Champions sig stone tier list, updated daily.' },
-    prestige:   { path: '/prestige',   title: `MCOC Prestige List - ${MONTH}`,
-      desc: 'MCOC champion prestige values for 7-star ranks R3, R4 and R5. Marvel Contest of Champions prestige chart, updated daily.' },
-    immunities: { path: '/immunities', title: `MCOC Champion Immunity List - ${MONTH}`,
-      desc: 'Find MCOC champions by immunity and debuff — who is immune to Bleed, Poison, Shock, Incinerate and more. Updated daily.' },
+    tierlist:   { path: '/',           titleBase: 'MCOC YouTubers Tier List',
+      h1: 'Marvel Contest of Champions YouTubers Tier List',
+      intro: 'A quick reference for casual players and newcomers. Rankings reflect general champion value across all game modes, aggregated from Vega and Lagacy and updated daily.',
+      desc: 'Marvel Contest of Champions tier list aggregated from top YouTubers Vega and Lagacy. Champion rankings for every class, awakening gems, sig stones, prestige and immunities — updated daily.' },
+    awakening:  { path: '/awakening',  titleBase: 'MCOC Awakening Gem Tier List',
+      h1: 'MCOC Awakening Gem Tier List',
+      intro: 'The best Marvel Contest of Champions champions to spend an Awakening Gem on, grouped by priority — so your generic and class gems go where they pay off most.',
+      desc: 'The best MCOC champions to use an Awakening Gem on, ranked by priority. A Marvel Contest of Champions awakening gem tier list from Vega, updated daily.' },
+    sigstones:  { path: '/sig-stones', titleBase: 'MCOC Signature Stone Tier List',
+      h1: 'MCOC Signature Stone Tier List',
+      intro: 'Which Marvel Contest of Champions champions gain the most from a high signature ability, grouped by priority — so your sig stones go to the champions that truly need them.',
+      desc: 'The best MCOC champions to invest Signature Stones into, ranked by priority. A Marvel Contest of Champions sig stone tier list from Vega, updated daily.' },
+    prestige:   { path: '/prestige',   titleBase: 'MCOC Prestige List',
+      h1: 'MCOC Prestige List',
+      intro: 'Champion prestige values for 7-star ranks 3, 4 and 5 in Marvel Contest of Champions — search any champion to compare prestige and build your highest-prestige roster.',
+      desc: 'MCOC champion prestige values for 7-star ranks R3, R4 and R5. A Marvel Contest of Champions prestige chart, updated daily.' },
+    immunities: { path: '/immunities', titleBase: 'MCOC Champion Immunity List',
+      h1: 'MCOC Champion Immunity List',
+      intro: 'Search Marvel Contest of Champions champions by immunity and by the debuffs they inflict — find who shrugs off Bleed, Poison, Shock, Incinerate and more.',
+      desc: 'Find MCOC champions by immunity and by the debuffs they inflict — who is immune to Bleed, Poison, Shock, Incinerate and more. A Marvel Contest of Champions immunity chart, updated daily.' },
   };
   const PATH_TO_PAGE = Object.fromEntries(Object.entries(ROUTES).map(([page, r]) => [r.path, page]));
 
   function setMeta(route) {
-    document.title = route.title;
+    const title = `${route.titleBase} - ${MONTH}`;
+    document.title = title;
     const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
     set('meta[name="description"]', 'content', route.desc);
-    set('meta[property="og:title"]', 'content', route.title);
-    set('meta[name="twitter:title"]', 'content', route.title);
+    set('meta[property="og:title"]', 'content', title);
+    set('meta[property="og:description"]', 'content', route.desc);
+    set('meta[name="twitter:title"]', 'content', title);
+    set('meta[name="twitter:description"]', 'content', route.desc);
+    set('meta[property="og:url"]', 'content', 'https://mcoc.app' + route.path);
     set('link[rel="canonical"]', 'href', 'https://mcoc.app' + route.path);
+    const h1 = document.querySelector('header h1');
+    if (h1) h1.textContent = route.h1;
+    const intro = document.querySelector('header p.desc');
+    if (intro) intro.textContent = route.intro;
   }
 
   function showPage(page, push = true) {
@@ -140,8 +160,13 @@ async function init() {
     }
   }
 
+  // Nav links are real <a href> (crawlable); intercept clicks for SPA nav.
   document.querySelectorAll('.ptab[data-page]').forEach(tab => {
-    tab.addEventListener('click', () => showPage(tab.dataset.page));
+    tab.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return; // let new-tab/open-in-window work
+      e.preventDefault();
+      showPage(tab.dataset.page);
+    });
   });
   window.addEventListener('popstate', () => showPage(PATH_TO_PAGE[location.pathname], false));
   // Activate the tab matching the initial URL (deep-link or refresh).
