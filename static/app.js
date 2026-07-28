@@ -13,6 +13,10 @@ async function init() {
   document.getElementById('meta').innerHTML =
     `Based on ${creators}  \u00b7  Updated ${data.last_updated}`;
 
+  // Keep the document title on the current month (SEO + freshness).
+  const nowMonth = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  document.title = `MCOC YouTubers Tier List - ${nowMonth}`;
+
   // Source freshness
   const meta = data.source_meta || [];
   const sourceInfo = meta.map(s => {

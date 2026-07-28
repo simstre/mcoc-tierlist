@@ -105,14 +105,13 @@ def _build_tierlist_json():
     }
 
 
-def _commit_to_github(content_json):
-    """Commit tierlist.json to the repo via GitHub API."""
+def _commit_file(path, content, message):
+    """Commit a single file to the repo via GitHub API."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO")
     if not token or not repo:
         return False, "GITHUB_TOKEN or GITHUB_REPO not set"
 
-    path = "public/data/tierlist.json"
     api_url = f"https://api.github.com/repos/{repo}/contents/{path}"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -124,9 +123,9 @@ def _commit_to_github(content_json):
     sha = resp.json().get("sha") if resp.status_code == 200 else None
 
     # Commit the new content
-    encoded = base64.b64encode(content_json.encode("utf-8")).decode("utf-8")
+    encoded = base64.b64encode(content.encode("utf-8")).decode("utf-8")
     payload = {
-        "message": f"Update tier list data ({datetime.now(timezone.utc).strftime('%Y-%m-%d')})",
+        "message": message,
         "content": encoded,
         "branch": "main",
     }
@@ -137,6 +136,39 @@ def _commit_to_github(content_json):
     if resp.status_code in (200, 201):
         return True, "Committed successfully"
     return False, f"GitHub API error {resp.status_code}: {resp.text[:200]}"
+
+
+def _seo_title():
+    """SEO <title> using the current month, e.g. "MCOC YouTubers Tier List - July 2026"."""
+    return f"MCOC YouTubers Tier List - {datetime.now(timezone.utc).strftime('%B %Y')}"
+
+
+def _apply_seo_title(html, title):
+    """Rewrite <title>/og:title/twitter:title in the HTML to `title`."""
+    import re
+    repl = lambda m: m.group(1) + title + m.group(2)
+    html = re.sub(r"(<title>).*?(</title>)", repl, html, count=1, flags=re.S)
+    html = re.sub(r'(<meta property="og:title" content=").*?(">)', repl, html, count=1)
+    html = re.sub(r'(<meta name="twitter:title" content=").*?(">)', repl, html, count=1)
+    return html
+
+
+def _sync_index_title():
+    """Best-effort: keep public/index.html's SEO title on the current month.
+    Commits only when the title actually changes. Never raises.
+    """
+    try:
+        repo_root = Path(__file__).resolve().parent.parent.parent
+        index_path = repo_root / "public" / "index.html"
+        if not index_path.exists():
+            return
+        title = _seo_title()
+        html = index_path.read_text()
+        new_html = _apply_seo_title(html, title)
+        if new_html != html:
+            _commit_file("public/index.html", new_html, f"Update SEO title to {title}")
+    except Exception:
+        pass
 
 
 class handler(BaseHTTPRequestHandler):
@@ -159,7 +191,14 @@ class handler(BaseHTTPRequestHandler):
                 return
 
             content = json.dumps(data, separators=(",", ":"))
-            ok, msg = _commit_to_github(content)
+            ok, msg = _commit_file(
+                "public/data/tierlist.json", content,
+                f"Update tier list data ({datetime.now(timezone.utc).strftime('%Y-%m-%d')})",
+            )
+
+            # Keep the static SEO <title> month current.
+            # Best-effort and independent of the primary commit's success.
+            _sync_index_title()
 
             self.send_response(200 if ok else 500)
             self.send_header("Content-Type", "application/json")

@@ -27,6 +27,21 @@ from prestige_scraper import (
 from prestige_data import PRESTIGE as PRESTIGE_FALLBACK
 
 
+def _seo_title():
+    """SEO <title> using the current month, e.g. "MCOC YouTubers Tier List - July 2026"."""
+    return f"MCOC YouTubers Tier List - {datetime.now(timezone.utc).strftime('%B %Y')}"
+
+
+def _apply_seo_title(html, title):
+    """Rewrite <title>/og:title/twitter:title in the HTML to `title`."""
+    import re
+    repl = lambda m: m.group(1) + title + m.group(2)
+    html = re.sub(r"(<title>).*?(</title>)", repl, html, count=1, flags=re.S)
+    html = re.sub(r'(<meta property="og:title" content=").*?(">)', repl, html, count=1)
+    html = re.sub(r'(<meta name="twitter:title" content=").*?(">)', repl, html, count=1)
+    return html
+
+
 def main():
     # Try fresh fetch, fall back to cache
     data, meta, aw, sig = fetch_and_cache()
@@ -99,6 +114,16 @@ def main():
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(response, separators=(",", ":")))
     print(f"Generated {out} ({out.stat().st_size:,} bytes, {len(champions)} champions)")
+
+    # Keep the static SEO <title> month in sync with Lagacy's edition.
+    index_path = base / "public" / "index.html"
+    if index_path.exists():
+        title = _seo_title()
+        html = index_path.read_text()
+        new_html = _apply_seo_title(html, title)
+        if new_html != html:
+            index_path.write_text(new_html)
+            print(f"Updated index.html SEO title: {title!r}")
 
 
 if __name__ == "__main__":
