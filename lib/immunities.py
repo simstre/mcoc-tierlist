@@ -351,7 +351,8 @@ def fetch_immunity_data():
                     continue
                 if champ not in champion_immunities:
                     champion_immunities[champ] = []
-                champion_immunities[champ].append(display_name)
+                if display_name not in champion_immunities[champ]:
+                    champion_immunities[champ].append(display_name)
 
             time.sleep(0.3)
         except Exception as e:
@@ -399,10 +400,14 @@ def _apply_conditional(champion_immunities):
     result = {}
     for name, imm_types in champion_immunities.items():
         cond_list = CONDITIONAL.get(name, [])
-        result[name] = [
-            {"type": t, "conditional": t in cond_list}
-            for t in imm_types
-        ]
+        seen = set()
+        annotated = []
+        for t in imm_types:
+            if t in seen:  # guard against duplicate types from any source
+                continue
+            seen.add(t)
+            annotated.append({"type": t, "conditional": t in cond_list})
+        result[name] = annotated
     return result
 
 
