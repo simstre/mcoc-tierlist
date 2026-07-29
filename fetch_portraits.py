@@ -25,7 +25,6 @@ THUMB_SIZE = 80
 
 # Map our canonical champion names to Fandom wiki page titles
 WIKI_NAME_MAP = {
-    "Captain Marvel (Classic)": "Captain Marvel",
     "Ms. Marvel": "Ms. Marvel",
     "Ms. Marvel (Kamala Khan)": "Ms. Marvel (Kamala Khan)",
     "Spider-Man (Pavitr Prabhakar)": "Spider-Man (Pavitr Prabhakar)",
