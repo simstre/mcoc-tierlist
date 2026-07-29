@@ -351,7 +351,7 @@ function render() {
     if (!group.length) continue;
     html += `<div class="tier-section">
       <div class="tier-label" style="color:${data.tier_colors[key]}">
-        ${key} <span class="tier-count">${group.length}</span>
+        ${key} Tier <span class="tier-count">${group.length}</span>
       </div>
       ${group.map(c => champHtml(c, rank++)).join('')}
     </div>`;
@@ -448,7 +448,7 @@ function renderPriorityTab(sheetData, classView, contentId, infoId) {
     if (!group.length) continue;
     html += `<div class="tier-section">
       <div class="tier-label" style="color:${data.tier_colors[key]}">
-        ${key} <span class="tier-count">${group.length}</span>
+        ${key} Tier <span class="tier-count">${group.length}</span>
       </div>
       ${group.map(c => {
         const portrait = c.portrait
