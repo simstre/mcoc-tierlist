@@ -17,12 +17,30 @@ CLASS_COLORS = {
     "Mystic": "#a855f7",
 }
 
+# Unified letter-grade tiers used on every tab (best -> worst).
+TIER_ORDER = ["S+", "S", "A", "B", "C", "D", "F"]
+
 TIER_COLORS = {
-    "God": "#f59e0b",
-    "Great": "#3b82f6",
-    "Good": "#22c55e",
-    "OK": "#9ca3af",
-    "Low": "#6b7280",
+    "S+": "#f59e0b",  # amber
+    "S":  "#fbbf24",  # gold
+    "A":  "#a3e635",  # lime
+    "B":  "#34d399",  # emerald
+    "C":  "#22d3ee",  # cyan
+    "D":  "#60a5fa",  # blue
+    "F":  "#94a3b8",  # slate
+}
+
+# Vega's awakening / sig-stone priority sheets use their own heat-scale names.
+# Map them onto the same letters (these tabs rank investment priority, so the
+# levels stay contiguous rather than following the main power thresholds).
+PRIORITY_TIER_MAP = {
+    "Tier Above All": "S+",
+    "Scorching": "S",
+    "Super Hot": "A",
+    "Hot": "B",
+    "Mild": "C",
+    "Bland": "D",
+    "Not Endgame Relevant": "F",
 }
 
 TAG_LABELS = {
@@ -39,15 +57,33 @@ TAG_LABELS = {
 
 
 def score_to_tier(score: int) -> str:
-    if score >= 90:
-        return "God"
+    if score >= 96:
+        return "S+"
+    if score >= 84:
+        return "S"
     if score >= 70:
-        return "Great"
-    if score >= 50:
-        return "Good"
+        return "A"
+    if score >= 60:
+        return "B"
+    if score >= 46:
+        return "C"
     if score >= 30:
-        return "OK"
-    return "Low"
+        return "D"
+    return "F"
+
+
+def retier_priority(priority_dict):
+    """Relabel a priority-sheet dict's tiers to the unified letter scheme.
+
+    Entries come in as {tier: <sheet name>, score, ...}; rewrite `tier` to a
+    letter grade so the Awakening/Sig Stones tabs match the main tier list.
+    """
+    if not priority_dict:
+        return priority_dict
+    for entry in priority_dict.values():
+        letter = PRIORITY_TIER_MAP.get(entry.get("tier"))
+        entry["tier"] = letter or score_to_tier(entry.get("score", 0))
+    return priority_dict
 
 
 def compute_tier_list(raw_champions: dict):

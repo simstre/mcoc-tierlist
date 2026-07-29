@@ -338,24 +338,20 @@ function champHtml(c, rank) {
   </div>`;
 }
 
+const TIER_ORDER = ['S+', 'S', 'A', 'B', 'C', 'D', 'F'];
+
 function render() {
   const champs = getFiltered();
-  const tiers = [
-    { key: 'God', label: 'God Tier' },
-    { key: 'Great', label: 'Great' },
-    { key: 'Good', label: 'Good' },
-    { key: 'OK', label: 'OK' },
-    { key: 'Low', label: 'Low' },
-  ];
+  const order = data.tier_order || TIER_ORDER;
 
   let html = '';
   let rank = 1;
-  for (const t of tiers) {
-    const group = champs.filter(c => c.tier === t.key);
+  for (const key of order) {
+    const group = champs.filter(c => c.tier === key);
     if (!group.length) continue;
     html += `<div class="tier-section">
-      <div class="tier-label" style="color:${data.tier_colors[t.key]}">
-        ${t.label} <span class="tier-count">${group.length}</span>
+      <div class="tier-label" style="color:${data.tier_colors[key]}">
+        ${key} <span class="tier-count">${group.length}</span>
       </div>
       ${group.map(c => champHtml(c, rank++)).join('')}
     </div>`;
@@ -417,17 +413,7 @@ function renderImmunities() {
 }
 
 function renderPriorityTab(sheetData, classView, contentId, infoId) {
-  const tiers = [
-    { key: 'Tier Above All', label: 'Tier Above All' },
-    { key: 'Scorching', label: 'Scorching' },
-    { key: 'Super Hot', label: 'Super Hot' },
-    { key: 'Hot', label: 'Hot' },
-    { key: 'Mild', label: 'Mild' },
-  ];
-  const tierColors = {
-    'Tier Above All': '#f59e0b', 'Scorching': '#ef4444', 'Super Hot': '#f97316',
-    'Hot': '#3b82f6', 'Mild': '#22c55e',
-  };
+  const order = data.tier_order || TIER_ORDER;
 
   // Build list from sheet data, enrich with portraits and badges from main champion list
   let champs = Object.entries(sheetData).map(([name, info]) => {
@@ -457,12 +443,12 @@ function renderPriorityTab(sheetData, classView, contentId, infoId) {
     (classView !== 'all' ? ` in ${classView}` : '');
 
   let html = '';
-  for (const t of tiers) {
-    const group = champs.filter(c => c.tier === t.key);
+  for (const key of order) {
+    const group = champs.filter(c => c.tier === key);
     if (!group.length) continue;
     html += `<div class="tier-section">
-      <div class="tier-label" style="color:${tierColors[t.key]}">
-        ${t.label} <span class="tier-count">${group.length}</span>
+      <div class="tier-label" style="color:${data.tier_colors[key]}">
+        ${key} <span class="tier-count">${group.length}</span>
       </div>
       ${group.map(c => {
         const portrait = c.portrait

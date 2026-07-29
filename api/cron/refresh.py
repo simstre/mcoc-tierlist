@@ -25,8 +25,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "lib"))
 
 from champions_data import (
-    compute_tier_list, get_champions_by_class,
-    SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
+    compute_tier_list, get_champions_by_class, retier_priority,
+    SOURCES, CLASS_COLORS, TIER_COLORS, TIER_ORDER, TAG_LABELS,
 )
 from fetch_tierlist import fetch_and_combine, fetch_priority_sheets
 from immunities import (
@@ -60,6 +60,8 @@ def _build_tierlist_json():
         return None
 
     aw_data, sig_data = fetch_priority_sheets()
+    retier_priority(aw_data)
+    retier_priority(sig_data)
     portraits = _load_portraits()
     debuff_map, champion_debuffs = fetch_debuff_data()
 
@@ -88,6 +90,7 @@ def _build_tierlist_json():
         "sources": SOURCES,
         "class_colors": CLASS_COLORS,
         "tier_colors": TIER_COLORS,
+        "tier_order": TIER_ORDER,
         "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(imm_annotated),
         "immunity_types": IMMUNITY_TYPES,

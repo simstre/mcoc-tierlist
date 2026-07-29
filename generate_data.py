@@ -10,8 +10,8 @@ from pathlib import Path
 
 # Use root-level modules (not lib/)
 from champions_data import (
-    compute_tier_list, get_champions_by_class,
-    SOURCES, CLASS_COLORS, TIER_COLORS, TAG_LABELS,
+    compute_tier_list, get_champions_by_class, retier_priority,
+    SOURCES, CLASS_COLORS, TIER_COLORS, TIER_ORDER, TAG_LABELS,
 )
 from fetch_tierlist import fetch_and_cache, load_cached
 from immunities import (
@@ -130,6 +130,10 @@ def main():
         print("ERROR: No data available")
         sys.exit(1)
 
+    # Relabel the priority sheets onto the unified letter tiers.
+    retier_priority(aw)
+    retier_priority(sig)
+
     # Load portraits from lib/ — the same source the production Vercel cron
     # (api/cron/refresh.py) uses. The root copies carry legacy Flask-era
     # "/static/portraits/..." paths that 404 on Vercel, where portraits are
@@ -176,6 +180,7 @@ def main():
         "sources": SOURCES,
         "class_colors": CLASS_COLORS,
         "tier_colors": TIER_COLORS,
+        "tier_order": TIER_ORDER,
         "tag_labels": TAG_LABELS,
         "immunity_map": get_immunity_map(imm_annotated),
         "immunity_types": IMMUNITY_TYPES,
