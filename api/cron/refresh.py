@@ -108,7 +108,31 @@ def _build_tierlist_json():
     }
 
 
-def _commit_file(path, content, message):
+def _github_get_file(path):
+    """Fetch (text, sha) for a repo file via the GitHub API, or (None, None).
+
+    The Vercel function filesystem does NOT include public/ (it is the static
+    outputDirectory, served by the CDN and excluded from the function bundle),
+    so pages we want to rewrite must be read from the repo over the API.
+    """
+    token = os.environ.get("GITHUB_TOKEN")
+    repo = os.environ.get("GITHUB_REPO")
+    if not token or not repo:
+        return None, None
+    api_url = f"https://api.github.com/repos/{repo}/contents/{path}"
+    headers = {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github.v3+json"}
+    try:
+        resp = requests.get(api_url, headers=headers, timeout=10)
+        if resp.status_code != 200:
+            return None, None
+        j = resp.json()
+        text = base64.b64decode(j.get("content", "")).decode("utf-8")
+        return text, j.get("sha")
+    except Exception:
+        return None, None
+
+
+def _commit_file(path, content, message, sha=None):
     """Commit a single file to the repo via GitHub API."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO")
@@ -121,9 +145,10 @@ def _commit_file(path, content, message):
         "Accept": "application/vnd.github.v3+json",
     }
 
-    # Get current file SHA (needed for updates)
-    resp = requests.get(api_url, headers=headers, timeout=10)
-    sha = resp.json().get("sha") if resp.status_code == 200 else None
+    # Get current file SHA (needed for updates) unless the caller supplied one.
+    if sha is None:
+        resp = requests.get(api_url, headers=headers, timeout=10)
+        sha = resp.json().get("sha") if resp.status_code == 200 else None
 
     # Commit the new content
     encoded = base64.b64encode(content.encode("utf-8")).decode("utf-8")
@@ -164,20 +189,20 @@ def _apply_seo_title(html, title):
 
 def _sync_page_titles():
     """Best-effort: keep each static page's SEO title on the current month.
-    Commits only files whose title actually changed. Never raises.
+
+    Reads each page from GitHub (public/ is not on the function filesystem) and
+    commits only files whose title actually changed. Never raises.
     """
     try:
-        repo_root = Path(__file__).resolve().parent.parent.parent
         month = datetime.now(timezone.utc).strftime("%B %Y")
         for fname, stem in _PAGE_TITLES.items():
-            path = repo_root / "public" / fname
-            if not path.exists():
+            html, sha = _github_get_file(f"public/{fname}")
+            if html is None:
                 continue
             title = f"{stem} - {month}"
-            html = path.read_text()
             new_html = _apply_seo_title(html, title)
             if new_html != html:
-                _commit_file(f"public/{fname}", new_html, f"Update SEO title: {title}")
+                _commit_file(f"public/{fname}", new_html, f"Update SEO title: {title}", sha=sha)
     except Exception:
         pass
 
