@@ -650,7 +650,8 @@ def fetch_and_combine(sources_override=None):
                 logger.warning(f"Could not fetch {src['name']} sheet")
                 source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
                 continue
-            edition = None
+            # Per-class-tab sheets carry no date; show "Latest" (refetched daily).
+            edition = "Latest"
         else:
             rows = _fetch_csv(src['sheet_id'], gid=src.get('gid'), sheet_name=src.get('sheet_name'))
             if rows is None:
