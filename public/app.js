@@ -2,6 +2,8 @@ let data = null;
 let currentView = 'all';
 let awClassView = 'all';
 let sigClassView = 'all';
+let immClassView = 'all';
+let prestigeClassView = 'all';
 let selectedImms = new Set();
 let immMode = 'immune'; // 'immune' or 'inflicts'
 let prestigeKey = '';
@@ -197,34 +199,11 @@ async function init() {
   // Immunity/Debuff toggle buttons
   buildImmToggles();
 
-  // Awakening gem class tabs
-  const awClasses = ['all', 'Cosmic', 'Mutant', 'Tech', 'Skill', 'Science', 'Mystic'];
-  const awTabs = document.getElementById('aw-class-tabs');
-  awTabs.innerHTML = awClasses.map(c =>
-    `<button class="tab${c === 'all' ? ' active' : ''}" data-view="${c}">${c === 'all' ? 'All' : c}</button>`
-  ).join('');
-  awTabs.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      awClassView = tab.dataset.view;
-      awTabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderAwakening();
-    });
-  });
-
-  // Sig stones class tabs
-  const sigTabs = document.getElementById('sig-class-tabs');
-  sigTabs.innerHTML = awClasses.map(c =>
-    `<button class="tab${c === 'all' ? ' active' : ''}" data-view="${c}">${c === 'all' ? 'All' : c}</button>`
-  ).join('');
-  sigTabs.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      sigClassView = tab.dataset.view;
-      sigTabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderSigStones();
-    });
-  });
+  // Class filter tabs for the awakening, sig stones, immunities and prestige pages
+  buildClassTabs('aw-class-tabs', v => { awClassView = v; renderAwakening(); });
+  buildClassTabs('sig-class-tabs', v => { sigClassView = v; renderSigStones(); });
+  buildClassTabs('imm-class-tabs', v => { immClassView = v; renderImmunities(); });
+  buildClassTabs('prestige-class-tabs', v => { prestigeClassView = v; renderPrestige(); });
 
   // Prestige controls
   const prestigeRankSel = document.getElementById('prestige-rank');
@@ -338,6 +317,24 @@ function champHtml(c, rank) {
   </div>`;
 }
 
+const CLASS_VIEWS = ['all', 'Cosmic', 'Mutant', 'Tech', 'Skill', 'Science', 'Mystic'];
+
+// Populate a class-filter tab bar and wire selection -> onSelect(view).
+function buildClassTabs(containerId, onSelect) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = CLASS_VIEWS.map(c =>
+    `<button class="tab${c === 'all' ? ' active' : ''}" data-view="${c}">${c === 'all' ? 'All' : c}</button>`
+  ).join('');
+  el.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      el.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      onSelect(tab.dataset.view);
+    });
+  });
+}
+
 const TIER_ORDER = ['S+', 'S', 'A', 'B', 'C', 'D', 'F'];
 
 function render() {
@@ -374,17 +371,21 @@ function renderImmunities() {
   const verb = immMode === 'immune' ? 'immune to' : 'inflicting';
 
   let champs = data.champions.filter(c => c[field] && c[field].length > 0);
+  if (immClassView !== 'all') {
+    champs = champs.filter(c => c.class === immClassView);
+  }
 
+  const inClass = immClassView !== 'all' ? ` ${immClassView}` : '';
   if (selectedImms.size > 0) {
     champs = champs.filter(c =>
       [...selectedImms].every(imm => c[field].some(e => immType(e) === imm))
     );
     const labels = [...selectedImms].join(' + ');
-    info.textContent = `${champs.length} champion${champs.length !== 1 ? 's' : ''} ${verb} ${labels}`;
+    info.textContent = `${champs.length}${inClass} champion${champs.length !== 1 ? 's' : ''} ${verb} ${labels}`;
   } else {
     info.textContent = immMode === 'immune'
-      ? `${champs.length} champions with at least one immunity`
-      : `${champs.length} champions that inflict at least one debuff`;
+      ? `${champs.length}${inClass} champions with at least one immunity`
+      : `${champs.length}${inClass} champions that inflict at least one debuff`;
   }
 
   champs.sort((a, b) => b.score - a.score);
@@ -493,12 +494,18 @@ function renderPrestige() {
   if (q) {
     entries = entries.filter(e => e.name.toLowerCase().includes(q));
   }
+  if (prestigeClassView !== 'all') {
+    entries = entries.filter(e => {
+      const champ = data.champions.find(c => c.name === e.name);
+      return champ && champ.class === prestigeClassView;
+    });
+  }
 
   // Sort by sig 200 (last value) descending
   entries.sort((a, b) => b.vals[b.vals.length - 1] - a.vals[a.vals.length - 1]);
 
   document.getElementById('prestige-info').textContent =
-    `${entries.length} champions`;
+    `${entries.length} champions` + (prestigeClassView !== 'all' ? ` in ${prestigeClassView}` : '');
 
   const thead = `<tr>
     <th>#</th><th></th><th>Champion</th>
