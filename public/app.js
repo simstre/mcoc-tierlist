@@ -111,8 +111,8 @@ async function init() {
   const ROUTES = {
     tierlist:   { path: '/',           titleBase: 'MCOC YouTubers Tier List',
       h1: 'Marvel Contest of Champions YouTubers Tier List',
-      intro: 'A quick reference for casual players and newcomers. Rankings reflect general champion value across all game modes, aggregated from Vega and Lagacy and updated daily.',
-      desc: 'Marvel Contest of Champions tier list aggregated from top YouTubers Vega and Lagacy. Champion rankings for every class, awakening gems, sig stones, prestige and immunities — updated daily.' },
+      intro: 'A quick reference for casual players and newcomers. Rankings reflect general champion value across all game modes, aggregated from Vega, Lagacy and MetalSonicDude and updated daily.',
+      desc: 'Marvel Contest of Champions tier list aggregated from top YouTubers Vega, Lagacy and MetalSonicDude. Champion rankings for every class, awakening gems, sig stones, prestige and immunities — updated daily.' },
     awakening:  { path: '/awakening',  titleBase: 'MCOC Awakening Gem Tier List',
       h1: 'MCOC Awakening Gem Tier List',
       intro: 'The best Marvel Contest of Champions champions to spend an Awakening Gem on, grouped by priority — so your generic and class gems go where they pay off most.',

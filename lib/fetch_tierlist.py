@@ -29,6 +29,21 @@ SOURCES_CONFIG = [
         "gid": "0",
         "parser": "lagacy",
     },
+    {
+        "name": "MetalSonicDude",
+        "type": "YouTube",
+        "sheet_id": "1JRjjeUGKEhvIQEJ1nzugzTYe_zajPdTViV1em2E37HU",
+        # One tab per class (each gid is a class). Hardcoded, not auto-discovered.
+        "class_tabs": {
+            "0": "Skill",
+            "1057288367": "Tech",
+            "1189926801": "Mutant",
+            "1978101513": "Cosmic",
+            "419699576": "Mystic",
+            "44360500": "Science",
+        },
+        "parser": "metalsonic",
+    },
 ]
 
 # Separate sheets for awakening gems and sig stones (Vega)
@@ -270,6 +285,27 @@ _NAME_MAP = {
     'SF Star Lord': 'Star-Lord (Stellar Forge)', "M'BAKU": "M'Baku",
     'iDoom': 'Iron Man (Infamous)', 'LadyDeathstrike': 'Lady Deathstrike',
     'Symbiote Spider-Man': 'Spider-Man (Symbiote)',
+    # MetalSonicDude naming variants
+    'Ant Man': 'Ant-Man', 'Future Ant-Man': 'Ant-Man (Future)',
+    'Cap Sam Wilson': 'Captain America (Sam Wilson)', 'Cap WW2': 'Captain America (WWII)',
+    'Captain America IW': 'Captain America (Infinity War)',
+    'Captain Marvel Classic': 'Captain Marvel (Classic)',
+    'Captain Marvel Movie': 'Captain Marvel (Movie)',
+    'Cyclops Blue': 'Cyclops (Blue Team)', 'Cyclops Red': 'Cyclops (New Xavier School)',
+    'Daredevil Classic': 'Daredevil (Classic)',
+    'Deathless King Groot': 'King Groot (Deathless)', 'Deathless Vision': 'Vision (Deathless)',
+    'Destroyer': 'The Destroyer', 'Leader': 'The Leader',
+    'Hulk Ragnarok': 'Hulk (Ragnarok)', 'Immortal Hulk': 'Hulk (Immortal)',
+    'Immortal Abomination': 'Abomination (Immortal)', 'Infamous Iron Man': 'Iron Man (Infamous)',
+    'Iron Heart': 'Ironheart', "M'baku": "M'Baku", 'Magneto White': 'Magneto (House of X)',
+    'Moon Dragon': 'Moondragon', 'OG Vision': 'Vision (Classic)', 'Vision AOU': 'Vision (Age of Ultron)',
+    'Platiunmpool': 'Platinumpool',
+    'Spider Man (Pavitr)': 'Spider-Man (Pavitr)', 'Spider Slayer (JJJ)': 'Spider-Slayer',
+    'Spider-Man Classic': 'Spider-Man (Classic)', 'Spider-Man Miles': 'Spider-Man (Miles Morales)',
+    'Spider-Man Symbiote': 'Spider-Man (Symbiote)', 'Stealth Spider-Man': 'Spider-Man (Stealth Suit)',
+    'Blade (Stellar Forged)': 'Blade (Stellar Forge)',
+    'Star-Lord (Stellar Forged)': 'Star-Lord (Stellar Forge)',
+    'Weapon X': 'Wolverine (Weapon X)', 'X-23': 'Wolverine (X-23)', 'YellowJacket': 'Yellowjacket',
     # Omega
     'Spider-Man (Pavitr Prabhakar)': 'Spider-Man (Pavitr)',
     '\u00c6gon': 'Aegon', 'Werewolf by Night': 'Werewolf By Night',
@@ -544,6 +580,40 @@ def _parse_omega(rows):
     return champions
 
 
+def _clean_metalsonic_name(name):
+    """Strip MetalSonicDude's rarity-lock markers: '(5* Locked)' and a trailing
+    '6' (his 6-star-locked marker, sometimes written without a space)."""
+    name = re.sub(r'\([^)]*Locked[^)]*\)', '', name, flags=re.I)
+    name = re.sub(r'\s*6$', '', name)
+    return re.sub(r'\s+', ' ', name).strip()
+
+
+def _parse_metalsonic(rows, cls):
+    """Parse one of MetalSonicDude's per-class tabs.
+
+    Row 0 holds tier headers across columns 0-4 (Top Tier, Outstanding, Very
+    Strong, Great, Has Uses); champions are listed down each column. Column 6 is
+    a legend (ignored). The class is supplied by the caller (one tab per class).
+    """
+    tier_col_scores = {0: 100, 1: 80, 2: 60, 3: 40, 4: 20}
+    tier_headers = {'Top Tier', 'Outstanding', 'Very Strong', 'Great', 'Has Uses'}
+    champions = {}
+    for i, row in enumerate(rows):
+        if i == 0:
+            continue
+        for col, score in tier_col_scores.items():
+            if col >= len(row):
+                continue
+            cell = row[col].strip()
+            if not cell or cell in tier_headers:
+                continue
+            name = _clean_metalsonic_name(_strip_emojis(cell))
+            if not name or len(name) < 2:
+                continue
+            champions[name] = {'class': cls, 'score': score, 'traits': set()}
+    return champions
+
+
 _PARSERS = {
     'vega': _parse_vega,
     'lagacy': _parse_lagacy,
@@ -565,19 +635,36 @@ def fetch_and_combine(sources_override=None):
     source_meta = []
 
     for src in _resolve_sources(sources_override):
-        rows = _fetch_csv(src['sheet_id'], gid=src.get('gid'), sheet_name=src.get('sheet_name'))
-        if rows is None:
-            logger.warning(f"Could not fetch {src['name']} sheet")
-            source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
-            continue
-        parser = _PARSERS[src['parser']]
-        raw = parser(rows)
-        edition = _extract_edition(rows, src['name'])
-        # Some sources keep date info in a separate tab (e.g. Omega's Change Log).
-        if not edition and src.get('edition_sheet'):
-            log_rows = _fetch_csv(src['sheet_id'], sheet_name=src['edition_sheet'])
-            if log_rows:
-                edition = _extract_changelog_edition(log_rows)
+        if src.get('class_tabs'):
+            # Per-class-tab source (each gid is one class), e.g. MetalSonicDude.
+            raw = {}
+            any_ok = False
+            for gid, cls in src['class_tabs'].items():
+                tab_rows = _fetch_csv(src['sheet_id'], gid=gid)
+                if not tab_rows:
+                    logger.warning(f"Could not fetch {src['name']} {cls} tab (gid {gid})")
+                    continue
+                any_ok = True
+                raw.update(_parse_metalsonic(tab_rows, cls))
+            if not any_ok:
+                logger.warning(f"Could not fetch {src['name']} sheet")
+                source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
+                continue
+            edition = None
+        else:
+            rows = _fetch_csv(src['sheet_id'], gid=src.get('gid'), sheet_name=src.get('sheet_name'))
+            if rows is None:
+                logger.warning(f"Could not fetch {src['name']} sheet")
+                source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
+                continue
+            parser = _PARSERS[src['parser']]
+            raw = parser(rows)
+            edition = _extract_edition(rows, src['name'])
+            # Some sources keep date info in a separate tab (e.g. Omega's Change Log).
+            if not edition and src.get('edition_sheet'):
+                log_rows = _fetch_csv(src['sheet_id'], sheet_name=src['edition_sheet'])
+                if log_rows:
+                    edition = _extract_changelog_edition(log_rows)
         # Normalize names
         normed = {}
         for name, data in raw.items():

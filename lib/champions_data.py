@@ -1,11 +1,12 @@
 """
 MCOC Champion Tier List Data
-Aggregated from YouTube creators: Vega, Lagacy
+Aggregated from YouTube creators: Vega, Lagacy, MetalSonicDude
 """
 
 SOURCES = [
     {"name": "Vega", "type": "YouTube"},
     {"name": "Lagacy", "type": "YouTube"},
+    {"name": "MetalSonicDude", "type": "YouTube"},
 ]
 
 CLASS_COLORS = {
