@@ -19,8 +19,8 @@ A web app that aggregates Marvel Contest of Champions (MCOC) champion rankings f
 
 ## Data Sources
 
-Rankings aggregated from 3 YouTube creators:
-- Vega, Lagacy, Omega
+Rankings aggregated from 4 YouTube creators:
+- Vega, Lagacy, MetalSonicDude, Seatin
 
 ## Tech Stack
 

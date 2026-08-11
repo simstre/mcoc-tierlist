@@ -1,13 +1,15 @@
 """
 Fetch and parse tier list data from Google Sheets sources.
-Sources: Vega, Lagacy
+Sources: Vega, Lagacy, MetalSonicDude, Seatin
 """
 import csv
 import io
 import json
 import logging
 import re
+import zipfile
 from collections import defaultdict
+from html import unescape
 from pathlib import Path
 
 import requests
@@ -43,6 +45,17 @@ SOURCES_CONFIG = [
             "44360500": "Science",
         },
         "parser": "metalsonic",
+    },
+    {
+        "name": "Seatin",
+        "type": "YouTube",
+        "sheet_id": "1JgfpTtObSziQVH8sgsD7xC3g3i0GJtqgVSMhC8zlcds",
+        "gid": "1595567282",
+        # Seatin encodes a champion's class *only* in its cell background
+        # colour, which CSV export drops -- so fetch the styled HTML export
+        # instead. Hardcoded sheet ID, not auto-discovered.
+        "colored_html": True,
+        "parser": "seatin",
     },
 ]
 
@@ -410,6 +423,96 @@ def _fetch_csv(sheet_id, gid=None, sheet_name=None):
     return None
 
 
+# Google's HTML export declares one generated CSS class per distinct cell format
+# (`.ritz .waffle .s12{...background-color:#fff2cc;...}`) and tags each <td>
+# with it, which is the only public way to read cell colours without an API key.
+_CELL_STYLE_RE = re.compile(r'\.ritz\s+\.waffle\s+\.(s\d+)\s*\{([^}]*)\}')
+_BG_COLOR_RE = re.compile(r'background-color:\s*(#[0-9a-fA-F]{6})')
+_TABLE_ROW_RE = re.compile(r'<tr[^>]*>(.*?)</tr>', re.S)
+_TABLE_CELL_RE = re.compile(r'<td([^>]*)>(.*?)</td>', re.S)
+_HTML_CLASS_RE = re.compile(r'class="([^"]*)"')
+_COLSPAN_RE = re.compile(r'colspan="(\d+)"')
+_HTML_TAG_RE = re.compile(r'<[^>]+>')
+
+
+def _parse_colored_html(html_text):
+    """Turn Google's styled HTML sheet export into a grid of cell dicts.
+
+    Returns a list of rows, each a list of {'text', 'color', 'span'}. Only <td>
+    cells are kept -- the <th> cells are the row-number and column-letter
+    gutters the export adds. 'color' is the cell's background colour as a
+    lowercase '#rrggbb' string, or None when the cell has no fill.
+    """
+    bg_by_class = {}
+    for m in _CELL_STYLE_RE.finditer(html_text):
+        bg = _BG_COLOR_RE.search(m.group(2))
+        if bg:
+            bg_by_class[m.group(1)] = bg.group(1).lower()
+
+    grid = []
+    for row_m in _TABLE_ROW_RE.finditer(html_text):
+        cells = []
+        for cell_m in _TABLE_CELL_RE.finditer(row_m.group(1)):
+            attrs, inner = cell_m.group(1), cell_m.group(2)
+            color = None
+            klass = _HTML_CLASS_RE.search(attrs)
+            if klass:
+                for name in klass.group(1).split():
+                    if name in bg_by_class:
+                        color = bg_by_class[name]
+                        break
+            span = _COLSPAN_RE.search(attrs)
+            cells.append({
+                'text': unescape(_HTML_TAG_RE.sub('', inner)).strip(),
+                'color': color,
+                'span': int(span.group(1)) if span else 1,
+            })
+        if cells:
+            grid.append(cells)
+    return grid
+
+
+def _fetch_colored_grid(sheet_id, gid=None):
+    """Fetch a sheet as Google's styled HTML export, preserving cell colours.
+
+    Used by sources that encode meaning in cell background colour (Seatin's
+    class colours), which the CSV endpoints drop. `export?format=zip` returns a
+    bundle with one HTML file per tab; each tab tags its row-header cells with
+    id="<gid>R<n>", which is how we pick out the requested tab.
+
+    Returns a grid as described in _parse_colored_html, or None on failure.
+    """
+    url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=zip"
+    try:
+        resp = requests.get(url, timeout=60, allow_redirects=True)
+        if resp.status_code != 200:
+            logger.warning(f"Failed to fetch {url}: HTTP {resp.status_code}")
+            return None
+        with zipfile.ZipFile(io.BytesIO(resp.content)) as zf:
+            pages = [n for n in zf.namelist() if n.lower().endswith('.html')]
+            if not pages:
+                logger.warning(f"No HTML tab in export zip for sheet {sheet_id}")
+                return None
+            html_text = None
+            for name in pages:
+                text = zf.read(name).decode('utf-8', errors='replace')
+                if gid is None or f'id="{gid}R' in text:
+                    html_text = text
+                    break
+            if html_text is None:
+                logger.warning(f"Tab gid {gid} not found in export zip for sheet {sheet_id}")
+                return None
+    except Exception as e:
+        logger.warning(f"Failed to fetch {url}: {e}")
+        return None
+    return _parse_colored_html(html_text)
+
+
+def _grid_to_text_rows(grid):
+    """Flatten a colored grid to plain text rows, for the CSV-shaped helpers."""
+    return [[cell['text'] for cell in row] for row in grid]
+
+
 def _extract_edition(rows, source_name):
     """Try to find an edition/date string from the first rows of a sheet."""
     import re as _re
@@ -420,8 +523,9 @@ def _extract_edition(rows, source_name):
                 m = _re.search(r'(\d+\w*\s+Edition\s*-?\s*\w+,?\s*\d{4})', cell)
                 if m:
                     return m.group(1)
-    elif source_name == 'Lagacy':
-        # First cell typically has "Month Year ... Lagacy's ..."
+    elif source_name in ('Lagacy', 'Seatin'):
+        # A title cell near the top carries the month: "Month Year ... Lagacy's
+        # ..." / "Seatin's Offensive Tier List Month Year - ...".
         for row in rows[:3]:
             for cell in row:
                 m = _re.search(r'((?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4})', cell)
@@ -614,10 +718,137 @@ def _parse_metalsonic(rows, cls):
     return champions
 
 
+_SEATIN_CLASSES = ('Mutant', 'Skill', 'Cosmic', 'Mystic', 'Tech', 'Science')
+
+_SEATIN_TIER_SCORES = {
+    'Beyond God Tier (SSS)': 100,
+    'God Tier (SS)': 80,
+    'Game Carry (S)': 60,
+    'Amazing (A)': 40,
+    'Useful (B)': 20,
+    'Meme (F)': 0,
+}
+
+# Seatin's own legend, which does not match the other sources' emoji vocabulary
+# -- notably 🌟 means "ascension available" here but "awakened" elsewhere -- so
+# this source gets its own table instead of sharing _extract_traits.
+_SEATIN_TRAITS = [
+    ('★', 'awakened'),         # ★ notable awakened ability benefit
+    ('\U0001F4AA', 'high_sig'),     # 💪 high sig suggested
+    ('\U0001F31F', 'ascendable'),   # 🌟 ascension available
+    ('\U0001F938', 'high_skill'),   # 🤸 high skill
+    ('\U0001F491', 'synergy'),      # 💑 synergy/relic buff
+]
+
+
+def _extract_seatin_traits(text):
+    return {trait for char, trait in _SEATIN_TRAITS if char in text}
+
+
+# Seatin's short suffixes, resolved here rather than in the shared _NAME_MAP
+# because some of his spellings mean something different to other creators:
+# he lists "Scarlet Witch" and "Scarlet Witch (Sigil)" as two champions, while
+# Vega and Lagacy use a bare "Scarlet Witch" for the Sigil version. Values are
+# pre-canonical names, so _normalize/_apply_canonical_renames still run after.
+# fmt: off
+_SEATIN_NAME_MAP = {
+    'Scarlet Witch': 'Scarlet Witch (Classic)',
+    'Black Panther (CW)': 'Black Panther (Civil War)',
+    'Black Widow (CV)': 'Black Widow (Claire Voyant)',
+    'Black Widow (DO)': 'Black Widow (Deadly Origin)',
+    'Blade (SF)': 'Blade (Stellar Forge)',
+    'Cap America (Sam)': 'Captain America (Sam Wilson)',
+    'Captain America (IW)': 'Captain America (Infinity War)',
+    'Cyclops (Blue)': 'Cyclops (Blue Team)',
+    'Cyclops (Red)': 'Cyclops (New Xavier School)',
+    'Daredevil (HK)': "Daredevil (Hell's Kitchen)",
+    'Falcon (Torres)': 'Falcon (Joaquin Torres)',
+    'Guillotine (DL)': 'Guillotine (Deathless)',
+    'Immortal Abom': 'Abomination (Immortal)',
+    'Iron Man (IW)': 'Iron Man (Infinity War)',
+    'Kang the Conqueror': 'Kang',
+    'King Groot (DL)': 'King Groot (Deathless)',
+    'Magneto (White)': 'Magneto (House of X)',
+    'She-Hulk (DL)': 'She-Hulk (Deathless)',
+    'Spider-Man (Miles)': 'Spider-Man (Miles Morales)',
+    'Spider-Man (OG)': 'Spider-Man (Classic)',
+    'Spider-Man (Pav)': 'Spider-Man (Pavitr)',
+    'Star-Lord (SF)': 'Star-Lord (Stellar Forge)',
+    'Thanos (DL)': 'Thanos (Deathless)',
+    'Vision (DL)': 'Vision (Deathless)',
+}
+# fmt: on
+
+
+def _parse_seatin(grid):
+    """Parse Seatin's offensive tier list from a colored HTML grid.
+
+    Tiers run across the columns (most spanning two), champions down the rows.
+    A champion's class is encoded only in its cell background colour, decoded
+    via the legend row that labels one swatch per class.
+    """
+    # Legend row: each cell labelled with a class name is filled with that
+    # class's colour.
+    class_by_color = {}
+    for row in grid:
+        for cell in row:
+            if cell['text'] in _SEATIN_CLASSES and cell['color']:
+                class_by_color.setdefault(cell['color'], cell['text'])
+        if len(class_by_color) == len(_SEATIN_CLASSES):
+            break
+    if len(class_by_color) < len(_SEATIN_CLASSES):
+        # Champions whose colour we can't decode are skipped below rather than
+        # guessed at, so a partial legend degrades instead of mislabelling.
+        logger.warning(
+            f"Seatin: legend gave {len(class_by_color)}/{len(_SEATIN_CLASSES)} class colours"
+        )
+
+    # Tier header row: expand colspans so every column maps to a tier score.
+    score_by_col = {}
+    header_idx = None
+    for i, row in enumerate(grid):
+        if not any(cell['text'] in _SEATIN_TIER_SCORES for cell in row):
+            continue
+        col = 0
+        for cell in row:
+            if cell['text'] in _SEATIN_TIER_SCORES:
+                score = _SEATIN_TIER_SCORES[cell['text']]
+                for c in range(col, col + cell['span']):
+                    score_by_col[c] = score
+            col += cell['span']
+        header_idx = i
+        break
+    if header_idx is None:
+        logger.warning("Seatin: no tier header row found")
+        return {}
+
+    champions = {}
+    for row in grid[header_idx + 1:]:
+        col = 0
+        for cell in row:
+            start, col = col, col + cell['span']
+            if not cell['text'] or start not in score_by_col:
+                continue
+            cls = class_by_color.get(cell['color'])
+            if not cls:
+                continue
+            name = _strip_emojis(cell['text'])
+            name = _SEATIN_NAME_MAP.get(name, name)
+            if not name or len(name) < 2:
+                continue
+            champions[name] = {
+                'class': cls,
+                'score': score_by_col[start],
+                'traits': _extract_seatin_traits(cell['text']),
+            }
+    return champions
+
+
 _PARSERS = {
     'vega': _parse_vega,
     'lagacy': _parse_lagacy,
     'omega': _parse_omega,
+    'seatin': _parse_seatin,
 }
 
 
@@ -652,6 +883,16 @@ def fetch_and_combine(sources_override=None):
                 continue
             # Per-class-tab sheets carry no date; show "Latest" (refetched daily).
             edition = "Latest"
+        elif src.get('colored_html'):
+            # Class lives in the cell background colour, so read the styled HTML
+            # export rather than CSV (which drops all formatting).
+            grid = _fetch_colored_grid(src['sheet_id'], gid=src.get('gid'))
+            if not grid:
+                logger.warning(f"Could not fetch {src['name']} sheet")
+                source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
+                continue
+            raw = _PARSERS[src['parser']](grid)
+            edition = _extract_edition(_grid_to_text_rows(grid), src['name'])
         else:
             rows = _fetch_csv(src['sheet_id'], gid=src.get('gid'), sheet_name=src.get('sheet_name'))
             if rows is None:

@@ -1,6 +1,6 @@
 """Self-host portraits for any champion missing a browser-usable image.
 
-Every champion in the current Vega + Lagacy tier list should have a portrait
+Every champion in the current combined tier list should have a portrait
 that actually loads in the browser. Two portrait sources already work in the
 browser: locally-mirrored files under public/portraits/ (served at
 /portraits/...) and mcochub.insaneskull.com URLs. Raw Fandom wiki URLs do NOT

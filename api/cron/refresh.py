@@ -5,7 +5,7 @@ Fetches all data sources, builds the full tierlist.json response,
 and commits it to the repo via GitHub API (triggering a redeploy).
 
 Data sources refreshed daily:
-  - Ranking Up scores: Google Sheets (Vega, Lagacy, Omega)
+  - Ranking Up scores: Google Sheets (Vega, Lagacy, MetalSonicDude, Seatin)
   - Awakening Gems: Google Sheet (priority tiers)
   - Sig Stones: Google Sheet (priority tiers)
   - Immunities: Fandom wiki category pages (10 immunity types)
