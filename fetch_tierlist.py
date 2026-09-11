@@ -35,15 +35,9 @@ SOURCES_CONFIG = [
         "name": "MetalSonicDude",
         "type": "YouTube",
         "sheet_id": "1JRjjeUGKEhvIQEJ1nzugzTYe_zajPdTViV1em2E37HU",
-        # One tab per class (each gid is a class). Hardcoded, not auto-discovered.
-        "class_tabs": {
-            "0": "Skill",
-            "1057288367": "Tech",
-            "1189926801": "Mutant",
-            "1978101513": "Cosmic",
-            "419699576": "Mystic",
-            "44360500": "Science",
-        },
+        # One tab per class, addressed by tab name rather than gid so the
+        # mapping survives him starting a fresh spreadsheet.
+        "class_tabs": ["Skill", "Tech", "Mutant", "Cosmic", "Mystic", "Science"],
         "parser": "metalsonic",
     },
     {
@@ -53,7 +47,7 @@ SOURCES_CONFIG = [
         "gid": "1595567282",
         # Seatin encodes a champion's class *only* in its cell background
         # colour, which CSV export drops -- so fetch the styled HTML export
-        # instead. Hardcoded sheet ID, not auto-discovered.
+        # instead.
         "colored_html": True,
         "parser": "seatin",
     },
@@ -91,11 +85,12 @@ def _find_repo_file(filename):
 SOURCES_CACHE_PATH = _find_repo_file("cached_sources.json")
 
 
-def _load_dynamic_sheet_ids():
-    """Read cached_sources.json (written by fetch_sources.py) for live sheet IDs.
+def _load_discovery():
+    """Read cached_sources.json (written by fetch_sources.py).
 
-    Returns {source_name: sheet_id}. Missing file or parse failure -> empty dict
-    and the hardcoded SOURCES_CONFIG defaults remain in effect.
+    Returns {source_name: discovery_dict}, each carrying at least a sheet_id and
+    the video it was found in. Missing file or parse failure -> empty dict and
+    the hardcoded SOURCES_CONFIG defaults remain in effect.
     """
     path = _find_repo_file("cached_sources.json")
     if not path.exists():
@@ -105,11 +100,18 @@ def _load_dynamic_sheet_ids():
     except Exception as e:
         logger.warning(f"could not parse {path}: {e}")
         return {}
-    out = {}
-    for name, info in (data or {}).items():
-        if isinstance(info, dict) and info.get("sheet_id"):
-            out[name] = info["sheet_id"]
-    return out
+    return {n: i for n, i in (data or {}).items() if isinstance(i, dict)}
+
+
+_VIDEO_MONTH_RE = re.compile(
+    r'(January|February|March|April|May|June|July|August|September|October'
+    r'|November|December)\s+(\d{4})', re.I)
+
+
+def _edition_from_video_title(discovery):
+    """Pull "September 2026" out of a discovered video's title, or None."""
+    m = _VIDEO_MONTH_RE.search((discovery or {}).get('video_title') or '')
+    return f"{m.group(1).title()} {m.group(2)}" if m else None
 
 
 def _resolve_sources(sources_override=None):
@@ -117,19 +119,20 @@ def _resolve_sources(sources_override=None):
 
     Precedence: explicit sources_override > cached_sources.json > hardcoded.
     sources_override accepts either {name: sheet_id} or {name: discovery_dict}.
+    The winning discovery dict rides along under "discovery" so callers can read
+    the video the sheet came from.
     """
-    dynamic = _load_dynamic_sheet_ids()
+    discovered = _load_discovery()
     override = sources_override or {}
     resolved = []
     for src in SOURCES_CONFIG:
         new_src = dict(src)
         ov = override.get(src["name"])
-        if isinstance(ov, dict):
-            ov_id = ov.get("sheet_id")
-        else:
-            ov_id = ov
-        sheet_id = ov_id or dynamic.get(src["name"]) or src["sheet_id"]
-        new_src["sheet_id"] = sheet_id
+        if not isinstance(ov, dict):
+            ov = {"sheet_id": ov} if ov else {}
+        info = ov or discovered.get(src["name"]) or {}
+        new_src["sheet_id"] = info.get("sheet_id") or src["sheet_id"]
+        new_src["discovery"] = info
         resolved.append(new_src)
     return resolved
 
@@ -867,13 +870,13 @@ def fetch_and_combine(sources_override=None):
 
     for src in _resolve_sources(sources_override):
         if src.get('class_tabs'):
-            # Per-class-tab source (each gid is one class), e.g. MetalSonicDude.
+            # Per-class-tab source (one tab per class), e.g. MetalSonicDude.
             raw = {}
             any_ok = False
-            for gid, cls in src['class_tabs'].items():
-                tab_rows = _fetch_csv(src['sheet_id'], gid=gid)
+            for cls in src['class_tabs']:
+                tab_rows = _fetch_csv(src['sheet_id'], sheet_name=cls)
                 if not tab_rows:
-                    logger.warning(f"Could not fetch {src['name']} {cls} tab (gid {gid})")
+                    logger.warning(f"Could not fetch {src['name']} {cls} tab")
                     continue
                 any_ok = True
                 raw.update(_parse_metalsonic(tab_rows, cls))
@@ -881,8 +884,9 @@ def fetch_and_combine(sources_override=None):
                 logger.warning(f"Could not fetch {src['name']} sheet")
                 source_meta.append({'name': src['name'], 'edition': None, 'champion_count': 0, 'status': 'failed', 'sheet_id': src['sheet_id']})
                 continue
-            # Per-class-tab sheets carry no date; show "Latest" (refetched daily).
-            edition = "Latest"
+            # These tabs carry no date of their own, so the month comes from the
+            # title of the video the sheet was discovered in.
+            edition = _edition_from_video_title(src.get('discovery')) or "Latest"
         elif src.get('colored_html'):
             # Class lives in the cell background colour, so read the styled HTML
             # export rather than CSV (which drops all formatting).
@@ -1032,9 +1036,9 @@ def fetch_priority_sheets():
     SIG_STONES_SHEET. Returns (awakening_data, sig_data) — each is a dict of
     champion priority info, or None if fetch failed.
     """
-    dynamic = _load_dynamic_sheet_ids()
-    aw_id = dynamic.get("Vega Awakening") or AWAKENING_SHEET['sheet_id']
-    sig_id = dynamic.get("Vega Sig Stones") or SIG_STONES_SHEET['sheet_id']
+    discovered = _load_discovery()
+    aw_id = discovered.get("Vega Awakening", {}).get("sheet_id") or AWAKENING_SHEET['sheet_id']
+    sig_id = discovered.get("Vega Sig Stones", {}).get("sheet_id") or SIG_STONES_SHEET['sheet_id']
 
     aw_data = None
     sig_data = None

@@ -2,7 +2,7 @@
 Discover the current Google Sheets URLs for tier list sources by searching
 YouTube for each creator's latest tier list video and parsing the description.
 
-Some creators (notably Vega) make a brand-new spreadsheet every month, so the
+Most creators (Vega, Seatin) make a brand-new spreadsheet every month, so the
 app's hardcoded sheet IDs go stale. This script searches YouTube via yt-dlp,
 finds the most recent matching video per creator, extracts the first Google
 Sheets URL from the description, and writes the results to cached_sources.json.
@@ -23,6 +23,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlencode
+from xml.etree import ElementTree
+
+import requests
 
 logger = logging.getLogger("mcoc-sources")
 
@@ -74,6 +77,29 @@ DISCOVERY_CONFIG = {
         "channel_keywords": ["lagacy"],
         "max_results": 20,
     },
+    # Seatin's monthly list is "Best Champions Ranked <Month> <Year> - Seatin's
+    # Tier List - ...". Matching "best champions ranked" skips his many other
+    # tier list videos (Titan Crystal, Content, per-class, Ascended). Keywords
+    # avoid the apostrophe in "Seatin's" since YouTube titles mix the ASCII and
+    # typographic forms.
+    "Seatin": {
+        "search_query": "seatin tier list mcoc",
+        "title_keywords": ["best champions ranked", "tier list"],
+        "channel_keywords": ["seatin"],
+        "max_results": 20,
+    },
+    # MetalSonicDude's all-class list is "<Month> <Year> Champion Tier List".
+    # His per-class videos ("Mutant Champion Tier List - May 2026") share that
+    # phrase, so exclude the class names to keep only the combined list.
+    "MetalSonicDude": {
+        "search_query": "metalsonicdude champion tier list mcoc",
+        "title_keywords": ["champion tier list"],
+        "exclude_title_keywords": [
+            "mutant", "skill", "mystic", "tech", "science", "cosmic",
+        ],
+        "channel_keywords": ["metalsonicdude"],
+        "max_results": 20,
+    },
 }
 
 
@@ -105,12 +131,6 @@ def _ydl_opts(extra=None):
         "skip_download": True,
         "extractor_retries": 3,
         "socket_timeout": 30,
-        # YouTube's default `web` player client now rejects metadata-only
-        # requests with "The page needs to be reloaded", which silently broke
-        # description fetches (and thus all sheet discovery). The mobile/tv
-        # clients still serve the description. yt-dlp tries them in order and
-        # uses the first that succeeds.
-        "extractor_args": {"youtube": {"player_client": ["android", "ios", "tv"]}},
     }
     if extra:
         opts.update(extra)
@@ -141,13 +161,104 @@ def _search_youtube(query, max_results):
     return (info or {}).get("entries", []) or []
 
 
-def _get_video_metadata(video_id):
-    """Full metadata for a single video (needed for the description)."""
-    import yt_dlp
+BROWSER_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
 
-    url = f"https://www.youtube.com/watch?v={video_id}"
-    with yt_dlp.YoutubeDL(_ydl_opts()) as ydl:
-        return ydl.extract_info(url, download=False) or {}
+_ATOM_NS = {
+    "a": "http://www.w3.org/2005/Atom",
+    "yt": "http://www.youtube.com/xml/schemas/2015",
+    "media": "http://search.yahoo.com/mrss/",
+}
+
+# The watch page carries the description twice: in the player response
+# ("shortDescription") and in the rendered page data ("attributedDescription").
+# Datacenter IPs are served a degraded page that drops the player response and
+# strips every link out of the rendered description, so both are tried.
+_DESC_RES = (
+    re.compile(r'"shortDescription":"((?:[^"\\]|\\.)*)"'),
+    re.compile(r'"attributedDescription":\{"content":"((?:[^"\\]|\\.)*)"'),
+)
+_UPLOAD_DATE_RE = re.compile(r'"uploadDate":"(\d{4})-(\d{2})-(\d{2})')
+
+
+def _http_get(url):
+    resp = requests.get(
+        url,
+        timeout=30,
+        headers={"User-Agent": BROWSER_UA, "Accept-Language": "en-US,en;q=0.9"},
+    )
+    resp.raise_for_status()
+    return resp.text
+
+
+_rss_cache = {}
+
+
+def _rss_descriptions(channel_id):
+    """{video_id: (description, upload_date)} for a channel's 15 newest uploads."""
+    if channel_id not in _rss_cache:
+        entries = {}
+        url = f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
+        try:
+            root = ElementTree.fromstring(_http_get(url))
+            for entry in root.findall("a:entry", _ATOM_NS):
+                vid = entry.findtext("yt:videoId", "", _ATOM_NS)
+                desc = entry.findtext("media:group/media:description", "", _ATOM_NS)
+                published = entry.findtext("a:published", "", _ATOM_NS)
+                if vid:
+                    entries[vid] = (desc, published[:10].replace("-", "") or None)
+        except Exception as e:
+            logger.warning(f"Atom feed fetch failed for channel {channel_id}: {e}")
+        _rss_cache[channel_id] = entries
+    return _rss_cache[channel_id]
+
+
+def _watch_page_details(video_id):
+    """(description, upload_date) scraped from the watch page HTML.
+
+    Best-effort only: whether a given IP gets the full page or the link-stripped
+    one is fixed per caller, so retrying is pointless. Prefers whichever copy of
+    the description still has its links, since a stripped one is useless here.
+    """
+    html = _http_get(f"https://www.youtube.com/watch?v={video_id}&hl=en")
+    d = _UPLOAD_DATE_RE.search(html)
+    upload_date = "".join(d.groups()) if d else None
+
+    best = None
+    for pattern in _DESC_RES:
+        m = pattern.search(html)
+        if not m:
+            continue
+        try:
+            desc = json.loads(f'"{m.group(1)}"')
+        except ValueError:
+            continue
+        if SHEET_URL_PATTERN.search(desc):
+            return desc, upload_date
+        best = best or desc
+    if best is None:
+        raise ValueError("no description in watch page")
+    return best, upload_date
+
+
+def _video_details(video_id, channel_id=None):
+    """Return (description, upload_date) for one video.
+
+    Deliberately avoids yt-dlp's video extractor. YouTube's player API answers
+    metadata-only requests from datacenter IPs (i.e. the GitHub Action) with
+    "Sign in to confirm you're not a bot" regardless of player_client, which
+    silently froze sheet discovery for a month. The channel's Atom feed is tried
+    first: it only covers the 15 newest uploads, but it is never bot-checked and
+    never link-stripped, so a tier list video is reliably readable for the days
+    right after it goes up. Older videos fall back to scraping the watch page.
+    """
+    if channel_id:
+        desc, upload_date = _rss_descriptions(channel_id).get(video_id, (None, None))
+        if desc:
+            return desc, upload_date
+    return _watch_page_details(video_id)
 
 
 def discover_sheet_for(name, cfg):
@@ -177,18 +288,16 @@ def discover_sheet_for(name, cfg):
             continue
 
         try:
-            meta = _get_video_metadata(video_id)
+            desc, upload_date = _video_details(video_id, entry.get("channel_id"))
         except Exception as e:
             logger.warning(f"[{name}] description fetch failed for {video_id}: {e}")
             continue
 
-        desc = meta.get("description") or ""
         sheet_id = _extract_sheet_id(desc)
         if not sheet_id:
             logger.info(f"[{name}] no sheet URL in {video_id}; trying next match")
             continue
 
-        upload_date = meta.get("upload_date")  # "YYYYMMDD"
         return {
             "name": name,
             "sheet_id": sheet_id,
@@ -196,7 +305,7 @@ def discover_sheet_for(name, cfg):
             "video_id": video_id,
             "video_title": title,
             "video_url": f"https://www.youtube.com/watch?v={video_id}",
-            "channel": channel or meta.get("channel") or meta.get("uploader") or "",
+            "channel": channel,
             "video_upload_date": upload_date,
             "discovered_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         }
@@ -246,6 +355,15 @@ def merge_into_cache(cached, fresh):
         prev = merged.get(name) or {}
         prev_id = prev.get("sheet_id")
         new_id = info.get("sheet_id")
+        # A source never moves backwards in time. When the newest video's
+        # description comes back unusable, discovery walks on to older matches,
+        # and accepting one would swap a current tier list for a stale one.
+        prev_date = prev.get("video_upload_date")
+        new_date = info.get("video_upload_date")
+        if prev_date and new_date and new_date < prev_date:
+            changes.append(f"{name}: ignoring older video {info.get('video_url')} "
+                           f"({new_date} < cached {prev_date})")
+            continue
         if prev_id != new_id:
             changes.append(f"{name}: sheet_id {prev_id!r} -> {new_id!r} "
                            f"(via {info.get('video_url')})")
@@ -294,10 +412,12 @@ def main(argv=None):
         # No -- avoid churn. Only write when sheet_ids actually change.
         print("no sheet_id changes; cache not rewritten")
 
-    # Exit non-zero if every source failed AND no cache exists -- bad state.
-    all_failed = all(info is None for info in fresh.values())
-    no_cache = not merged
-    if all_failed and no_cache:
+    # Every source failing at once means discovery itself is broken (YouTube
+    # blocking us, a yt-dlp break), not that nobody posted this month. Exit
+    # non-zero so the Action goes red instead of quietly serving stale sheets --
+    # that failure mode went unnoticed for a month.
+    if all(info is None for info in fresh.values()):
+        logger.error("every source failed discovery; cached sheet IDs left in place")
         return 2
     return 0
 

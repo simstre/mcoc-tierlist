@@ -14,7 +14,7 @@
     "class": "Science",
     "score": 58,
     "awakened": true,
-    "high_sig": true,
+    "high_sig": false,
     "no7star": false,
     "tags": [
       "ascendable",
@@ -48,8 +48,8 @@
   },
   "Aegon": {
     "class": "Skill",
-    "score": 94,
-    "awakened": true,
+    "score": 92,
+    "awakened": false,
     "high_sig": true,
     "no7star": true,
     "tags": [
@@ -58,12 +58,13 @@
   },
   "Agatha Harkness": {
     "class": "Mystic",
-    "score": 60,
+    "score": 82,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
-      "ascendable"
+      "ascendable",
+      "early_ranking"
     ]
   },
   "Agent Venom": {
@@ -187,7 +188,7 @@
   },
   "Arnim Zola": {
     "class": "Tech",
-    "score": 82,
+    "score": 87,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -233,7 +234,8 @@
     "no7star": false,
     "tags": [
       "recoil",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Beast": {
@@ -287,7 +289,8 @@
     "no7star": false,
     "tags": [
       "high_skill",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Black Panther (Civil War)": {
@@ -328,7 +331,7 @@
   "Black Widow (Claire Voyant)": {
     "class": "Mystic",
     "score": 59,
-    "awakened": true,
+    "awakened": false,
     "high_sig": false,
     "no7star": false,
     "tags": [
@@ -347,7 +350,7 @@
     "class": "Skill",
     "score": 20,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": []
   },
@@ -390,7 +393,7 @@
   },
   "Bullseye": {
     "class": "Skill",
-    "score": 82,
+    "score": 78,
     "awakened": false,
     "high_sig": true,
     "no7star": false,
@@ -401,12 +404,13 @@
   },
   "Cable": {
     "class": "Mutant",
-    "score": 32,
+    "score": 42,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
-      "synergy"
+      "early_ranking",
+      "recoil"
     ]
   },
   "Captain America": {
@@ -423,7 +427,9 @@
     "awakened": true,
     "high_sig": true,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "synergy"
+    ]
   },
   "Captain America (Sam Wilson)": {
     "class": "Tech",
@@ -446,12 +452,13 @@
   },
   "Captain Britain": {
     "class": "Mutant",
-    "score": 91,
+    "score": 95,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
     "tags": [
-      "defense"
+      "defense",
+      "ramp_up"
     ]
   },
   "Captain Marvel (Classic)": {
@@ -464,7 +471,7 @@
   },
   "Captain Marvel (Movie)": {
     "class": "Cosmic",
-    "score": 46,
+    "score": 51,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -476,11 +483,12 @@
   },
   "Carnage": {
     "class": "Cosmic",
-    "score": 46,
+    "score": 51,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
+      "high_skill",
       "synergy"
     ]
   },
@@ -502,6 +510,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "high_skill",
       "relic"
@@ -553,7 +562,7 @@
   },
   "Cosmic Ghost Rider": {
     "class": "Cosmic",
-    "score": 92,
+    "score": 94,
     "awakened": true,
     "high_sig": false,
     "no7star": true,
@@ -564,7 +573,7 @@
   },
   "Count Nefaria": {
     "class": "Science",
-    "score": 91,
+    "score": 95,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -579,7 +588,8 @@
     "tags": [
       "high_skill",
       "recoil",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Cull Obsidian": {
@@ -598,7 +608,9 @@
     "awakened": true,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "high_skill"
+    ]
   },
   "Cyclops (New Xavier School)": {
     "class": "Mutant",
@@ -699,7 +711,7 @@
   },
   "Doctor Bong": {
     "class": "Skill",
-    "score": 86,
+    "score": 95,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -725,11 +737,13 @@
     "awakened": true,
     "high_sig": false,
     "no7star": true,
-    "tags": []
+    "tags": [
+      "high_skill"
+    ]
   },
   "Doctor Strange": {
     "class": "Mystic",
-    "score": 91,
+    "score": 100,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -754,6 +768,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "recoil",
       "relic",
@@ -784,7 +799,7 @@
   },
   "Dragon Man": {
     "class": "Mystic",
-    "score": 32,
+    "score": 37,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -949,14 +964,12 @@
   },
   "Ghost": {
     "class": "Tech",
-    "score": 92,
+    "score": 89,
     "awakened": true,
     "high_sig": true,
     "no7star": true,
     "tags": [
-      "high_skill",
-      "recoil",
-      "synergy"
+      "recoil"
     ]
   },
   "Ghost Rider": {
@@ -968,12 +981,13 @@
     "tags": [
       "ascendable",
       "early_ranking",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Gladiator": {
     "class": "Cosmic",
-    "score": 68,
+    "score": 74,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -992,12 +1006,21 @@
   },
   "Gorr": {
     "class": "Cosmic",
-    "score": 50,
+    "score": 56,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
-      "ascendable",
+      "ascendable"
+    ]
+  },
+  "Gorr God Butcher": {
+    "class": "Cosmic",
+    "score": 50,
+    "awakened": false,
+    "high_sig": false,
+    "no7star": false,
+    "tags": [
       "defense"
     ]
   },
@@ -1015,7 +1038,9 @@
     "awakened": false,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "high_skill"
+    ]
   },
   "Guardian": {
     "class": "Tech",
@@ -1103,7 +1128,7 @@
     "class": "Cosmic",
     "score": 46,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
       "synergy"
@@ -1111,7 +1136,7 @@
   },
   "Hercules": {
     "class": "Cosmic",
-    "score": 96,
+    "score": 94,
     "awakened": true,
     "high_sig": true,
     "no7star": true,
@@ -1123,7 +1148,7 @@
   },
   "High Evolutionary": {
     "class": "Science",
-    "score": 50,
+    "score": 54,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1169,7 +1194,7 @@
   },
   "Hulk (Immortal)": {
     "class": "Science",
-    "score": 52,
+    "score": 56,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -1212,7 +1237,7 @@
   },
   "Hulkling": {
     "class": "Cosmic",
-    "score": 95,
+    "score": 100,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1237,9 +1262,11 @@
     "high_sig": false,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "recoil",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Iceman": {
@@ -1345,7 +1372,7 @@
   },
   "Ironheart": {
     "class": "Tech",
-    "score": 86,
+    "score": 91,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1423,7 +1450,7 @@
   },
   "Juggernaut": {
     "class": "Mystic",
-    "score": 92,
+    "score": 96,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1438,7 +1465,9 @@
     "awakened": false,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "synergy"
+    ]
   },
   "Karnak": {
     "class": "Skill",
@@ -1450,7 +1479,7 @@
   },
   "Karolina Dean": {
     "class": "Cosmic",
-    "score": 96,
+    "score": 100,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1460,7 +1489,7 @@
   },
   "Kate Bishop": {
     "class": "Skill",
-    "score": 96,
+    "score": 94,
     "awakened": true,
     "high_sig": true,
     "no7star": true,
@@ -1482,7 +1511,7 @@
   },
   "Kindred": {
     "class": "Mystic",
-    "score": 58,
+    "score": 68,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1517,7 +1546,7 @@
   },
   "Kingpin": {
     "class": "Skill",
-    "score": 91,
+    "score": 96,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1543,7 +1572,7 @@
   },
   "Knull": {
     "class": "Cosmic",
-    "score": 96,
+    "score": 100,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1589,9 +1618,17 @@
       "relic"
     ]
   },
+  "Lab Ultron": {
+    "class": "Tech",
+    "score": 0,
+    "awakened": false,
+    "high_sig": false,
+    "no7star": false,
+    "tags": []
+  },
   "Lady Deathstrike": {
     "class": "Tech",
-    "score": 46,
+    "score": 51,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1610,7 +1647,8 @@
     "tags": [
       "ascendable",
       "recoil",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Loki": {
@@ -1633,7 +1671,7 @@
   },
   "Luke Cage": {
     "class": "Science",
-    "score": 72,
+    "score": 82,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1674,7 +1712,7 @@
   },
   "Madelyne Pryor": {
     "class": "Mystic",
-    "score": 96,
+    "score": 100,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1802,8 +1840,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
-      "ascendable",
-      "synergy"
+      "ascendable"
     ]
   },
   "Mister Negative": {
@@ -1839,7 +1876,7 @@
   },
   "Mojo": {
     "class": "Mystic",
-    "score": 86,
+    "score": 91,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -1916,6 +1953,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "high_skill"
     ]
   },
@@ -1944,7 +1982,6 @@
     "high_sig": false,
     "no7star": false,
     "tags": [
-      "ascendable",
       "defense"
     ]
   },
@@ -1960,7 +1997,7 @@
   },
   "Nebula": {
     "class": "Tech",
-    "score": 46,
+    "score": 41,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -1969,6 +2006,14 @@
       "recoil",
       "relic"
     ]
+  },
+  "Nebula 6*": {
+    "class": "Tech",
+    "score": 60,
+    "awakened": false,
+    "high_sig": false,
+    "no7star": false,
+    "tags": []
   },
   "Negasonic Teenage Warhead": {
     "class": "Mutant",
@@ -2103,6 +2148,7 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "recoil"
     ]
@@ -2206,7 +2252,7 @@
   },
   "Prowler": {
     "class": "Tech",
-    "score": 86,
+    "score": 91,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2230,7 +2276,9 @@
     "awakened": false,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "synergy"
+    ]
   },
   "Psylocke": {
     "class": "Mutant",
@@ -2242,7 +2290,7 @@
   },
   "Punisher": {
     "class": "Skill",
-    "score": 66,
+    "score": 59,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2267,13 +2315,14 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "ramp_up",
       "relic"
     ]
   },
   "Quake": {
     "class": "Science",
-    "score": 94,
+    "score": 92,
     "awakened": false,
     "high_sig": false,
     "no7star": true,
@@ -2305,7 +2354,7 @@
   },
   "Red Guardian": {
     "class": "Science",
-    "score": 86,
+    "score": 91,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2317,7 +2366,7 @@
     "class": "Science",
     "score": 24,
     "awakened": true,
-    "high_sig": true,
+    "high_sig": false,
     "no7star": false,
     "tags": []
   },
@@ -2339,18 +2388,20 @@
     "high_sig": true,
     "no7star": false,
     "tags": [
+      "ascendable",
       "defense",
       "early_ranking"
     ]
   },
   "Rintrah": {
     "class": "Mystic",
-    "score": 59,
+    "score": 64,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
-      "defense"
+      "defense",
+      "synergy"
     ]
   },
   "Rocket Raccoon": {
@@ -2381,7 +2432,7 @@
     "class": "Skill",
     "score": 56,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
       "high_skill",
@@ -2390,7 +2441,7 @@
   },
   "Ruby Thursday": {
     "class": "Tech",
-    "score": 82,
+    "score": 91,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2437,7 +2488,7 @@
     "class": "Mutant",
     "score": 32,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
       "defense",
@@ -2446,7 +2497,7 @@
   },
   "Scarlet Witch (Classic)": {
     "class": "Mystic",
-    "score": 46,
+    "score": 36,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2480,7 +2531,7 @@
   },
   "Scream": {
     "class": "Cosmic",
-    "score": 68,
+    "score": 72,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2547,7 +2598,7 @@
   },
   "Shatterstar": {
     "class": "Mutant",
-    "score": 55,
+    "score": 51,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2645,7 +2696,7 @@
   "Solvarch": {
     "class": "Tech",
     "score": 95,
-    "awakened": false,
+    "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
@@ -2686,7 +2737,7 @@
   },
   "Spider-Man": {
     "class": "Science",
-    "score": 37,
+    "score": 41,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2721,7 +2772,7 @@
     "class": "Tech",
     "score": 100,
     "awakened": true,
-    "high_sig": false,
+    "high_sig": true,
     "no7star": false,
     "tags": [
       "high_skill",
@@ -2749,12 +2800,13 @@
   },
   "Spider-Man (Symbiote)": {
     "class": "Cosmic",
-    "score": 39,
-    "awakened": false,
-    "high_sig": false,
+    "score": 60,
+    "awakened": true,
+    "high_sig": true,
     "no7star": false,
     "tags": [
-      "ascendable"
+      "ascendable",
+      "early_ranking"
     ]
   },
   "Spider-Man 2099": {
@@ -2769,7 +2821,7 @@
   },
   "Spider-Punk": {
     "class": "Science",
-    "score": 68,
+    "score": 72,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2861,12 +2913,13 @@
     "no7star": false,
     "tags": [
       "ramp_up",
-      "relic"
+      "relic",
+      "synergy"
     ]
   },
   "Storm (Pyramid X)": {
     "class": "Mutant",
-    "score": 64,
+    "score": 68,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2898,7 +2951,7 @@
   },
   "Super-Skrull": {
     "class": "Cosmic",
-    "score": 50,
+    "score": 54,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2908,11 +2961,23 @@
   },
   "Superior Iron Man": {
     "class": "Cosmic",
-    "score": 59,
+    "score": 64,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "high_skill"
+    ]
+  },
+  "Symbiote Spidey": {
+    "class": "Cosmic",
+    "score": 83,
+    "awakened": false,
+    "high_sig": true,
+    "no7star": false,
+    "tags": [
+      "relic"
+    ]
   },
   "Symbiote Supreme": {
     "class": "Mystic",
@@ -2928,11 +2993,13 @@
     "awakened": true,
     "high_sig": false,
     "no7star": false,
-    "tags": []
+    "tags": [
+      "high_skill"
+    ]
   },
   "Terrax": {
     "class": "Cosmic",
-    "score": 36,
+    "score": 42,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2951,7 +3018,7 @@
   },
   "Thanos (Deathless)": {
     "class": "Cosmic",
-    "score": 95,
+    "score": 100,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -3133,7 +3200,7 @@
   },
   "Valkyrie": {
     "class": "Skill",
-    "score": 74,
+    "score": 68,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -3144,7 +3211,7 @@
   },
   "Venom": {
     "class": "Cosmic",
-    "score": 86,
+    "score": 92,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -3166,7 +3233,7 @@
   },
   "Venompool": {
     "class": "Cosmic",
-    "score": 46,
+    "score": 51,
     "awakened": false,
     "high_sig": false,
     "no7star": false,
@@ -3252,14 +3319,14 @@
   "War Machine": {
     "class": "Tech",
     "score": 32,
-    "awakened": true,
+    "awakened": false,
     "high_sig": false,
     "no7star": false,
     "tags": []
   },
   "Warlock": {
     "class": "Tech",
-    "score": 68,
+    "score": 72,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -3273,7 +3340,7 @@
   "Wasp": {
     "class": "Science",
     "score": 32,
-    "awakened": true,
+    "awakened": false,
     "high_sig": false,
     "no7star": false,
     "tags": [
@@ -3294,7 +3361,7 @@
   },
   "Werewolf By Night": {
     "class": "Mystic",
-    "score": 72,
+    "score": 78,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -3378,7 +3445,7 @@
   },
   "Yelena Belova": {
     "class": "Skill",
-    "score": 82,
+    "score": 86,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -3398,7 +3465,7 @@
   },
   "Yondu": {
     "class": "Tech",
-    "score": 88,
+    "score": 96,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
