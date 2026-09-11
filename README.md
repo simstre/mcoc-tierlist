@@ -57,7 +57,9 @@ lists actually rank (the creators trail a release by a month or two), crops the
 art to the banner's 3:1 shape and writes `public/banner.jpg`.
 
 It only writes when the champion changes — in practice about once a month — and
-leaves the current banner alone if anything fails.
+leaves the current banner alone if anything fails. If there is no usable banner
+at all it restores `public/banner-default.jpg`, the generic art the site used
+before, so the header can never end up with a broken image.
 
 ```bash
 pip install -r requirements.txt Pillow

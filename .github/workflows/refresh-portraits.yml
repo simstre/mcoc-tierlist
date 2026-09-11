@@ -54,6 +54,7 @@ jobs:
           # Only commit the artifacts the Vercel build serves.
           git add public/portraits/ lib/portraits_local.json lib/portraits.json \
                   public/banner.jpg public/*.html banner_meta.json
+          # banner-default.jpg is the committed fallback; it is never rewritten.
           if git diff --cached --quiet; then
             echo "No portrait or banner changes."
             exit 0

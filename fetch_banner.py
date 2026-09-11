@@ -12,8 +12,10 @@ the creators lag a month or two behind a release, so the three newest
 spotlights are usually champions the site can't yet rank. Banner-ing one of
 them would show a champion who isn't on the page.
 
-Nothing is touched unless a new champion is found, so re-runs are free and a
-failed fetch leaves the current banner in place.
+Nothing is touched unless a new champion is found, so re-runs are free. A
+failed fetch leaves the current banner in place, and if there is no usable
+banner at all it restores public/banner-default.jpg -- the generic art the
+site used before this script existed.
 
 Run daily by .github/workflows/refresh-portraits.yml, or locally:
     venv/bin/python3 fetch_banner.py
@@ -38,6 +40,12 @@ logger = logging.getLogger("mcoc-banner")
 
 BASE = Path(__file__).parent
 BANNER_PATH = BASE / "public" / "banner.jpg"
+# The generic multi-champion banner the site used before this script existed.
+# Committed, never written to, and restored whenever banner.jpg is missing or
+# unreadable -- so a broken banner degrades to the old art rather than to a
+# hole in the header.
+DEFAULT_BANNER_PATH = BASE / "public" / "banner-default.jpg"
+GENERIC_ALT = "Marvel Contest of Champions Tier List – Champion Rankings"
 META_PATH = BASE / "banner_meta.json"
 
 SITE = "https://playcontestofchampions.com"
@@ -145,14 +153,14 @@ def _crop_to_banner(image_bytes):
     return art.crop((0, top, width, top + band))
 
 
-def _update_alt_text(champion):
-    """Name the champion in the banner's alt text on every page.
+def _update_alt_text(alt):
+    """Set the banner's alt text on every page.
 
     index.html is the template the other four pages are derived from
     (generate_data.py), so all five are rewritten to keep them consistent
     until the next rebuild.
     """
-    alt = html.escape(f"{champion} – Marvel Contest of Champions Tier List")
+    alt = html.escape(alt)
     pattern = re.compile(r'(<div class="banner"><img src="/banner\.jpg" alt=")[^"]*(")')
     for page in sorted((BASE / "public").glob("*.html")):
         text = page.read_text()
@@ -162,33 +170,64 @@ def _update_alt_text(champion):
             logger.info(f"Updated banner alt text in {page.name}")
 
 
+def _banner_is_usable():
+    """True if public/banner.jpg exists and actually decodes."""
+    if not BANNER_PATH.exists():
+        return False
+    try:
+        with Image.open(BANNER_PATH) as img:
+            img.verify()
+        return True
+    except Exception as e:
+        logger.warning(f"{BANNER_PATH.name} is unreadable ({e})")
+        return False
+
+
+def _fall_back(reason):
+    """Give up on a champion banner, keeping the header intact.
+
+    A banner already in place is left alone -- a champion banner from an
+    earlier run beats reverting to the generic art over one bad fetch. Only a
+    missing or corrupt banner.jpg is replaced, with the pre-existing generic
+    art, so the site can never end up with a broken image.
+    """
+    logger.warning(reason)
+    if _banner_is_usable():
+        logger.warning("Keeping the current banner")
+        return 0
+    if not DEFAULT_BANNER_PATH.exists():
+        logger.error(f"No usable banner and no {DEFAULT_BANNER_PATH.name} to fall back on")
+        return 0
+    BANNER_PATH.write_bytes(DEFAULT_BANNER_PATH.read_bytes())
+    _update_alt_text(GENERIC_ALT)
+    META_PATH.unlink(missing_ok=True)
+    logger.warning(f"No usable banner; restored the generic {DEFAULT_BANNER_PATH.name}")
+    return 0
+
+
 def main():
     previous = json.loads(META_PATH.read_text()) if META_PATH.exists() else {}
 
     try:
         spotlights = _fetch_spotlights()
     except Exception as e:
-        logger.warning(f"Could not read champion spotlights ({e}); keeping current banner")
-        return 0
+        return _fall_back(f"Could not read champion spotlights ({e})")
     if not spotlights:
-        logger.warning("No champion spotlights found; keeping current banner")
-        return 0
+        return _fall_back("No champion spotlights found")
 
     ranked = _ranked_champions()
     if not ranked:
-        logger.warning("No tier list available; keeping current banner")
-        return 0
+        return _fall_back("No tier list available")
 
     for champion, date, image_url in spotlights:
         if champion in ranked:
             break
     else:
         newest = ", ".join(name for name, _, _ in spotlights[:3])
-        logger.warning(f"No ranked champion in the last {len(spotlights)} spotlights "
-                       f"(newest: {newest}); keeping current banner")
-        return 0
+        return _fall_back(f"No ranked champion in the last {len(spotlights)} spotlights "
+                          f"(newest: {newest})")
 
-    if previous.get("champion") == champion and BANNER_PATH.exists():
+    if previous.get("champion") == champion and _banner_is_usable():
         logger.info(f"Banner is already {champion} (spotlight {date}); nothing to do")
         return 0
 
@@ -197,13 +236,12 @@ def main():
         image_bytes = _get(image_url).content
         banner = _crop_to_banner(image_bytes)
     except Exception as e:
-        logger.warning(f"Could not build a banner from {image_url} ({e}); keeping current banner")
-        return 0
+        return _fall_back(f"Could not build a banner from {image_url} ({e})")
 
     banner.save(BANNER_PATH, "JPEG", quality=JPEG_QUALITY, optimize=True, progressive=True)
     logger.info(f"Wrote {BANNER_PATH.name}: {banner.width}x{banner.height}, "
                 f"{BANNER_PATH.stat().st_size // 1024} KB")
-    _update_alt_text(champion)
+    _update_alt_text(f"{champion} – Marvel Contest of Champions Tier List")
 
     META_PATH.write_text(json.dumps({
         "champion": champion,
