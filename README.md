@@ -46,6 +46,24 @@ python fetch_sources.py            # discover + update cached_sources.json
 python fetch_sources.py --dry-run  # show what would change without writing
 ```
 
+## Monthly banner
+
+The header banner tracks the newest champion. Kabam publishes a
+[Champion Spotlight](https://playcontestofchampions.com/news/category/champion-spotlights/)
+post with a square piece of key art for every release, so
+`.github/workflows/refresh-portraits.yml` runs `fetch_banner.py` daily: it
+reads that category's WordPress feed, takes the most recent champion the tier
+lists actually rank (the creators trail a release by a month or two), crops the
+art to the banner's 3:1 shape and writes `public/banner.jpg`.
+
+It only writes when the champion changes — in practice about once a month — and
+leaves the current banner alone if anything fails.
+
+```bash
+pip install -r requirements.txt Pillow
+python fetch_banner.py
+```
+
 ## Running Locally
 
 ```bash

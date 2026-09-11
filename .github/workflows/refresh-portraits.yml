@@ -6,6 +6,10 @@ name: Refresh champion portraits
 # it in lib/portraits_local.json — the files the Vercel build actually serves.
 # Runs before the 06:00 UTC data rebuild so new champions get a working
 # portrait the same day. Idempotent: no changes when everything is covered.
+#
+# Then fetch_banner.py points public/banner.jpg at the newest champion the tier
+# lists rank, using Kabam's own spotlight art. Also idempotent — it only writes
+# when the newest ranked champion changes, roughly monthly.
 
 on:
   schedule:
@@ -35,20 +39,26 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          # Pillow is only needed to crop the banner here, so it stays out of
+          # requirements.txt and the Vercel function bundle.
+          pip install -r requirements.txt Pillow
 
       - name: Self-host portraits for any new champions
         run: python mirror_portraits.py
 
+      - name: Point the banner at the newest ranked champion
+        run: python fetch_banner.py
+
       - name: Commit changes if any
         run: |
-          # Only commit the portrait artifacts the Vercel build serves.
-          git add public/portraits/ lib/portraits_local.json lib/portraits.json
+          # Only commit the artifacts the Vercel build serves.
+          git add public/portraits/ lib/portraits_local.json lib/portraits.json \
+                  public/banner.jpg public/*.html banner_meta.json
           if git diff --cached --quiet; then
-            echo "No portrait changes."
+            echo "No portrait or banner changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: self-host new champion portraits (auto)"
+          git commit -m "chore: refresh champion portraits and banner (auto)"
           git push
