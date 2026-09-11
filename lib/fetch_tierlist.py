@@ -212,7 +212,10 @@ _NAME_MAP = {
     'Spider-Man Miles Morales': 'Spider-Man (Miles Morales)',
     'Black Widow (Claire)': 'Black Widow (Claire Voyant)',
     'Cap Marvel': 'Captain Marvel (Classic)', 'Ms. Marvel Kamala': 'Ms. Marvel (Kamala)',
-    'Deadpool (Red Suit)': 'Deadpool', 'Scarlet Witch': 'Scarlet Witch (Sigil)',
+    'Deadpool (Red Suit)': 'Deadpool',
+    # Every source now spells the Sigil version out, so a bare "Scarlet Witch"
+    # means the original -- Vega and MetalSonicDude list both side by side.
+    'Scarlet Witch': 'Scarlet Witch (Classic)',
     'Aegon - Long Form King': 'Aegon', 'Magik - 5 Star Locked': 'Magik',
     'Quake - 5 Star Locked': 'Quake', 'Abomination OG': 'Abomination',
     'Cap America OG': 'Captain America (Classic)', 'Gladiator Hulk': 'Hulk (Ragnarok)',
@@ -301,7 +304,10 @@ _NAME_MAP = {
     'SF Star Lord': 'Star-Lord (Stellar Forge)', "M'BAKU": "M'Baku",
     'iDoom': 'Iron Man (Infamous)', 'LadyDeathstrike': 'Lady Deathstrike',
     'Symbiote Spider-Man': 'Spider-Man (Symbiote)',
+    'Symbiote Spidey': 'Spider-Man (Symbiote)',
+    'Gorr God Butcher': 'Gorr', 'Lab Ultron': 'Ultron (Classic)',
     # MetalSonicDude naming variants
+    'Nebula 6*': 'Nebula',
     'Ant Man': 'Ant-Man', 'Future Ant-Man': 'Ant-Man (Future)',
     'Cap Sam Wilson': 'Captain America (Sam Wilson)', 'Cap WW2': 'Captain America (WWII)',
     'Captain America IW': 'Captain America (Infinity War)',
@@ -748,14 +754,12 @@ def _extract_seatin_traits(text):
     return {trait for char, trait in _SEATIN_TRAITS if char in text}
 
 
-# Seatin's short suffixes, resolved here rather than in the shared _NAME_MAP
-# because some of his spellings mean something different to other creators:
-# he lists "Scarlet Witch" and "Scarlet Witch (Sigil)" as two champions, while
-# Vega and Lagacy use a bare "Scarlet Witch" for the Sigil version. Values are
-# pre-canonical names, so _normalize/_apply_canonical_renames still run after.
+# Seatin's short suffixes, resolved here rather than in the shared _NAME_MAP in
+# case one of his spellings comes to mean something different to other
+# creators. Values are pre-canonical names, so _normalize and
+# _apply_canonical_renames still run after.
 # fmt: off
 _SEATIN_NAME_MAP = {
-    'Scarlet Witch': 'Scarlet Witch (Classic)',
     'Black Panther (CW)': 'Black Panther (Civil War)',
     'Black Widow (CV)': 'Black Widow (Claire Voyant)',
     'Black Widow (DO)': 'Black Widow (Deadly Origin)',
@@ -911,12 +915,26 @@ def fetch_and_combine(sources_override=None):
                 log_rows = _fetch_csv(src['sheet_id'], sheet_name=src['edition_sheet'])
                 if log_rows:
                     edition = _extract_changelog_edition(log_rows)
-        # Normalize names
+        # Normalize names. Two spellings in one sheet can normalize to the same
+        # champion -- creators who move a champion after a buff sometimes leave
+        # the old row behind (e.g. Lagacy's July sheet lists both "Symbiote
+        # Spider-Man" low and "Symbiote Spidey" high). Keep the better
+        # placement, since the stale row is the pre-move one.
         normed = {}
         for name, data in raw.items():
             n = _normalize(name)
             if n is None:
                 continue
+            prev = normed.get(n)
+            if prev is not None:
+                logger.warning(
+                    f"{src['name']}: duplicate entries for {n} "
+                    f"(scores {prev['score']} and {data['score']}); keeping the higher"
+                )
+                if prev['score'] >= data['score']:
+                    prev['traits'] |= data['traits']
+                    continue
+                data['traits'] |= prev['traits']
             normed[n] = data
         source_data[src['name']] = normed
         source_meta.append({'name': src['name'], 'edition': edition, 'champion_count': len(normed), 'status': 'ok', 'sheet_id': src['sheet_id']})

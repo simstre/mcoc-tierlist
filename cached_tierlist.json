@@ -1006,21 +1006,12 @@
   },
   "Gorr": {
     "class": "Cosmic",
-    "score": 56,
+    "score": 54,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
     "tags": [
-      "ascendable"
-    ]
-  },
-  "Gorr God Butcher": {
-    "class": "Cosmic",
-    "score": 50,
-    "awakened": false,
-    "high_sig": false,
-    "no7star": false,
-    "tags": [
+      "ascendable",
       "defense"
     ]
   },
@@ -1618,14 +1609,6 @@
       "relic"
     ]
   },
-  "Lab Ultron": {
-    "class": "Tech",
-    "score": 0,
-    "awakened": false,
-    "high_sig": false,
-    "no7star": false,
-    "tags": []
-  },
   "Lady Deathstrike": {
     "class": "Tech",
     "score": 51,
@@ -1997,7 +1980,7 @@
   },
   "Nebula": {
     "class": "Tech",
-    "score": 41,
+    "score": 46,
     "awakened": true,
     "high_sig": false,
     "no7star": false,
@@ -2006,14 +1989,6 @@
       "recoil",
       "relic"
     ]
-  },
-  "Nebula 6*": {
-    "class": "Tech",
-    "score": 60,
-    "awakened": false,
-    "high_sig": false,
-    "no7star": false,
-    "tags": []
   },
   "Negasonic Teenage Warhead": {
     "class": "Mutant",
@@ -2497,7 +2472,7 @@
   },
   "Scarlet Witch (Classic)": {
     "class": "Mystic",
-    "score": 36,
+    "score": 46,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
@@ -2508,9 +2483,9 @@
   },
   "Scarlet Witch": {
     "class": "Mystic",
-    "score": 41,
-    "awakened": true,
-    "high_sig": true,
+    "score": 45,
+    "awakened": false,
+    "high_sig": false,
     "no7star": false,
     "tags": [
       "ascendable"
@@ -2800,13 +2775,14 @@
   },
   "Spider-Man (Symbiote)": {
     "class": "Cosmic",
-    "score": 60,
+    "score": 76,
     "awakened": true,
     "high_sig": true,
     "no7star": false,
     "tags": [
       "ascendable",
-      "early_ranking"
+      "early_ranking",
+      "relic"
     ]
   },
   "Spider-Man 2099": {
@@ -2967,16 +2943,6 @@
     "no7star": false,
     "tags": [
       "high_skill"
-    ]
-  },
-  "Symbiote Spidey": {
-    "class": "Cosmic",
-    "score": 83,
-    "awakened": false,
-    "high_sig": true,
-    "no7star": false,
-    "tags": [
-      "relic"
     ]
   },
   "Symbiote Supreme": {
