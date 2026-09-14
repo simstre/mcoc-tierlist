@@ -8,10 +8,11 @@ Data sources refreshed daily:
   - Ranking Up scores: Google Sheets (Vega, Lagacy, MetalSonicDude, Seatin)
   - Awakening Gems: Google Sheet (priority tiers)
   - Sig Stones: Google Sheet (priority tiers)
-  - Immunities: Fandom wiki category pages (10 immunity types)
+  - Immunities: Fandom wiki category pages, with mcochub's immunity feed
+    filling in champions the wiki has not categorised yet
   - Debuff Inflictions: Fandom wiki category pages (35 debuff types)
   - Portraits: JSON files in lib/ (Fandom wiki, mcochub, local)
-  - Prestige: mcochub.insaneskull.com HTML tables (7★ R3/R4/R5)
+  - Prestige: mcochub.insaneskull.com JSON feed (7★ R3/R4/R5)
 """
 import base64
 import json

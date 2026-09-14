@@ -9,7 +9,7 @@
       "Arnim Zola",
       "Black Bolt",
       "Captain America (Infinity War)",
-      "Captain Marvel (Classic)",
+      "Captain Marvel (Movie)",
       "Carnage",
       "Corvus Glaive",
       "Cosmic Ghost Rider",
@@ -224,7 +224,7 @@
     "Degeneration": [
       "Apocalypse",
       "Ares",
-      "Blade (Stellar-Forged)",
+      "Blade (Stellar Forge)",
       "Cable",
       "Captain Britain",
       "Dormammu",
@@ -501,7 +501,7 @@
     ],
     "Nullify": [
       "Black Widow (Claire Voyant)",
-      "Blade (Stellar-Forged)",
+      "Blade (Stellar Forge)",
       "Captain America (Infinity War)",
       "Captain America (WWII)",
       "Diablo",
@@ -909,12 +909,12 @@
       "Black Widow (Claire Voyant)",
       "Black Widow (Deadly Origin)",
       "Blade",
-      "Blade (Stellar-Forged)",
+      "Blade (Stellar Forge)",
       "Bullseye",
       "Captain America",
       "Captain America (Infinity War)",
       "Captain America (WWII)",
-      "Captain Marvel (Classic)",
+      "Captain Marvel (Movie)",
       "Cassandra Nova",
       "Cassie Lang",
       "Colossus",
@@ -1140,9 +1140,8 @@
       "Stun",
       "Weakness"
     ],
-    "Captain Marvel (Classic)": [
+    "Captain Marvel (Movie)": [
       "Armor Break",
-      "Power Lock",
       "Stun"
     ],
     "Carnage": [
@@ -2032,7 +2031,7 @@
     "Ares": [
       "Degeneration"
     ],
-    "Blade (Stellar-Forged)": [
+    "Blade (Stellar Forge)": [
       "Degeneration",
       "Nullify",
       "Stun"
@@ -2646,6 +2645,9 @@
       "Sabotage",
       "Shock",
       "Stun"
+    ],
+    "Captain Marvel (Classic)": [
+      "Power Lock"
     ],
     "Spider-Punk": [
       "Power Lock",

@@ -286,6 +286,9 @@
     "Poison",
     "Nullify"
   ],
+  "Captain Marvel (Movie)": [
+    "Poison"
+  ],
   "Captain Marvel (Classic)": [
     "Poison"
   ],
@@ -707,5 +710,32 @@
   ],
   "Wolverine (X-23)": [
     "Regen Rate Mod"
+  ],
+  "Agatha Harkness": [
+    "Armor Break"
+  ],
+  "Spider-Man (Symbiote)": [
+    "Heal Block",
+    "Power Drain",
+    "Power Burn"
+  ],
+  "Red Hulk": [
+    "Poison",
+    "Incinerate"
+  ],
+  "Hobgoblin": [
+    "Poison"
+  ],
+  "Phyla-Vell": [
+    "Poison"
+  ],
+  "Gwenom": [
+    "Power Drain"
+  ],
+  "Electro": [
+    "Shock"
+  ],
+  "Thor (Ragnarok)": [
+    "Shock"
   ]
 }

@@ -1,10 +1,13 @@
 """
-Scrape champion prestige data from mcochub.insaneskull.com.
-Fetches HTML tables for 7-star Rank 3/4/5 and parses prestige values.
+Fetch champion prestige data from mcochub.insaneskull.com.
+Reads the JSON feed behind their prestige table for 7-star Rank 3/4/5.
+
+The page itself renders its table client-side from /data/prestige.json, so
+there is no server-rendered HTML to parse — the same JSON the page fetches is
+requested directly here.
 """
 import json
 import logging
-import re
 import time
 import urllib.parse
 import urllib.request
@@ -12,7 +15,8 @@ from pathlib import Path
 
 logger = logging.getLogger("mcoc-prestige")
 
-BASE_URL = "https://mcochub.insaneskull.com/prestige"
+# The endpoint the prestige page's own JS calls, one slice per tier/rank.
+DATA_URL = "https://mcochub.insaneskull.com/data/prestige.json"
 CACHE_PATH = Path(__file__).parent / "cached_prestige.json"
 
 SIG_LEVELS = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200]
@@ -43,6 +47,12 @@ NAME_MAP = {
     "Daredevil (Classic)": "Daredevil",
     "Jack O\u2019Lantern": "Jack O'Lantern",
     "M\u2019Baku": "M'Baku",
+    "Blade (Stellar Forged)": "Blade (Stellar Forge)",
+    "Hobgoblin (Phil Urich)": "Hobgoblin",
+    "Scarlet Witch (Sigil)": "Scarlet Witch",
+    # mcochub only lists 7-star champions, and Captain Marvel (Classic) has no
+    # 7-star version, so their plain "Captain Marvel" is the movie one.
+    "Captain Marvel": "Captain Marvel (Movie)",
 }
 
 # tier, rank pairs to fetch
@@ -53,53 +63,35 @@ RANKS_TO_FETCH = [
 ]
 
 
-def _fetch_prestige_page(tier, rank):
-    """Fetch prestige HTML page for a given tier and rank."""
-    params = {"tier": tier, "rank": rank}
-    url = f"{BASE_URL}?{urllib.parse.urlencode(params)}"
+def _fetch_prestige_slice(tier, rank):
+    """Fetch the prestige JSON for one tier/rank (ascension 0)."""
+    params = {"tier": tier, "rank": rank, "ascension": 0}
+    url = f"{DATA_URL}?{urllib.parse.urlencode(params)}"
     req = urllib.request.Request(url, headers={"User-Agent": "MCOCTierList/1.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read().decode()
+        return json.loads(resp.read().decode())
 
 
-def _parse_prestige_table(html):
-    """Parse champion prestige data from HTML table.
+def _parse_prestige_rows(payload):
+    """Pull champion prestige values out of one JSON slice.
 
+    Each row carries a `sigs` map keyed by signature level ("0".."200").
     Returns dict: {champion_name: [sig0, sig20, ..., sig200]}
     """
     result = {}
 
-    # Find tbody content
-    tbody_match = re.search(r"<tbody[^>]*>(.*?)</tbody>", html, re.DOTALL)
-    if not tbody_match:
-        return result
-
-    tbody = tbody_match.group(1)
-    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", tbody, re.DOTALL)
-
-    for row in rows:
-        # Extract champion name from img alt attribute
-        name_match = re.search(r'alt="([^"]+)"', row)
-        if not name_match:
-            continue
-        name = name_match.group(1).strip()
-
-        # Extract all td numeric values
-        tds = re.findall(r"<td[^>]*>\s*(\d+)\s*</td>", row)
-        # tds: [rank#, tier, rank, sig0, sig20, ..., sig200] = 14 values
-        # or on mobile view some hidden, but we get all from HTML
-        if len(tds) < 14:
+    for row in payload.get("rows") or []:
+        name = (row.get("name") or "").strip()
+        sigs = row.get("sigs") or {}
+        if not name:
             continue
 
-        # Skip first 3 (rank#, tier, rank), take 11 sig values
         try:
-            values = [int(v) for v in tds[3:14]]
-        except ValueError:
+            values = [int(sigs[str(level)]) for level in SIG_LEVELS]
+        except (KeyError, TypeError, ValueError):
             continue
 
-        if len(values) == 11:
-            name = NAME_MAP.get(name, name)
-            result[name] = values
+        result[NAME_MAP.get(name, name)] = values
 
     return result
 
@@ -114,8 +106,8 @@ def fetch_prestige_data():
     for tier, rank in RANKS_TO_FETCH:
         key = f"{tier}-{rank}"
         try:
-            html = _fetch_prestige_page(tier, rank)
-            data = _parse_prestige_table(html)
+            payload = _fetch_prestige_slice(tier, rank)
+            data = _parse_prestige_rows(payload)
             prestige[key] = data
             logger.info(f"Fetched prestige {key}: {len(data)} champions")
             time.sleep(0.5)

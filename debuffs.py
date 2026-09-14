@@ -24,10 +24,14 @@ NPC_EXCLUSIONS = {
     "Symbioid",
 }
 
-# Wiki name -> canonical tier list name
+# Wiki name -> canonical tier list name.
+# The wiki's plain "Captain Marvel" page is the movie version; the classic one
+# has its own "Captain Marvel (Classic)" page and needs no mapping.
 WIKI_NAME_MAP = {
-    "Captain Marvel": "Captain Marvel (Classic)",
+    "Blade (Stellar-Forged)": "Blade (Stellar Forge)",
+    "Captain Marvel": "Captain Marvel (Movie)",
     "Daredevil (Classic)": "Daredevil",
+    "Hobgoblin (Phil Urich)": "Hobgoblin",
     "Kang the Conqueror": "Kang",
     "Maestro (Cosmic)": "Maestro",
     "Spider-Man (Classic)": "Spider-Man",

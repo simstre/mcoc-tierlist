@@ -26,10 +26,14 @@ NPC_EXCLUSIONS = {
     "Symbioid",
 }
 
-# Wiki name -> canonical tier list name
+# Wiki name -> canonical tier list name.
+# The wiki's plain "Captain Marvel" page is the movie version; the classic one
+# has its own "Captain Marvel (Classic)" page and needs no mapping.
 WIKI_NAME_MAP = {
-    "Captain Marvel": "Captain Marvel (Classic)",
+    "Blade (Stellar-Forged)": "Blade (Stellar Forge)",
+    "Captain Marvel": "Captain Marvel (Movie)",
     "Daredevil (Classic)": "Daredevil",
+    "Hobgoblin (Phil Urich)": "Hobgoblin",
     "Kang the Conqueror": "Kang",
     "Maestro (Cosmic)": "Maestro",
     "Spider-Man (Classic)": "Spider-Man",
@@ -298,6 +302,54 @@ CHAMPION_IMMUNITIES_FALLBACK = {
 }
 
 
+# mcochub's immunity index, used to fill in champions the wiki knows nothing
+# about. A newly released champion sits on the wiki as an uncategorised stub
+# for weeks; mcochub lists its immunities from day one.
+MCOCHUB_URL = "https://mcochub.insaneskull.com/data/immunities.json"
+
+# mcochub immunity label -> our display name. Labels we do not track (Stun,
+# Petrify, Special Lock, ...) are simply ignored.
+MCOCHUB_IMMUNITY_MAP = {
+    f"{t} Immunity": t for t in IMMUNITY_TYPES if t != "Buff Immunity"
+}
+MCOCHUB_IMMUNITY_MAP["Buff Immunity"] = "Buff Immunity"
+MCOCHUB_IMMUNITY_MAP["Reverse Control Immunity"] = "Inverted Controls"
+
+
+def fetch_mcochub_immunities():
+    """Immunities from mcochub's index: {champion_name: [immunity_types]}.
+
+    Only base-kit immunities are read; mcochub keeps synergy-granted ones in a
+    separate bucket, which is what SYNERGY_ONLY strips out of the wiki data.
+    Returns {} on any failure — this is a supplementary source.
+    """
+    # mcochub spells champion names the same way on every page of their site.
+    from prestige_scraper import NAME_MAP
+
+    try:
+        req = urllib.request.Request(MCOCHUB_URL, headers={"User-Agent": "MCOCTierList/1.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            payload = json.loads(resp.read().decode())
+    except Exception as e:
+        logger.warning(f"Failed to fetch mcochub immunities: {e}")
+        return {}
+
+    champion_immunities = {}
+    for entry in payload.get("immunities") or []:
+        display_name = MCOCHUB_IMMUNITY_MAP.get(entry.get("name"))
+        if not display_name:
+            continue
+        for champ in entry.get("baseKit") or []:
+            name = (champ.get("name") or "").strip()
+            if not name:
+                continue
+            name = NAME_MAP.get(name, name)
+            champion_immunities.setdefault(name, []).append(display_name)
+
+    logger.info(f"Fetched mcochub immunities: {len(champion_immunities)} champions")
+    return champion_immunities
+
+
 def _fetch_category_members(category):
     """Fetch all champion page titles from a wiki category."""
     members = []
@@ -365,6 +417,17 @@ def fetch_immunity_data():
         for imm in immunities:
             if imm not in champion_immunities[champ]:
                 champion_immunities[champ].append(imm)
+
+    # Fill in champions the wiki has nothing on yet from mcochub. Only whole
+    # champions are filled, never individual types, so the wiki stays the one
+    # source for everyone it does cover.
+    for champ, immunities in fetch_mcochub_immunities().items():
+        if champ in champion_immunities or champ in NPC_EXCLUSIONS:
+            continue
+        excluded = SYNERGY_ONLY.get(champ, ())
+        filled = [i for i in dict.fromkeys(immunities) if i not in excluded]
+        if filled:
+            champion_immunities[champ] = filled
 
     # Sort each champion's immunities in IMMUNITY_TYPES order
     type_order = {t: i for i, t in enumerate(IMMUNITY_TYPES)}
